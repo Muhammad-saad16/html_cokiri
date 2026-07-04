@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Source_Serif_4, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import ConditionalLayout from "./components/ConditionalLayout";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -37,9 +36,7 @@ export default function RootLayout({
       className={`${inter.variable} ${sourceSerif.variable} ${hankenGrotesk.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background font-sans text-on-surface">
-        <Navbar />
-        {children}
-        <Footer />
+        <ConditionalLayout>{children}</ConditionalLayout>
       </body>
     </html>
   );
