@@ -8,6 +8,8 @@ const navLinks = [
   { label: "Home", href: "/" },
   { label: "Programs", href: "/programs" },
   { label: "Events", href: "/events" },
+  { label: "Videos & Lectures", href: "/videos-lectures" },
+  { label: "Gallery", href: "/gallery" },
   { label: "About us", href: "/about" },
   { label: "Contact Us", href: "/contact" },
 ];
@@ -34,7 +36,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <ul className="hidden items-center gap-6 md:flex">
+        <ul className="hidden items-center gap-6 lg:flex">
           {navLinks.map((link) => (
             <li key={link.href}>
               <Link
@@ -53,7 +55,7 @@ export default function Navbar() {
           onClick={toggleMenu}
           aria-expanded={isOpen}
           aria-label="Toggle navigation menu"
-          className="inline-flex h-11 w-11 items-center justify-center rounded text-on-surface transition-colors duration-200 hover:bg-manuscript-tint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-heritage-orange md:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded text-on-surface transition-colors duration-200 hover:bg-manuscript-tint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-heritage-orange lg:hidden"
         >
           <span className="sr-only">{isOpen ? "Close menu" : "Open menu"}</span>
           {isOpen ? (
@@ -95,7 +97,7 @@ export default function Navbar() {
 
       {/* Mobile Navigation Panel */}
       <div
-        className={`overflow-hidden transition-all duration-300 ease-in-out md:hidden ${
+        className={`overflow-hidden transition-all duration-300 ease-in-out lg:hidden ${
           isOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
         }`}
       >

@@ -6,6 +6,8 @@ const quickLinks = [
   { label: "Home", href: "/" },
   { label: "Programs", href: "/programs" },
   { label: "Events", href: "/events" },
+  { label: "Videos & Lectures", href: "/videos-lectures" },
+  { label: "Gallery", href: "/gallery" },
   { label: "About Us", href: "/about" },
   { label: "Contact Us", href: "/contact" },
 ];
