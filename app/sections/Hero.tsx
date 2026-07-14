@@ -4,15 +4,12 @@ import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 
 const slides = [
-  { src: "/founder.png", alt: "Institute founder" },
-  { src: "/institute.png", alt: "Institute building" },
-  { src: "/image.png", alt: "Institute activity" },
-  { src: "/events/image1.png", alt: "Event image 1" },
-  { src: "/events/image2.png", alt: "Event image 2" },
-  { src: "/events/image3.png", alt: "Event image 3" },
-  { src: "/events/image4.png", alt: "Event image 4" },
-  { src: "/events/image5.png", alt: "Event image 5" },
-  { src: "/events/image6.png", alt: "Event image 6" },
+  { src: "/events/image1.jpg", alt: "Event image 1" },
+  { src: "/events/image2.jpg", alt: "Event image 2" },
+  { src: "/events/image3.jpg", alt: "Event image 3" },
+  { src: "/events/image4.jpg", alt: "Event image 4" },
+  { src: "/events/image5.jpg", alt: "Event image 5" },
+  
 ];
 
 const AUTOPLAY_DELAY = 5000;
@@ -57,12 +54,12 @@ export default function Hero() {
     <section
       aria-label="Slideshow"
       aria-roledescription="carousel"
-      className="relative bg-manuscript-tint"
+      className="relative"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
       <div className="w-full">
-        <div className="relative overflow-hidden bg-surface-container-low">
+        <div className="relative overflow-hidden">
           {/* Slides track */}
           <div
             className="flex transition-transform duration-500 ease-out"

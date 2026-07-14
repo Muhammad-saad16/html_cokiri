@@ -4,7 +4,6 @@ import Link from "next/link";
 
 const quickLinks = [
   { label: "Home", href: "/" },
-  { label: "Programs", href: "/programs" },
   { label: "Events", href: "/events" },
   { label: "Videos & Lectures", href: "/videos-lectures" },
   { label: "Gallery", href: "/gallery" },
@@ -164,7 +163,7 @@ function WaveDivider() {
       >
         <path
           d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,64C960,75,1056,85,1152,80C1248,75,1344,53,1392,42.7L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"
-          className="fill-[#0e7490]"
+          className="fill-[#3d2a56]"
         />
       </svg>
     </div>
@@ -177,7 +176,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative mt-16 bg-gradient-to-br from-[#0f4c5c] via-[#0e7490] to-[#0891b2] text-paper-white md:mt-24">
+    <footer className="relative mt-16 bg-[linear-gradient(135deg,#3d2a56_0%,#3f3f80_25%,#4a5aa0_50%,#3f5c96_75%,#2c6f9e_100%)] text-paper-white md:mt-24">
       <WaveDivider />
 
       <div className="mx-auto max-w-[1280px] px-5 py-16 md:px-20 md:py-24">
@@ -192,7 +191,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="inline-block text-base text-paper-white/90 transition-colors duration-200 hover:text-[#fbbf24] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fbbf24] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0e7490]"
+                    className="inline-block text-base text-paper-white/90 transition-colors duration-200 hover:text-[#fbbf24] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fbbf24] focus-visible:ring-offset-2 focus-visible:ring-offset-[#4a5aa0]"
                   >
                     {link.label}
                   </Link>
@@ -217,7 +216,7 @@ export default function Footer() {
                     {item.href ? (
                       <a
                         href={item.href}
-                        className="mt-0.5 inline-block text-base text-paper-white transition-colors duration-200 hover:text-[#fbbf24] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fbbf24] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0e7490]"
+                        className="mt-0.5 inline-block text-base text-paper-white transition-colors duration-200 hover:text-[#fbbf24] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fbbf24] focus-visible:ring-offset-2 focus-visible:ring-offset-[#4a5aa0]"
                       >
                         {item.value}
                       </a>
@@ -248,7 +247,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="flex h-11 w-11 items-center justify-center rounded-full bg-white/15 text-paper-white transition-all duration-200 hover:bg-heritage-orange hover:text-paper-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fbbf24] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0e7490]"
+                  className="flex h-11 w-11 items-center justify-center rounded-full bg-white/15 text-paper-white transition-all duration-200 hover:bg-heritage-orange hover:text-paper-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fbbf24] focus-visible:ring-offset-2 focus-visible:ring-offset-[#4a5aa0]"
                 >
                   <social.icon />
                 </a>
@@ -271,7 +270,7 @@ export default function Footer() {
         type="button"
         onClick={scrollToTop}
         aria-label="Back to top"
-        className="fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-heritage-orange text-paper-white shadow-lg transition-all duration-200 hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-heritage-orange focus-visible:ring-offset-2 focus-visible:ring-offset-[#0e7490]"
+        className="fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-heritage-orange text-paper-white shadow-lg transition-all duration-200 hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-heritage-orange focus-visible:ring-offset-2 focus-visible:ring-offset-[#4a5aa0]"
       >
         <ChevronUpIcon />
       </button>

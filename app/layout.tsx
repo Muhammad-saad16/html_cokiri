@@ -35,7 +35,8 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${sourceSerif.variable} ${hankenGrotesk.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background font-sans text-on-surface">
+      <body className="min-h-full flex flex-col font-sans text-on-surface">
+        <div className="site-gradient-backdrop" aria-hidden="true" />
         <ConditionalLayout>{children}</ConditionalLayout>
       </body>
     </html>

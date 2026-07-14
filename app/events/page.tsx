@@ -1,4 +1,4 @@
-import EventCard from "../components/EventCard";
+import EventImageCard from "../components/EventImageCard";
 import { events } from "../data/events";
 
 export default function EventsPage() {
@@ -23,9 +23,13 @@ export default function EventsPage() {
       {/* Events Grid */}
       <section className="pb-16 md:pb-24">
         <div className="mx-auto max-w-[1280px] px-5 md:px-20">
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 grid-cols-2 lg:grid-cols-4">
             {events.map((event) => (
-              <EventCard key={event.title} {...event} />
+              <EventImageCard
+                key={event.imageSrc}
+                imageSrc={event.imageSrc}
+                imageAlt={event.imageAlt}
+              />
             ))}
           </div>
         </div>

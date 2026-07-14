@@ -65,7 +65,7 @@ export default function PreFooter() {
   return (
     <section
       aria-label="Quick links and contact"
-      className="bg-surface py-16 md:py-24"
+      className="py-16 md:py-24"
     >
       <div className="mx-auto max-w-[1280px] px-5 md:px-20">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">

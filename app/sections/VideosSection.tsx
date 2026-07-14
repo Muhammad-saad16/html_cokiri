@@ -2,7 +2,7 @@ import Link from "next/link";
 import VideoGrid from "../components/VideoGrid";
 import { videoIds } from "../data/videos";
 
-const featuredVideos = videoIds.slice(0, 3);
+const featuredVideos = videoIds.slice(0, 8);
 
 interface VideosSectionProps {
   compactTop?: boolean;
@@ -11,7 +11,7 @@ interface VideosSectionProps {
 export default function VideosSection({ compactTop = false }: VideosSectionProps) {
   return (
     <section
-      className={`bg-paper-white pb-16 md:pb-24 ${
+      className={`pb-16 md:pb-24 ${
         compactTop ? "pt-0" : "pt-16 md:pt-24"
       }`}
     >

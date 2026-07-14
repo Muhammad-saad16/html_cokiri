@@ -1,7 +1,9 @@
 import Hero from "./sections/Hero";
 import ProgramsSection from "./sections/ProgramsSection";
+import CarouselSection from "./sections/CarouselSection";
 import VideosSection from "./sections/VideosSection";
-import EventsSection from "./sections/EventsSection";
+import PublicationsSection from "./sections/PublicationsSection";
+import TestimonialsSection from "./sections/TestimonialsSection";
 import PreFooter from "./sections/PreFooter";
 
 export default function Home() {
@@ -9,8 +11,10 @@ export default function Home() {
     <main className="flex flex-1 flex-col">
       <Hero />
       <ProgramsSection />
+      <CarouselSection compactTop />
       <VideosSection compactTop />
-      <EventsSection compactTop />
+      <PublicationsSection compactTop />
+      <TestimonialsSection />
       <PreFooter />
     </main>
   );

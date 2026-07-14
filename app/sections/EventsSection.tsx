@@ -11,7 +11,7 @@ interface EventsSectionProps {
 export default function EventsSection({ compactTop = false }: EventsSectionProps) {
   return (
     <section
-      className={`bg-paper-white pb-16 md:pb-24 ${
+      className={`pb-16 md:pb-24 ${
         compactTop ? "pt-0" : "pt-16 md:pt-24"
       }`}
     >
