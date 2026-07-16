@@ -1,4 +1,4 @@
-import Hero from "./sections/Hero";
+import HeroSection from "./sections/HeroSection";
 import ProgramsSection from "./sections/ProgramsSection";
 import CarouselSection from "./sections/CarouselSection";
 import VideosSection from "./sections/VideosSection";
@@ -9,7 +9,7 @@ import PreFooter from "./sections/PreFooter";
 export default function Home() {
   return (
     <main className="flex flex-1 flex-col">
-      <Hero />
+      <HeroSection />
       <ProgramsSection />
       <CarouselSection compactTop />
       <VideosSection compactTop />

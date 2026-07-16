@@ -1,20 +1,22 @@
 import Image from "next/image";
+import { getPreFooter } from "../../sanity/lib/queries";
+import { urlFor } from "../../sanity/lib/image";
 
-const researchAreas = [
+const defaultResearchAreas = [
   "Islamic Jurisprudence",
   "Comparative Theology",
   "Historical Manuscripts",
   "Sociology of Religion",
 ];
 
-const studentServices = [
+const defaultStudentServices = [
   "Academic Advising",
   "Research Grants",
   "E-Library Access",
   "Career Placement",
 ];
 
-const community = [
+const defaultCommunity = [
   "Public Lectures",
   "Workshops",
   "Conferences",
@@ -61,7 +63,28 @@ function LinkColumn({ title, items }: LinkColumnProps) {
   );
 }
 
-export default function PreFooter() {
+export default async function PreFooter() {
+  const preFooter = await getPreFooter();
+
+  const researchAreas = preFooter?.researchAreas?.length
+    ? preFooter.researchAreas
+    : defaultResearchAreas;
+  const studentServices = preFooter?.studentServices?.length
+    ? preFooter.studentServices
+    : defaultStudentServices;
+  const community = preFooter?.community?.length
+    ? preFooter.community
+    : defaultCommunity;
+  const contactTitle = preFooter?.contactTitle || "Institute Contact";
+  const contactDescription =
+    preFooter?.contactDescription ||
+    "Questions about our programs or research? Reach out to our admissions office.";
+  const email = preFooter?.email || "admin@cokiri.net";
+  const phone = preFooter?.phone || "+92 336 2342386";
+  const logoUrl = preFooter?.logo
+    ? urlFor(preFooter.logo).width(160).height(160).url()
+    : "/logo.svg";
+
   return (
     <section
       aria-label="Quick links and contact"
@@ -77,30 +100,29 @@ export default function PreFooter() {
           <div className="relative overflow-hidden rounded-lg bg-scholar-brown p-6 md:p-8">
             <div className="relative z-10">
               <h3 className="font-hanken text-xs font-bold uppercase tracking-[0.05em] text-paper-white">
-                Institute Contact
+                {contactTitle}
               </h3>
               <p className="mt-4 text-base leading-6 text-paper-white/80">
-                Questions about our programs or research? Reach out to our
-                admissions office.
+                {contactDescription}
               </p>
               <a
-                href="mailto:admin@cokiri.net"
+                href={`mailto:${email}`}
                 className="mt-5 inline-block text-base font-medium text-heritage-orange transition-colors duration-200 hover:text-primary-fixed-dim focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-heritage-orange focus-visible:ring-offset-2 focus-visible:ring-offset-scholar-brown"
               >
-                admin@cokiri.net
+                {email}
               </a>
               <a
-                href="tel:+923362342386"
+                href={`tel:${phone.replace(/\s+/g, "")}`}
                 className="mt-2 block text-base text-paper-white/70 transition-colors duration-200 hover:text-paper-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-paper-white focus-visible:ring-offset-2 focus-visible:ring-offset-scholar-brown"
               >
-                +92 336 2342386
+                {phone}
               </a>
             </div>
 
             {/* Logo Watermark */}
             <div className="absolute -bottom-4 -right-4 h-32 w-32 opacity-10 md:h-40 md:w-40">
               <Image
-                src="/logo.svg"
+                src={logoUrl}
                 alt=""
                 fill
                 className="object-contain"

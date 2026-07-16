@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import GalleryGrid from "../components/GalleryGrid";
-import { galleryImages } from "../data/gallery";
+import { getGalleryImages } from "../../sanity/lib/queries";
+import { urlFor } from "../../sanity/lib/image";
 
 export const metadata: Metadata = {
   title: "Gallery | City of Knowledge",
@@ -8,7 +9,12 @@ export const metadata: Metadata = {
     "Browse images from City of Knowledge Islamic Research Institute — campus, events, programs, and community gatherings.",
 };
 
-export default function GalleryPage() {
+export default async function GalleryPage() {
+  const galleryImages = (await getGalleryImages()).map((g) => ({
+    src: urlFor(g.image).width(600).height(450).url(),
+    alt: g.alt,
+  }));
+
   return (
     <main className="flex flex-col bg-paper-white">
       {/* Page Header */}

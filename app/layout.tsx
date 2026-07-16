@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Source_Serif_4, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import ConditionalLayout from "./components/ConditionalLayout";
+import { getSiteSettings } from "../sanity/lib/queries";
+import { urlFor } from "../sanity/lib/image";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -25,11 +27,18 @@ export const metadata: Metadata = {
   description: "Islamic Research Institute — authentic, scholarly Islamic education and research.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const siteSettings = await getSiteSettings();
+  const siteName =
+    siteSettings?.siteName || "City of Knowledge Islamic Research Institute";
+  const logoUrl = siteSettings?.logo
+    ? urlFor(siteSettings.logo).width(112).height(112).url()
+    : undefined;
+
   return (
     <html
       lang="en"
@@ -37,7 +46,9 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col font-sans text-on-surface">
         <div className="site-gradient-backdrop" aria-hidden="true" />
-        <ConditionalLayout>{children}</ConditionalLayout>
+        <ConditionalLayout siteName={siteName} logoUrl={logoUrl}>
+          {children}
+        </ConditionalLayout>
       </body>
     </html>
   );

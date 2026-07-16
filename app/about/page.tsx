@@ -1,6 +1,9 @@
 import Image from "next/image";
+import { PortableText } from "@portabletext/react";
+import { getAbout } from "../../sanity/lib/queries";
+import { urlFor } from "../../sanity/lib/image";
 
-const pillars = [
+const defaultPillars = [
   {
     title: "Ilm",
     subtitle: "Knowledge",
@@ -27,7 +30,25 @@ const pillars = [
   },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const about = await getAbout();
+
+  const title = about?.title || "Bridging Tradition and Contemporary Thought";
+  const imageUrl = about?.image
+    ? urlFor(about.image).width(640).height(480).url()
+    : "/institute.png";
+  const missionTitle =
+    about?.missionTitle || "Propagate authentic knowledge for positive change";
+  const missionDescription =
+    about?.missionDescription ||
+    "To cultivate a community rooted in authentic Islamic teachings, critical thinking, and ethical leadership through education, research, and public engagement.";
+  const visionTitle =
+    about?.visionTitle || "A leading center of Islamic learning and research";
+  const visionDescription =
+    about?.visionDescription ||
+    "To be recognized as a trusted institution that bridges classical scholarship with contemporary challenges, serving learners locally and globally.";
+  const pillars = about?.pillars?.length ? about.pillars : defaultPillars;
+
   return (
     <main className="flex flex-col bg-paper-white">
       {/* Introduction */}
@@ -38,25 +59,33 @@ export default function AboutPage() {
               Our Story
             </span>
             <h2 className="font-serif text-[24px] font-semibold leading-8 text-on-surface md:text-[32px] md:leading-10">
-              Bridging Tradition and Contemporary Thought
+              {title}
             </h2>
-            <p className="mt-5 text-base leading-6 text-on-surface-variant md:text-lg md:leading-7">
-              Founded in Karachi, City of Knowledge serves as a center for
-              rigorous academic inquiry and spiritual growth. The institute
-              offers structured courses, research opportunities, and community
-              programs designed for students, professionals, and lifelong
-              learners.
-            </p>
-            <p className="mt-4 text-base leading-6 text-on-surface-variant md:text-lg md:leading-7">
-              Under the guidance of respected scholars, the institute blends
-              classical Islamic sciences with modern disciplines such as
-              philosophy, law, history, and contemporary issues.
-            </p>
+            <div className="mt-5 space-y-4 text-base leading-6 text-on-surface-variant md:text-lg md:leading-7 [&_p]:m-0">
+              {about?.description?.length ? (
+                <PortableText value={about.description} />
+              ) : (
+                <>
+                  <p>
+                    Founded in Karachi, City of Knowledge serves as a center for
+                    rigorous academic inquiry and spiritual growth. The institute
+                    offers structured courses, research opportunities, and community
+                    programs designed for students, professionals, and lifelong
+                    learners.
+                  </p>
+                  <p className="mt-4">
+                    Under the guidance of respected scholars, the institute blends
+                    classical Islamic sciences with modern disciplines such as
+                    philosophy, law, history, and contemporary issues.
+                  </p>
+                </>
+              )}
+            </div>
           </div>
           <div className="flex-1">
             <div className="overflow-hidden rounded-lg border border-outline-variant/40 shadow-[0_8px_24px_-10px_rgba(31,41,55,0.2)]">
               <Image
-                src="/institute.png"
+                src={imageUrl}
                 alt="City of Knowledge institute building"
                 width={640}
                 height={480}
@@ -76,12 +105,10 @@ export default function AboutPage() {
                 Mission
               </span>
               <h3 className="font-serif text-[20px] font-semibold leading-7 text-on-surface md:text-[24px] md:leading-8">
-                Propagate authentic knowledge for positive change
+                {missionTitle}
               </h3>
               <p className="mt-4 text-base leading-6 text-on-surface-variant">
-                To cultivate a community rooted in authentic Islamic teachings,
-                critical thinking, and ethical leadership through education,
-                research, and public engagement.
+                {missionDescription}
               </p>
             </div>
             <div className="rounded border border-outline-variant/40 bg-surface-container-low p-6 md:p-8">
@@ -89,12 +116,10 @@ export default function AboutPage() {
                 Vision
               </span>
               <h3 className="font-serif text-[20px] font-semibold leading-7 text-on-surface md:text-[24px] md:leading-8">
-                A leading center of Islamic learning and research
+                {visionTitle}
               </h3>
               <p className="mt-4 text-base leading-6 text-on-surface-variant">
-                To be recognized as a trusted institution that bridges classical
-                scholarship with contemporary challenges, serving learners
-                locally and globally.
+                {visionDescription}
               </p>
             </div>
           </div>

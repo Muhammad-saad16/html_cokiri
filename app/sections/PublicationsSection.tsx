@@ -1,13 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
+import { getHomepage } from "../../sanity/lib/queries";
 
 interface PublicationsSectionProps {
   compactTop?: boolean;
 }
 
-export default function PublicationsSection({
+export default async function PublicationsSection({
   compactTop = false,
 }: PublicationsSectionProps) {
+  const homepage = await getHomepage();
+  const sectionTitle = homepage?.publicationSectionTitle || "Publications";
+
   return (
     <section
       className={`pb-16 md:pb-24 ${
@@ -21,7 +25,7 @@ export default function PublicationsSection({
             Our Books
           </span>
           <h2 className="font-serif text-[28px] font-semibold leading-9 text-on-surface md:text-[40px] md:leading-[48px]">
-            Publications
+            {sectionTitle}
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-6 text-on-surface-variant md:text-lg md:leading-7">
             Scholarly works and research publications authored by our faculty,

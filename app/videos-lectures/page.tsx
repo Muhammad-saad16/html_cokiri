@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import VideoGrid from "../components/VideoGrid";
-import { videoIds } from "../data/videos";
+import { getVideos } from "../../sanity/lib/queries";
+import { getYouTubeId } from "../../sanity/lib/youtube";
 
 export const metadata: Metadata = {
   title: "Videos & Lectures | City of Knowledge",
@@ -8,7 +9,9 @@ export const metadata: Metadata = {
     "Watch lectures, seminars, and educational videos from City of Knowledge Islamic Research Institute.",
 };
 
-export default function VideosLecturesPage() {
+export default async function VideosLecturesPage() {
+  const videoIds = (await getVideos()).map((v) => getYouTubeId(v.youtubeUrl));
+
   return (
     <main className="flex flex-col bg-paper-white">
       {/* Page Header */}

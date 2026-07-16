@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import BooksExplorer from "../components/BooksExplorer";
-import { books } from "../data/books";
+import { getBooks } from "../../sanity/lib/queries";
+import { urlFor } from "../../sanity/lib/image";
 
 export const metadata: Metadata = {
   title: "Books | City of Knowledge",
@@ -8,7 +9,13 @@ export const metadata: Metadata = {
     "Explore scholarly publications and books authored by Dr. Umair Mahmood Siddiqui and the faculty of City of Knowledge Islamic Research Institute.",
 };
 
-export default function BooksPage() {
+export default async function BooksPage() {
+  const books = (await getBooks()).map((b) => ({
+    title: b.title,
+    author: b.author ?? "",
+    image: urlFor(b.cover).width(400).height(600).url(),
+  }));
+
   return (
     <main className="flex flex-col bg-paper-white">
       {/* Page Header */}

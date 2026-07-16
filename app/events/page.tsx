@@ -1,7 +1,10 @@
 import EventImageCard from "../components/EventImageCard";
-import { events } from "../data/events";
+import { getEvents } from "../../sanity/lib/queries";
+import { urlFor } from "../../sanity/lib/image";
 
-export default function EventsPage() {
+export default async function EventsPage() {
+  const events = await getEvents();
+
   return (
     <main className="flex flex-col bg-paper-white">
       {/* Header */}
@@ -26,9 +29,9 @@ export default function EventsPage() {
           <div className="grid gap-6 grid-cols-2 lg:grid-cols-4">
             {events.map((event) => (
               <EventImageCard
-                key={event.imageSrc}
-                imageSrc={event.imageSrc}
-                imageAlt={event.imageAlt}
+                key={event._id}
+                imageSrc={urlFor(event.image).width(600).height(800).url()}
+                imageAlt={event.alt || event.title}
               />
             ))}
           </div>

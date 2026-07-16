@@ -1,19 +1,27 @@
-import { galleryImages, GalleryImage } from "../data/gallery";
-import GalleryGrid from "../components/GalleryGrid";
+import GalleryGrid, { GalleryGridImage } from "../components/GalleryGrid";
+import { getGalleryImages } from "../../sanity/lib/queries";
+import { urlFor } from "../../sanity/lib/image";
 
 interface GallerySectionProps {
-  images?: GalleryImage[];
+  images?: GalleryGridImage[];
   eyebrow?: string;
   heading?: string;
   description?: string;
 }
 
-export default function GallerySection({
-  images = galleryImages,
+export default async function GallerySection({
+  images,
   eyebrow = "Moments from the Institute",
   heading = "Gallery",
   description = "A glimpse into our campus, events, programs, and community gatherings.",
 }: GallerySectionProps) {
+  const galleryImages =
+    images ??
+    (await getGalleryImages()).map((g) => ({
+      src: urlFor(g.image).width(600).height(450).url(),
+      alt: g.alt,
+    }));
+
   return (
     <section className="bg-paper-white py-16 md:py-24">
       <div className="mx-auto max-w-[1280px] px-5 md:px-20">
@@ -30,7 +38,7 @@ export default function GallerySection({
           </p>
         </div>
 
-        <GalleryGrid images={images} />
+        <GalleryGrid images={galleryImages} />
       </div>
     </section>
   );

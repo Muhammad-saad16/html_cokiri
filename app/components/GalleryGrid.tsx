@@ -1,8 +1,12 @@
 import Image from "next/image";
-import { GalleryImage } from "../data/gallery";
+
+export interface GalleryGridImage {
+  src: string;
+  alt: string;
+}
 
 interface GalleryGridProps {
-  images: GalleryImage[];
+  images: GalleryGridImage[];
 }
 
 export default function GalleryGrid({ images }: GalleryGridProps) {

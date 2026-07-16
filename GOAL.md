@@ -58,4 +58,4 @@ Build a modern, **English-only**, **mobile-first** website that acts as the cent
 - Include contact details, a location/map, and clear calls to action.
 - Be fast, accessible, and easy to maintain.
 
-**Important:** Content will be managed directly in the codebase. There is no CMS. Updates will be made by developers, not through a content management interface.
+**Important:** Content is managed through Sanity Studio (`/studio`), so the client's team can update programs, events, gallery, testimonials, videos, books, and site text themselves without a developer. Schema/structure changes (new content types, new fields) remain a developer responsibility.

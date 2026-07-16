@@ -1,5 +1,13 @@
+import Image from "next/image";
 import TestimonialAvatar from "./TestimonialAvatar";
-import type { Testimonial } from "../data/testimonials";
+
+export interface Testimonial {
+  name: string;
+  role: string;
+  quote: string;
+  avatarColor: string;
+  photoUrl?: string;
+}
 
 function QuoteIcon() {
   return (
@@ -33,7 +41,7 @@ function StarIcon() {
   );
 }
 
-export default function TestimonialCard({ name, role, quote, avatarColor }: Testimonial) {
+export default function TestimonialCard({ name, role, quote, avatarColor, photoUrl }: Testimonial) {
   return (
     <article className="flex h-full flex-col rounded-lg border border-outline-variant/40 bg-paper-white p-6 transition-all duration-200 hover:border-outline/60 hover:shadow-[0_12px_24px_-10px_rgba(75,54,33,0.08)] md:p-8">
       <QuoteIcon />
@@ -49,7 +57,17 @@ export default function TestimonialCard({ name, role, quote, avatarColor }: Test
       </p>
 
       <div className="mt-6 flex items-center gap-3 border-t border-outline-variant/40 pt-6">
-        <TestimonialAvatar color={avatarColor} />
+        {photoUrl ? (
+          <Image
+            src={photoUrl}
+            alt={name}
+            width={48}
+            height={48}
+            className="h-12 w-12 shrink-0 rounded-full object-cover"
+          />
+        ) : (
+          <TestimonialAvatar color={avatarColor} />
+        )}
         <div>
           <p className="font-serif text-base font-semibold text-on-surface">
             {name}

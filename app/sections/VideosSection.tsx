@@ -1,14 +1,17 @@
 import Link from "next/link";
 import VideoGrid from "../components/VideoGrid";
-import { videoIds } from "../data/videos";
-
-const featuredVideos = videoIds.slice(0, 8);
+import { getVideos, getHomepage } from "../../sanity/lib/queries";
+import { getYouTubeId } from "../../sanity/lib/youtube";
 
 interface VideosSectionProps {
   compactTop?: boolean;
 }
 
-export default function VideosSection({ compactTop = false }: VideosSectionProps) {
+export default async function VideosSection({ compactTop = false }: VideosSectionProps) {
+  const [videos, homepage] = await Promise.all([getVideos(), getHomepage()]);
+  const featuredVideos = videos.slice(0, 8).map((v) => getYouTubeId(v.youtubeUrl));
+  const sectionTitle = homepage?.videoSectionTitle || "Videos & Lectures";
+
   return (
     <section
       className={`pb-16 md:pb-24 ${
@@ -22,7 +25,7 @@ export default function VideosSection({ compactTop = false }: VideosSectionProps
             Media
           </span>
           <h2 className="font-serif text-[28px] font-semibold leading-9 text-on-surface md:text-[40px] md:leading-[48px]">
-            Videos & Lectures
+            {sectionTitle}
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-6 text-on-surface-variant md:text-lg md:leading-7">
             Watch recorded lectures, seminars, and educational sessions from the

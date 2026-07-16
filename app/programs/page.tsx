@@ -1,7 +1,9 @@
 import ProgramCard from "../components/ProgramCard";
-import { programs } from "../data/programs";
+import { getPrograms } from "../../sanity/lib/queries";
 
-export default function ProgramsPage() {
+export default async function ProgramsPage() {
+  const programs = await getPrograms();
+
   return (
     <main className="flex flex-col bg-paper-white">
       {/* Header */}
@@ -25,7 +27,16 @@ export default function ProgramsPage() {
         <div className="mx-auto max-w-[1280px] px-5 md:px-20">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {programs.map((program) => (
-              <ProgramCard key={program.title} {...program} />
+              <ProgramCard
+                key={program._id}
+                title={program.title}
+                description={program.shortDescription}
+                duration={program.duration}
+                eligibility={program.eligibility}
+                audience={program.audience}
+                format={program.format}
+                href={program.applyLink}
+              />
             ))}
           </div>
         </div>

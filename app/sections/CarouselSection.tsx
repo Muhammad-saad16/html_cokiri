@@ -1,43 +1,18 @@
 import ImageCarousel from "../components/ImageCarousel";
-
-const campusSlides = [
-  {
-    src: "/Carousel/car1.jpg",
-    alt: "City of Knowledge campus photo 1",
-    caption: "Hazrat Pir Syed Lakht-e-Hasnain",
-  },
-  {
-    src: "/Carousel/car2.jpg",
-    alt: "City of Knowledge campus photo 2",
-    caption: "Mufti Sher Muhammad Khan Sahib",
-  },
-  {
-    src: "/Carousel/car3.jpg",
-    alt: "City of Knowledge campus photo 3",
-    caption: "Sheikh Muhammad Al-Khamis Suleiman Usman",
-  },
-  {
-    src: "/Carousel/car4.jpg",
-    alt: "City of Knowledge campus photo 4",
-    caption: "Prof Imam Syed Badiuddin Soharwardy",
-  },
-  {
-    src: "/Carousel/car5.jpg",
-    alt: "City of Knowledge campus photo 5",
-    caption: "Zainul Abidin Rasheed",
-  },
-  {
-    src: "/Carousel/car6.jpg",
-    alt: "City of Knowledge campus photo 6",
-    caption: "Dr. Muhammad Eid Al-Mansour",
-  },
-];
+import { getCarouselSlides } from "../../sanity/lib/queries";
+import { urlFor } from "../../sanity/lib/image";
 
 interface CarouselSectionProps {
   compactTop?: boolean;
 }
 
-export default function CarouselSection({ compactTop = false }: CarouselSectionProps) {
+export default async function CarouselSection({ compactTop = false }: CarouselSectionProps) {
+  const campusSlides = (await getCarouselSlides()).map((slide) => ({
+    src: urlFor(slide.image).width(800).height(600).url(),
+    alt: slide.alt,
+    caption: slide.caption,
+  }));
+
   return (
     <section
       className={`pb-16 md:pb-24 ${

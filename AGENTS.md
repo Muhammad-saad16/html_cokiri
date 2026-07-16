@@ -12,7 +12,7 @@ You are not allowed to read .env and other secret files.
 
 - **Project:** Website for City of Knowledge (Islamic Research Institute), Karachi.
 - **Language:** English only. No Urdu or Arabic localization is required at this stage.
-- **No CMS:** All content lives in the codebase and is updated by developers.
+- **CMS:** Content (programs, events, gallery, testimonials, videos, books, hero/carousel slides, site settings) is managed by the client through Sanity Studio at `/studio`, backed by project `0mhnrbkc` (dataset `production`). Sanity schemas live under `sanity/schemaTypes/`. Schema/structure changes are still a developer responsibility — the client edits content, not content types.
 - **Domain:** `cokiri.net` currently shows a placeholder page and will host the new site.
 
 ## Working Principles

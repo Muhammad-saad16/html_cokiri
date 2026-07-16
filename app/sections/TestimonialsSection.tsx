@@ -1,8 +1,23 @@
 import Link from "next/link";
 import TestimonialsCarousel from "../components/TestimonialsCarousel";
-import { testimonials } from "../data/testimonials";
+import { getTestimonials, getHomepage } from "../../sanity/lib/queries";
+import { urlFor } from "../../sanity/lib/image";
+import { getAvatarColor } from "../../sanity/lib/avatar";
 
-export default function TestimonialsSection() {
+export default async function TestimonialsSection() {
+  const [rawTestimonials, homepage] = await Promise.all([
+    getTestimonials(),
+    getHomepage(),
+  ]);
+  const testimonials = rawTestimonials.map((t) => ({
+    name: t.name,
+    role: t.designation ?? "",
+    quote: t.message,
+    avatarColor: getAvatarColor(t.name),
+    photoUrl: t.photo ? urlFor(t.photo).width(96).height(96).url() : undefined,
+  }));
+  const sectionTitle = homepage?.testimonialSectionTitle || "Words of Honor";
+
   return (
     <section className="pb-16 md:pb-24">
       <div className="mx-auto max-w-[1280px] px-5 md:px-20">
@@ -12,7 +27,7 @@ export default function TestimonialsSection() {
             Testimonials
           </span>
           <h2 className="font-serif text-[28px] font-semibold leading-9 text-on-surface md:text-[40px] md:leading-[48px]">
-            Words of Honor
+            {sectionTitle}
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-6 text-on-surface-variant md:text-lg md:leading-7">
             Hear from students, families, and scholars whose lives have been

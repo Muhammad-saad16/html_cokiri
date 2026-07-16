@@ -1,5 +1,10 @@
 import Image from "next/image";
-import { Book } from "../data/books";
+
+export interface Book {
+  title: string;
+  author: string;
+  image: string;
+}
 
 export default function BookCard({ title, author, image }: Book) {
   return (

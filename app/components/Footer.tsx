@@ -170,7 +170,11 @@ function WaveDivider() {
   );
 }
 
-export default function Footer() {
+interface FooterProps {
+  siteName: string;
+}
+
+export default function Footer({ siteName }: FooterProps) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -259,8 +263,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="mt-16 border-t border-white/15 pt-8 text-center md:mt-20">
           <p className="text-sm text-paper-white/70">
-            © 2026 City of Knowledge Islamic Research Institute. All rights
-            reserved.
+            © 2026 {siteName}. All rights reserved.
           </p>
         </div>
       </div>

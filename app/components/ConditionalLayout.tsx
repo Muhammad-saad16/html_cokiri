@@ -6,17 +6,21 @@ import Footer from "./Footer";
 
 export default function ConditionalLayout({
   children,
+  siteName,
+  logoUrl,
 }: {
   children: React.ReactNode;
+  siteName: string;
+  logoUrl?: string;
 }) {
   const pathname = usePathname();
-  const isAdmin = pathname?.startsWith("/admin") || pathname?.startsWith("/studio") || false;
+  const isStudio = pathname?.startsWith("/studio") || false;
 
   return (
     <>
-      {!isAdmin && <Navbar />}
+      {!isStudio && <Navbar siteName={siteName} logoUrl={logoUrl} />}
       {children}
-      {!isAdmin && <Footer />}
+      {!isStudio && <Footer siteName={siteName} />}
     </>
   );
 }

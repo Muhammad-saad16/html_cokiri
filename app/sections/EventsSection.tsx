@@ -1,14 +1,16 @@
 import Link from "next/link";
 import EventCard from "../components/EventCard";
-import { events } from "../data/events";
-
-const featuredEvents = events.slice(0, 3);
+import { getFeaturedEvents } from "../../sanity/lib/queries";
+import { urlFor } from "../../sanity/lib/image";
+import { formatEventDate } from "../../sanity/lib/format";
 
 interface EventsSectionProps {
   compactTop?: boolean;
 }
 
-export default function EventsSection({ compactTop = false }: EventsSectionProps) {
+export default async function EventsSection({ compactTop = false }: EventsSectionProps) {
+  const featuredEvents = await getFeaturedEvents(3);
+
   return (
     <section
       className={`pb-16 md:pb-24 ${
@@ -33,7 +35,16 @@ export default function EventsSection({ compactTop = false }: EventsSectionProps
         {/* Featured Events Grid */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {featuredEvents.map((event) => (
-            <EventCard key={event.title} {...event} />
+            <EventCard
+              key={event._id}
+              title={event.title}
+              date={formatEventDate(event.eventDate)}
+              time={event.time ?? ""}
+              location={event.location ?? ""}
+              description={event.description ?? ""}
+              imageSrc={urlFor(event.image).width(800).height(500).url()}
+              imageAlt={event.alt || event.title}
+            />
           ))}
         </div>
 

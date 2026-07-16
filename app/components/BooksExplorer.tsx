@@ -1,8 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import BookCard from "./BookCard";
-import { Book } from "../data/books";
+import BookCard, { type Book } from "./BookCard";
 
 interface BooksExplorerProps {
   books: Book[];

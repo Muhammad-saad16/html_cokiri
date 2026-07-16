@@ -14,7 +14,12 @@ const navLinks = [
   { label: "Contact Us", href: "/contact" },
 ];
 
-export default function Navbar() {
+interface NavbarProps {
+  siteName: string;
+  logoUrl?: string;
+}
+
+export default function Navbar({ siteName, logoUrl }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
@@ -40,8 +45,8 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center" onClick={closeMenu}>
           <Image
-            src="/logo.png"
-            alt="City of Knowledge logo"
+            src={logoUrl || "/logo.png"}
+            alt={`${siteName} logo`}
             width={56}
             height={56}
             priority

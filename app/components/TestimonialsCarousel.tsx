@@ -1,8 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import TestimonialCard from "./TestimonialCard";
-import type { Testimonial } from "../data/testimonials";
+import TestimonialCard, { type Testimonial } from "./TestimonialCard";
 
 interface TestimonialsCarouselProps {
   testimonials: Testimonial[];

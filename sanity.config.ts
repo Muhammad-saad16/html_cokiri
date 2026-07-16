@@ -2,15 +2,16 @@ import {defineConfig} from "sanity";
 import {structureTool} from "sanity/structure";
 import {visionTool} from "@sanity/vision";
 
-import {schemaTypes} from "./sanity-studio/schemaTypes";
-import {structure} from "./sanity-studio/sanity/structure";
+import {projectId, dataset} from "./sanity/env";
+import {schemaTypes} from "./sanity/schemaTypes";
+import {structure, SINGLETON_TYPES} from "./sanity/structure";
 
 export default defineConfig({
   name: "default",
   title: "COKIRI",
 
-  projectId: "0mhnrbkc",
-  dataset: "production",
+  projectId,
+  dataset,
   basePath: "/studio",
 
   plugins: [
@@ -20,5 +21,18 @@ export default defineConfig({
 
   schema: {
     types: schemaTypes,
+  },
+
+  document: {
+    newDocumentOptions: (prev, {creationContext}) => {
+      if (creationContext.type === "global") {
+        return prev.filter((template) => !SINGLETON_TYPES.has(template.templateId));
+      }
+      return prev;
+    },
+    actions: (prev, {schemaType}) =>
+      SINGLETON_TYPES.has(schemaType)
+        ? prev.filter(({action}) => !["unpublish", "delete", "duplicate"].includes(action as string))
+        : prev,
   },
 });

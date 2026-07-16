@@ -3,32 +3,32 @@
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 
-const slides = [
-  { src: "/events/image1.jpg", alt: "Event image 1" },
-  { src: "/events/image2.jpg", alt: "Event image 2" },
-  { src: "/events/image3.jpg", alt: "Event image 3" },
-  { src: "/events/image4.jpg", alt: "Event image 4" },
-  { src: "/events/image5.jpg", alt: "Event image 5" },
-  
-];
+export interface HeroSlide {
+  src: string;
+  alt: string;
+}
+
+interface HeroProps {
+  slides: HeroSlide[];
+}
 
 const AUTOPLAY_DELAY = 5000;
 
-export default function Hero() {
+export default function Hero({ slides }: HeroProps) {
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
   const goTo = useCallback((index: number) => {
     setCurrent((index + slides.length) % slides.length);
-  }, []);
+  }, [slides.length]);
 
   const goToPrevious = useCallback(() => {
     setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
-  }, []);
+  }, [slides.length]);
 
   const goToNext = useCallback(() => {
     setCurrent((prev) => (prev + 1) % slides.length);
-  }, []);
+  }, [slides.length]);
 
   useEffect(() => {
     if (isPaused) return;
@@ -49,6 +49,8 @@ export default function Hero() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [goToPrevious, goToNext]);
+
+  if (slides.length === 0) return null;
 
   return (
     <section

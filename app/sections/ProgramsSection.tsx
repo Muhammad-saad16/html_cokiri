@@ -1,8 +1,16 @@
 import Link from "next/link";
 import Image from "next/image";
-import { personalityVisits } from "../data/personalities";
+import { getPersonalityVisits, getHomepage } from "../../sanity/lib/queries";
+import { urlFor } from "../../sanity/lib/image";
 
-export default function ProgramsSection() {
+export default async function ProgramsSection() {
+  const [personalityVisits, homepage] = await Promise.all([
+    getPersonalityVisits(),
+    getHomepage(),
+  ]);
+  const sectionTitle =
+    homepage?.programSectionTitle || "Latest Events and Programs";
+
   return (
     <section className="py-16 md:py-24">
       <div className="mx-auto max-w-[1280px] px-5 md:px-20">
@@ -12,21 +20,21 @@ export default function ProgramsSection() {
             Our Programs
           </span>
           <h2 className="font-serif text-[28px] font-semibold leading-9 text-on-surface md:text-[40px] md:leading-[48px]">
-            Latest Events and Programs
+            {sectionTitle}
           </h2>
           
         </div>
 
         {/* Featured Visits Grid */}
         <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
-          {personalityVisits.map((visit, index) => (
+          {personalityVisits.map((visit) => (
             <Link
-              key={index}
+              key={visit._id}
               href="/interactions-with-personalities"
               className="group relative block aspect-[3/4] overflow-hidden rounded-lg border border-outline-variant/40 transition-all duration-200 hover:border-outline/60 hover:shadow-[0_12px_24px_-10px_rgba(75,54,33,0.08)]"
             >
               <Image
-                src={visit.image}
+                src={urlFor(visit.image).width(600).height(800).url()}
                 alt={visit.alt}
                 fill
                 sizes="(min-width: 1024px) 25vw, 50vw"

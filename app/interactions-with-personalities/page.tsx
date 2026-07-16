@@ -1,7 +1,10 @@
 import Image from "next/image";
-import { personalityVisits } from "../data/personalities";
+import { getPersonalityVisits } from "../../sanity/lib/queries";
+import { urlFor } from "../../sanity/lib/image";
 
-export default function InteractionsWithPersonalitiesPage() {
+export default async function InteractionsWithPersonalitiesPage() {
+  const personalityVisits = await getPersonalityVisits();
+
   return (
     <main className="flex flex-col bg-paper-white">
       {/* Header */}
@@ -24,13 +27,13 @@ export default function InteractionsWithPersonalitiesPage() {
       <section className="pb-16 md:pb-24">
         <div className="mx-auto max-w-[1280px] px-5 md:px-20">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {personalityVisits.map((visit, index) => (
+            {personalityVisits.map((visit) => (
               <div
-                key={index}
+                key={visit._id}
                 className="relative aspect-[3/4] overflow-hidden rounded-lg border border-outline-variant/40"
               >
                 <Image
-                  src={visit.image}
+                  src={urlFor(visit.image).width(600).height(800).url()}
                   alt={visit.alt}
                   fill
                   sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"

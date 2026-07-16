@@ -1,7 +1,17 @@
 import TestimonialCard from "../components/TestimonialCard";
-import { testimonials } from "../data/testimonials";
+import { getTestimonials } from "../../sanity/lib/queries";
+import { urlFor } from "../../sanity/lib/image";
+import { getAvatarColor } from "../../sanity/lib/avatar";
 
-export default function TestimonialsPage() {
+export default async function TestimonialsPage() {
+  const testimonials = (await getTestimonials()).map((t) => ({
+    name: t.name,
+    role: t.designation ?? "",
+    quote: t.message,
+    avatarColor: getAvatarColor(t.name),
+    photoUrl: t.photo ? urlFor(t.photo).width(96).height(96).url() : undefined,
+  }));
+
   return (
     <main className="flex flex-col bg-paper-white">
       {/* Header */}
