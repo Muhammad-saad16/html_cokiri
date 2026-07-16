@@ -47,6 +47,7 @@ export default function ImageCarousel({
   const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPage((prev) => Math.min(prev, pageCount - 1));
   }, [pageCount]);
 
