@@ -77,115 +77,18 @@ export default async function AboutPage() {
   return (
     <main className="flex flex-col bg-paper-white">
       {/* Introduction */}
-      <section className="pt-10 pb-16 md:pt-14 md:pb-24">
-        <div className="mx-auto flex max-w-[1280px] flex-col-reverse items-center gap-12 px-5 md:flex-row md:items-start md:gap-20 md:px-20">
-         <div className="flex-1 text-left">
-  <span className="mb-4 inline-block font-hanken text-xs font-bold uppercase tracking-[0.05em] text-heritage-orange">
-    Scholar Profile
-  </span>
-
-  <h2 className="font-serif text-[34px] font-bold leading-tight text-on-surface">
-    {drUmair.name}
-  </h2>
-
-  <p className="mt-2 text-lg font-semibold text-heritage-orange">
-    {drUmair.designation}
-  </p>
-
-  <ul className="mt-6 list-disc pl-6 space-y-2 text-gray-700">
-    {drUmair.positions.map((item, index) => (
-      <li key={index}>{item}</li>
-    ))}
-  </ul>
-
-   <div className="mt-6 space-y-2 text-gray-700">
-     <p>
-       <strong>Website:</strong> {drUmair.website}
-      </p>
-
-      <p>
-        <strong>YouTube:</strong> {drUmair.youtube}
-      </p>
-
-      <p>
-        <strong>Email:</strong> {drUmair.email}
-      </p>
-
-      <p>
-       <strong>Phone:</strong> {drUmair.phones.join(" / ")}
-       </p>
-      </div>
-
-      <div className="mt-8 space-y-5 text-justify leading-8 text-gray-700">
-        <p>
-          Dr. Umair Mahmood Siddiqui is an esteemed Islamic scholar of
-          international renown and Associate Professor in the Department of
-          Islamic Learning at the University of Karachi. He also serves as
-          Patron-in-Chief of City of Knowledge Islamic Research Institute.
-        </p>
-
-         <p>
-          He has represented Pakistan at numerous international conferences
-          organized by the International Islamic Fiqh Academy (OIC) and has
-          authored several books and scholarly articles on Islamic theology,
-          comparative religion, jurisprudence and contemporary issues.
-          </p>
-
-           <p>
-            His research emphasizes balanced Islamic scholarship rooted in the
-            Qur'an and Sunnah while addressing modern intellectual and social
-            challenges.
-           </p>
-
-            <p>
-              He frequently delivers lectures, seminars and keynote speeches both
-              nationally and internationally, promoting authentic Islamic knowledge
-              through education, research and dialogue.
-            </p>
-           </div>
-          
-          </div>
-         <div className="flex-1 flex justify-center">
-         <Image
-           src="/images/dr-umair.png"
-          alt="Dr. Umair Mahmood Siddiqui"
-          width={450}
-          height={550}
-          className="rounded-lg shadow-lg object-cover"
-             />
-         </div>
-        </div>
-      </section>
-
-      {/* Mission & Vision */}
-      <section className="bg-manuscript-tint py-16 md:py-24">
-        <div className="mx-auto max-w-[1280px] px-5 md:px-20">
-          <div className="grid gap-6 md:grid-cols-2">
-            <div className="rounded border border-outline-variant/40 bg-surface-container-low p-6 md:p-8">
-              <span className="mb-3 inline-block font-hanken text-xs font-bold uppercase tracking-[0.05em] text-heritage-orange">
-                Mission
-              </span>
-              <h3 className="font-serif text-[20px] font-semibold leading-7 text-on-surface md:text-[24px] md:leading-8">
-                {missionTitle}
-              </h3>
-              <p className="mt-4 text-base leading-6 text-on-surface-variant">
-                {missionDescription}
-              </p>
-            </div>
-            <div className="rounded border border-outline-variant/40 bg-surface-container-low p-6 md:p-8">
-              <span className="mb-3 inline-block font-hanken text-xs font-bold uppercase tracking-[0.05em] text-heritage-orange">
-                Vision
-              </span>
-              <h3 className="font-serif text-[20px] font-semibold leading-7 text-on-surface md:text-[24px] md:leading-8">
-                {visionTitle}
-              </h3>
-              <p className="mt-4 text-base leading-6 text-on-surface-variant">
-                {visionDescription}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+     <section className="pt-10 pb-16 md:pt-14 md:pb-24">
+  <div className="mx-auto max-w-[1280px] px-5 md:px-20 flex justify-center">
+    <Image
+      src="/images/about-banner.jpg"
+      alt="Dr. Umair Mahmood Siddiqui"
+      width={1100}
+      height={1400}
+      className="w-full max-w-5xl h-auto rounded-lg shadow-lg"
+      priority
+    />
+  </div>
+</section>
 
       {/* Core Pillars */}
       <section className="py-16 md:py-24">
