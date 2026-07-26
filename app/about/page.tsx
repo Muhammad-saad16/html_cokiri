@@ -49,50 +49,111 @@ export default async function AboutPage() {
     "To be recognized as a trusted institution that bridges classical scholarship with contemporary challenges, serving learners locally and globally.";
   const pillars = about?.pillars?.length ? about.pillars : defaultPillars;
 
+  const drUmair = {
+    name: "Dr. Umair Mahmood Siddiqui",
+
+    designation:
+      "Associate Professor, Department of Islamic Learning, University of Karachi",
+
+    positions: [
+      "Researcher, International Islamic Fiqh Academy (OIC), Jeddah",
+      "Honorary Chairman, City of Knowledge Islamic Research Institute",
+      "Former Member, Council of Islamic Ideology, Government of Pakistan",
+    ],
+
+    website: "www.drumairsiddiqui.com",
+
+    youtube: "DrUmairMahmoodSiddiqui",
+
+    email: "Btml432@gmail.com",
+
+    phones: [
+      "+92 310 2083355",
+      "+92 300 9221167",
+    ],
+  };
+
+
   return (
     <main className="flex flex-col bg-paper-white">
       {/* Introduction */}
       <section className="pt-10 pb-16 md:pt-14 md:pb-24">
-        <div className="mx-auto flex max-w-[1280px] flex-col items-center gap-10 px-5 md:flex-row md:items-center md:gap-16 md:px-20">
-          <div className="flex-1 text-center md:text-left">
-            <span className="mb-4 inline-block font-hanken text-xs font-bold uppercase tracking-[0.05em] text-heritage-orange">
-              Our Story
-            </span>
-            <h2 className="font-serif text-[24px] font-semibold leading-8 text-on-surface md:text-[32px] md:leading-10">
-              {title}
-            </h2>
-            <div className="mt-5 space-y-4 text-base leading-6 text-on-surface-variant md:text-lg md:leading-7 [&_p]:m-0">
-              {about?.description?.length ? (
-                <PortableText value={about.description} />
-              ) : (
-                <>
-                  <p>
-                    Founded in Karachi, City of Knowledge serves as a center for
-                    rigorous academic inquiry and spiritual growth. The institute
-                    offers structured courses, research opportunities, and community
-                    programs designed for students, professionals, and lifelong
-                    learners.
-                  </p>
-                  <p className="mt-4">
-                    Under the guidance of respected scholars, the institute blends
-                    classical Islamic sciences with modern disciplines such as
-                    philosophy, law, history, and contemporary issues.
-                  </p>
-                </>
-              )}
-            </div>
+        <div className="mx-auto flex max-w-[1280px] flex-col-reverse items-center gap-12 px-5 md:flex-row md:items-start md:gap-20 md:px-20">
+         <div className="flex-1 text-left">
+  <span className="mb-4 inline-block font-hanken text-xs font-bold uppercase tracking-[0.05em] text-heritage-orange">
+    Scholar Profile
+  </span>
+
+  <h2 className="font-serif text-[34px] font-bold leading-tight text-on-surface">
+    {drUmair.name}
+  </h2>
+
+  <p className="mt-2 text-lg font-semibold text-heritage-orange">
+    {drUmair.designation}
+  </p>
+
+  <ul className="mt-6 list-disc pl-6 space-y-2 text-gray-700">
+    {drUmair.positions.map((item, index) => (
+      <li key={index}>{item}</li>
+    ))}
+  </ul>
+
+   <div className="mt-6 space-y-2 text-gray-700">
+     <p>
+       <strong>Website:</strong> {drUmair.website}
+      </p>
+
+      <p>
+        <strong>YouTube:</strong> {drUmair.youtube}
+      </p>
+
+      <p>
+        <strong>Email:</strong> {drUmair.email}
+      </p>
+
+      <p>
+       <strong>Phone:</strong> {drUmair.phones.join(" / ")}
+       </p>
+      </div>
+
+      <div className="mt-8 space-y-5 text-justify leading-8 text-gray-700">
+        <p>
+          Dr. Umair Mahmood Siddiqui is an esteemed Islamic scholar of
+          international renown and Associate Professor in the Department of
+          Islamic Learning at the University of Karachi. He also serves as
+          Patron-in-Chief of City of Knowledge Islamic Research Institute.
+        </p>
+
+         <p>
+          He has represented Pakistan at numerous international conferences
+          organized by the International Islamic Fiqh Academy (OIC) and has
+          authored several books and scholarly articles on Islamic theology,
+          comparative religion, jurisprudence and contemporary issues.
+          </p>
+
+           <p>
+            His research emphasizes balanced Islamic scholarship rooted in the
+            Qur'an and Sunnah while addressing modern intellectual and social
+            challenges.
+           </p>
+
+            <p>
+              He frequently delivers lectures, seminars and keynote speeches both
+              nationally and internationally, promoting authentic Islamic knowledge
+              through education, research and dialogue.
+            </p>
+           </div>
+          
           </div>
-          <div className="flex-1">
-            <div className="overflow-hidden rounded-lg border border-outline-variant/40 shadow-[0_8px_24px_-10px_rgba(31,41,55,0.2)]">
-              <Image
-                src={imageUrl}
-                alt="City of Knowledge institute building"
-                width={640}
-                height={480}
-                className="h-auto w-full object-cover"
-              />
-            </div>
-          </div>
+         <div className="flex-1 flex justify-center">
+         <Image
+           src="/images/dr-umair.png"
+          alt="Dr. Umair Mahmood Siddiqui"
+          width={450}
+          height={550}
+          className="rounded-lg shadow-lg object-cover"
+             />
+         </div>
         </div>
       </section>
 
