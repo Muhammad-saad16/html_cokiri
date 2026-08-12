@@ -9,13 +9,14 @@ import PreFooter from "./sections/PreFooter";
 export default function Home() {
   return (
     <main className="flex flex-1 flex-col">
-      <HeroSection />
+      {/* <HeroSection />
       <ProgramsSection />
       <CarouselSection compactTop />
       <VideosSection compactTop />
       <PublicationsSection compactTop />
       <TestimonialsSection />
-      <PreFooter />
+      <PreFooter /> */}
+      <h1>The City of Knowledge website is under construction</h1>
     </main>
   );
 }

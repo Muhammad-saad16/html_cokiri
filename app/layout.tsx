@@ -46,9 +46,9 @@ export default async function RootLayout({
     >
       <body className="min-h-full flex flex-col font-sans text-on-surface">
         <div className="site-gradient-backdrop" aria-hidden="true" />
-        <ConditionalLayout siteName={siteName} logoUrl={logoUrl}>
+        {/* <ConditionalLayout siteName={siteName} logoUrl={logoUrl}> */}
           {children}
-        </ConditionalLayout>
+        {/* </ConditionalLayout> */}
       </body>
     </html>
   );
