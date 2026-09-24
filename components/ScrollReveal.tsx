@@ -11,6 +11,7 @@ const TARGETS = [
   ".cat",
   ".card",
   ".banner",
+  ".reel",
   ".split__media",
   ".split__text",
   ".look__media",

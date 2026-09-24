@@ -1,8 +1,9 @@
 import Image from "@/components/Img";
 import Link from "next/link";
 import HeroSlider from "@/components/HeroSlider";
+import Reel from "@/components/Reel";
 import { ProductGrid } from "@/components/ProductCard";
-import { CATEGORY_INFO, PRODUCTS, findProduct, imgSrc, productHref, type Category } from "@/lib/site";
+import { CATEGORY_INFO, PRODUCTS, REELS, findProduct, imgSrc, productHref, type Category } from "@/lib/site";
 
 const CATEGORY_TILES = [
   { filter: "jewellery", title: "Jewellery", kicker: "Elegance That Shines", cta: "Explore Jewellery", image: CATEGORY_INFO.jewellery.image, alt: "Kangan gold necklace" },
@@ -51,6 +52,7 @@ function CategorySection({ cat, tint, limit = 4 }: { cat: Category; tint?: boole
 
 export default function Home() {
   const look = LOOK.products.map((id) => findProduct(id)!);
+  const perfume = findProduct("KP-301")!;
 
   return (
     <>
@@ -88,7 +90,21 @@ export default function Home() {
         </div>
       </section>
 
-      <CategorySection cat="jewellery" tint limit={8} />
+      {/* New arrivals */}
+      <section className="section section--tint">
+        <div className="container">
+          <div className="section__head">
+            <p className="eyebrow">Just In</p>
+            <h2>New Arrivals</h2>
+          </div>
+          <ProductGrid products={PRODUCTS.filter((p) => p.isNew).slice(0, 4)} />
+          <div className="link-more">
+            <Link href="/shop" className="btn btn--ghost-dark">Shop All</Link>
+          </div>
+        </div>
+      </section>
+
+      <CategorySection cat="jewellery" limit={8} />
 
       {/* Promo banners */}
       <section className="section section--flush">
@@ -138,11 +154,46 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Signature perfume */}
+      <section className="section section--dark">
+        <div className="container split">
+          <div className="split__media">
+            <div className="frame">
+              <Image src="/media/perfume.jpg" alt="Kangan 12 AM perfume bottle" fill sizes="(max-width: 860px) 100vw, 560px" />
+            </div>
+          </div>
+          <div className="split__text">
+            <p className="eyebrow">The Signature Scent</p>
+            <h2>Kangan 12 AM</h2>
+            <p>{perfume.desc}</p>
+            <ul className="lines lines--light">
+              {perfume.details?.map((d) => <li key={d}>{d}</li>)}
+            </ul>
+            <Link href={productHref(perfume)} className="btn btn--gold">Order 12 AM</Link>
+          </div>
+        </div>
+      </section>
+
       <CategorySection cat="perfumes" />
       <CategorySection cat="watches" tint />
 
-      {/* About */}
+      {/* Watch & shop */}
       <section className="section">
+        <div className="container">
+          <div className="section__head">
+            <p className="eyebrow">Watch &amp; Shop</p>
+            <h2>See it. Love it. Wear it.</h2>
+          </div>
+          <div className="reels">
+            {REELS.map((r) => (
+              <Reel key={r.video} video={r.video} poster={r.poster} title={r.title} href={productHref(findProduct(r.product)!)} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* About */}
+      <section className="section section--tint">
         <div className="container split">
           <div className="split__media">
             <div className="frame">
@@ -173,7 +224,7 @@ export default function Home() {
       </section>
 
       {/* Why Kangan */}
-      <section className="section section--tint">
+      <section className="section">
         <div className="container">
           <div className="section__head">
             <p className="eyebrow">Why Kangan?</p>

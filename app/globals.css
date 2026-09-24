@@ -327,6 +327,42 @@ form input:focus, form select:focus, form textarea:focus { outline: none; border
   .hero__arrow { display: none; }
 }
 
+/* Logo image */
+.logo { flex-direction: row; align-items: center; gap: 10px; }
+.logo img { width: 56px; height: auto; }
+.logo > span { display: flex; flex-direction: column; align-items: flex-start; }
+.footer__logo { width: 170px; height: auto; margin-bottom: 1rem; }
+
+/* Card badges */
+.card__video { position: absolute; z-index: 1; top: 12px; right: 12px; width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,.92); color: var(--gold-dark); display: grid; place-items: center; font-size: .6rem; padding-left: 2px; }
+
+/* Signature perfume */
+.section--dark .split__text p { color: #b6ab9c; }
+.section--dark .frame { aspect-ratio: 4/5; max-width: 460px; margin-inline: auto; }
+.lines--light li { color: #e9dcc6; border-color: rgba(255,255,255,.12); font-size: 1.25rem; }
+
+/* Watch & shop reels */
+.reels { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.reel { position: relative; aspect-ratio: 9/16; border-radius: var(--radius); overflow: hidden; background: var(--dark); color: var(--white); }
+.reel video { width: 100%; height: 100%; object-fit: cover; }
+.reel::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(15,11,8,.85)); pointer-events: none; }
+.reel__play { position: absolute; top: 50%; left: 50%; z-index: 2; width: 52px; height: 52px; margin: -26px 0 0 -26px; border-radius: 50%; border: 1px solid rgba(255,255,255,.7); background: rgba(15,11,8,.35); color: var(--white); font-size: .9rem; cursor: pointer; transition: opacity .3s, background .2s; }
+.reel__play:hover { background: var(--gold); border-color: var(--gold); }
+.reel__play.is-playing { opacity: 0; }
+.reel:hover .reel__play.is-playing { opacity: 1; }
+.reel__info { position: absolute; left: 14px; right: 14px; bottom: 14px; z-index: 2; display: flex; flex-direction: column; }
+.reel__info strong { font: 500 1.2rem/1.2 var(--serif); }
+.reel__info span { font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: #e3c690; margin-top: 4px; }
+
+@media (max-width: 1024px) {
+  .reels { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; }
+  .reel { flex: 0 0 min(220px, 58vw); scroll-snap-align: start; }
+}
+@media (max-width: 560px) {
+  .logo img { width: 42px; }
+  .logo > span { font-size: 1.3rem; }
+}
+
 /* Scroll reveal (classes added by components/ScrollReveal.tsx) */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease var(--reveal-delay, 0ms), transform .8s cubic-bezier(.2,.7,.2,1) var(--reveal-delay, 0ms); }
 .reveal.is-visible { opacity: 1; transform: none; }

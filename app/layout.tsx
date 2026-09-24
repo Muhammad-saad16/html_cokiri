@@ -21,9 +21,7 @@ export const metadata: Metadata = {
   },
   description:
     "Kangan is a premium online fashion and lifestyle brand for women — jewellery, handbags, perfumes and watches with door-to-door delivery in Pakistan and Bahrain since 2012.",
-  icons: {
-    icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='34' fill='none' stroke='%23b08d57' stroke-width='10'/></svg>",
-  },
+  icons: { icon: "/media/logo-mark.png" },
 };
 
 export const viewport: Viewport = { themeColor: "#17130f" };

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { SITE, waLink } from "@/lib/site";
 
@@ -7,7 +8,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="container footer__grid">
         <div className="footer__brand">
-          <p className="logo logo--light">KANGAN</p>
+          <Image src="/media/logo-full.png" alt="Kangan" width={170} height={154} className="footer__logo" />
           <p>Love. Fashion. Beauty. Passion. — It&apos;s All About Kangan.</p>
           <p className="muted">
             Jewellery | Handbags | Perfumes | Watches
@@ -45,7 +46,11 @@ export default function Footer() {
             <li><a href={SITE.tiktok} target="_blank" rel="noopener">TikTok</a></li>
             <li><a href={support} target="_blank" rel="noopener">WhatsApp</a></li>
           </ul>
-          <p className="muted">{SITE.phone}</p>
+          <p className="muted">
+            {SITE.phone}
+            <br />
+            <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          </p>
         </div>
       </div>
       <div className="container footer__bottom">

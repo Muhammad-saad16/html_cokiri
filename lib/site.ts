@@ -148,6 +148,15 @@ export const PRODUCTS: Product[] = [
     desc: "A slim dark-dial watch with a gold-tone case and woven strap for an effortless everyday look." },
 ];
 
+/** Short product videos on the home page. They only load when a visitor taps or hovers them. */
+export const REELS = [
+  { video: "/media/reel-bangle.mp4", poster: "/media/bangle.jpg", title: "Crystal Bangles", product: "KJ-101" },
+  { video: "/media/reel-rosegold.mp4", poster: "/media/rosegold.jpg", title: "Rose Gold Bracelet", product: "KJ-102" },
+  { video: "/media/reel-perfume.mp4", poster: "/media/perfume.jpg", title: "12 AM Perfume", product: "KP-301" },
+  { video: "/media/reel-heart.mp4", poster: "/media/heart.jpg", title: "Heart Charm Bracelet", product: "KJ-103" },
+  { video: "/media/reel-runway.mp4", poster: "/media/runway.jpg", title: "Runway Edit", product: "KH-201" },
+];
+
 export const productHref = (p: Product) => `/products/${p.id.toLowerCase()}`;
 export const findProduct = (slug: string) => PRODUCTS.find((p) => p.id.toLowerCase() === slug.toLowerCase());
 export const isCategory = (v: string): v is Category => (CATEGORIES as readonly string[]).includes(v);

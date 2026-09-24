@@ -21,7 +21,8 @@ export default function ProductCard({ p }: { p: Product }) {
             sizes="(max-width: 560px) 50vw, (max-width: 1024px) 33vw, 300px"
           />
         )}
-        <span className="card__tag">{p.tag}</span>
+        <span className="card__tag">{p.isNew ? "New" : p.tag}</span>
+        {p.video && <span className="card__video" aria-label="Has video">▶</span>}
         <span className="card__quick">Order Now</span>
       </span>
       <span className="card__body">

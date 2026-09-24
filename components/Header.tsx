@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -44,8 +45,11 @@ export default function Header() {
           <span />
           <span />
         </button>
-        <Link href="/" className="logo">
-          KANGAN<small>Luxury · Elegance · Lifestyle</small>
+        <Link href="/" className="logo" aria-label="Kangan home">
+          <Image src="/media/logo-mark.png" alt="" width={56} height={42} priority />
+          <span>
+            KANGAN<small>Luxury · Elegance · Lifestyle</small>
+          </span>
         </Link>
         <nav className={`nav${open ? " is-open" : ""}`} aria-label="Main">
           {NAV.map((n) => (
