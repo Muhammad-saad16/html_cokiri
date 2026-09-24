@@ -8,3 +8,7 @@ next-env.d.ts
 
 # client source document
 *.docx
+
+# original uploads (site uses the optimised copies in public/media)
+public/images/*.mp4
+public/images/WhatsApp*
