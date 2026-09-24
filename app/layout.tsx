@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import "./globals.css";
 
@@ -20,22 +21,25 @@ export const metadata: Metadata = {
   },
   description:
     "Kangan is a premium online fashion and lifestyle brand for women — jewellery, handbags, perfumes and watches with door-to-door delivery in Pakistan and Bahrain since 2012.",
-  icons: { icon: "/media/logo-mark.png" },
+  icons: {
+    icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='34' fill='none' stroke='%23b08d57' stroke-width='10'/></svg>",
+  },
 };
 
-export const viewport: Viewport = { themeColor: "#15100b" };
+export const viewport: Viewport = { themeColor: "#17130f" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${serif.variable} ${sans.variable}`}>
       <body>
         <div className="announce">
-          <p>Door-to-door delivery across Pakistan &amp; Bahrain &nbsp;·&nbsp; Order online, pay on confirmation</p>
+          <p>Door-to-door delivery across Pakistan &amp; Bahrain &nbsp;·&nbsp; Serving you since 2012</p>
         </div>
         <Header />
         <main>{children}</main>
         <Footer />
         <WhatsAppFloat />
+        <ScrollReveal />
       </body>
     </html>
   );

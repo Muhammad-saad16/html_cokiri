@@ -14,8 +14,6 @@ export default function ShopPage() {
       title="Shop All"
       kicker="The Kangan Collection"
       intro="Jewellery, handbags, perfumes and watches — tap any piece to see it up close and place your order."
-      image="/media/hero-poster.jpg"
-      video="/media/hero.mp4"
       products={PRODUCTS}
     />
   );

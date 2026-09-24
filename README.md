@@ -27,11 +27,11 @@ Gmail App Password: turn on 2-Step Verification → https://myaccount.google.com
 4. If the email fails, the customer is offered a WhatsApp link so the order is not lost
 
 ## Editing content
-- **Products, categories, reels, WhatsApp number, social links:** `lib/site.ts`
+- **Products, categories, WhatsApp number, social links:** `lib/site.ts`
   - `images`: list of photos, e.g. `["/media/bangle.jpg", "/media/bangle-model.jpg"]` (put files in `public/media/`). Unsplash ids are placeholders.
   - `video`: optional product video, e.g. `"/media/reel-bangle.mp4"`
   - `price`: `""` hides the price, or write e.g. `"Rs 4,500"`
-  - `best` / `isNew`: show the product in Best Sellers / New Arrivals on the home page
+  - `best: true`: shows the product in the home page collection
 - **Pages:** `app/page.tsx` (Home), `app/shop`, `app/collections/[category]`, `app/products/[slug]`, `app/about`, `app/contact`
 - **Media:** `public/media/` holds web-optimised videos and stills made from the original uploads in `public/images/`
 - **Styles:** `app/globals.css`

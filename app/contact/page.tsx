@@ -18,8 +18,8 @@ const FAQ = [
 export default function ContactPage() {
   return (
     <>
-      <section className="page-hero page-hero--plain">
-        <div className="container page-hero__content">
+      <section className="page-head">
+        <div className="container">
           <nav className="crumbs" aria-label="Breadcrumb">
             <Link href="/">Home</Link> / Contact
           </nav>
@@ -32,17 +32,17 @@ export default function ContactPage() {
       <section className="section">
         <div className="container contact-cards">
           <a href={waLink("Hi Kangan! I have a question.")} target="_blank" rel="noopener" className="contact-card">
-            <span className="contact-card__label">WhatsApp</span>
+            <span>WhatsApp</span>
             <strong>{SITE.phone}</strong>
             <span>Fastest reply — chat with us →</span>
           </a>
           <a href={`tel:${SITE.phone.replace(/\s/g, "")}`} className="contact-card">
-            <span className="contact-card__label">Call Us</span>
+            <span>Call Us</span>
             <strong>{SITE.phone}</strong>
             <span>Pakistan &amp; Bahrain</span>
           </a>
           <a href={`mailto:${SITE.email}`} className="contact-card">
-            <span className="contact-card__label">Email</span>
+            <span>Email</span>
             <strong>{SITE.email}</strong>
             <span>We reply within a day</span>
           </a>
@@ -59,11 +59,6 @@ export default function ContactPage() {
               receiving it at your doorstep, we aim to make every interaction with Kangan simple, elegant, and reliable.
             </p>
             <p className="quote quote--dark">Your trust inspires us. Your style inspires us. Your satisfaction is our priority.</p>
-            <div className="socials socials--dark">
-              <a href={SITE.instagram} target="_blank" rel="noopener">Instagram</a>
-              <a href={SITE.facebook} target="_blank" rel="noopener">Facebook</a>
-              <a href={SITE.tiktok} target="_blank" rel="noopener">TikTok</a>
-            </div>
           </div>
           <div className="faq">
             {FAQ.map(([q, a], i) => (

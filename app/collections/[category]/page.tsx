@@ -27,8 +27,6 @@ export default async function CollectionPage({ params }: PageProps<"/collections
       title={info.title}
       kicker={info.kicker}
       intro={info.intro}
-      image={info.image}
-      video={info.video}
       products={PRODUCTS.filter((p) => p.cat === category)}
     />
   );

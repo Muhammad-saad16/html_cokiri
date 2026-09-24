@@ -1,18 +1,16 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const NAV = [
   { href: "/", label: "Home" },
-  { href: "/shop", label: "Shop All" },
+  { href: "/about", label: "About" },
   { href: "/collections/jewellery", label: "Jewellery" },
   { href: "/collections/handbags", label: "Handbags" },
   { href: "/collections/perfumes", label: "Perfumes" },
   { href: "/collections/watches", label: "Watches" },
-  { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -31,18 +29,14 @@ export default function Header() {
   // Close the mobile menu whenever the page changes.
   useEffect(() => setOpen(false), [pathname]);
 
-  useEffect(() => {
-    document.body.classList.toggle("no-scroll", open);
-  }, [open]);
-
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   return (
     <header className={`header${scrolled ? " is-scrolled" : ""}`}>
       <div className="container header__inner">
         <button
-          className={`menu-btn${open ? " is-open" : ""}`}
-          aria-label={open ? "Close menu" : "Open menu"}
+          className="menu-btn"
+          aria-label="Open menu"
           aria-expanded={open}
           onClick={() => setOpen((o) => !o)}
         >
@@ -50,14 +44,9 @@ export default function Header() {
           <span />
           <span />
         </button>
-
-        <Link href="/" className="logo" aria-label="Kangan home">
-          <Image src="/media/logo-mark.png" alt="" width={54} height={40} priority />
-          <span>
-            KANGAN<small>Jewellery · Perfumes · Handbags · Watches</small>
-          </span>
+        <Link href="/" className="logo">
+          KANGAN<small>Luxury · Elegance · Lifestyle</small>
         </Link>
-
         <nav className={`nav${open ? " is-open" : ""}`} aria-label="Main">
           {NAV.map((n) => (
             <Link key={n.href} href={n.href} className={isActive(n.href) ? "is-active" : undefined}>
@@ -65,10 +54,7 @@ export default function Header() {
             </Link>
           ))}
         </nav>
-
-        <Link href="/shop" className="header__cta">
-          Order Now
-        </Link>
+        <Link href="/shop" className="header__cta">Shop</Link>
       </div>
     </header>
   );

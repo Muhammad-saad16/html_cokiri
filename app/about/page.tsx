@@ -34,9 +34,8 @@ const JOURNEY = [
 export default function AboutPage() {
   return (
     <>
-      <section className="page-hero page-hero--short">
-        <Image className="page-hero__bg" src="/media/necklace.jpg" alt="" fill priority sizes="100vw" />
-        <div className="container page-hero__content">
+      <section className="page-head">
+        <div className="container">
           <nav className="crumbs" aria-label="Breadcrumb">
             <Link href="/">Home</Link> / About
           </nav>
@@ -77,17 +76,17 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section section--dark">
+      <section className="section section--tint">
         <div className="container">
           <div className="section__head">
             <p className="eyebrow">Our Film</p>
             <h2>A Passion for Elegance</h2>
           </div>
-          <video className="film film--wide" src="/media/film.mp4" poster="/media/film-poster.jpg" controls playsInline preload="none" />
+          <video className="film" src="/media/film.mp4" poster="/media/film-poster.jpg" controls playsInline preload="none" />
         </div>
       </section>
 
-      <section className="section section--tint">
+      <section className="section section--dark">
         <div className="container mv">
           <div className="mv__col">
             <p className="eyebrow">Our Mission</p>
@@ -177,7 +176,6 @@ export default function AboutPage() {
       </section>
 
       <section className="cta">
-        <Image className="cta__bg" src="/media/earrings.jpg" alt="" fill sizes="100vw" />
         <div className="container cta__inner">
           <p className="eyebrow">Ready to Elevate Your Lifestyle?</p>
           <h2>It&apos;s time to discover Kangan.</h2>

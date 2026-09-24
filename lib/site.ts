@@ -20,28 +20,25 @@ export type Category = (typeof CATEGORIES)[number];
 
 export const CATEGORY_INFO: Record<
   Category,
-  { title: string; kicker: string; intro: string; image: string; video?: string }
+  { title: string; kicker: string; intro: string; image: string }
 > = {
   jewellery: {
     title: "Jewellery",
     kicker: "Elegance That Shines",
     intro: "Kundan, zircon, American Diamond and 18K gold-plated pieces — made for weddings, festive evenings and everyday elegance.",
     image: "/media/necklace-2.jpg",
-    video: "/media/hero.mp4",
   },
   handbags: {
     title: "Handbags",
     kicker: "Carry Your Style",
     intro: "Structured totes and top-handle bags that complete your outfit — from office days to evenings out.",
     image: "/media/bag-green.jpg",
-    video: "/media/reel-runway.mp4",
   },
   perfumes: {
     title: "Perfumes",
     kicker: "Elegance in Every Drop",
     intro: "Signature fragrances that stay with you — find the scent that becomes part of who you are.",
     image: "/media/perfume.jpg",
-    video: "/media/reel-perfume.mp4",
   },
   watches: {
     title: "Watches",
@@ -149,15 +146,6 @@ export const PRODUCTS: Product[] = [
   { id: "KW-404", cat: "watches", name: "Heritage Leather Watch", tag: "Leather",
     images: ["1508057198894-247b23fe5ade"], price: "",
     desc: "A slim dark-dial watch with a gold-tone case and woven strap for an effortless everyday look." },
-];
-
-/** Short video reels shown on the home page. */
-export const REELS = [
-  { video: "/media/reel-bangle.mp4", poster: "/media/bangle.jpg", title: "Crystal Bangles", product: "KJ-101" },
-  { video: "/media/reel-rosegold.mp4", poster: "/media/rosegold.jpg", title: "Rose Gold Bracelet", product: "KJ-102" },
-  { video: "/media/reel-perfume.mp4", poster: "/media/perfume-model.jpg", title: "12 AM Perfume", product: "KP-301" },
-  { video: "/media/reel-heart.mp4", poster: "/media/heart.jpg", title: "Heart Charm Bracelet", product: "KJ-103" },
-  { video: "/media/reel-runway.mp4", poster: "/media/runway.jpg", title: "Runway Edit", product: "KH-201" },
 ];
 
 export const productHref = (p: Product) => `/products/${p.id.toLowerCase()}`;

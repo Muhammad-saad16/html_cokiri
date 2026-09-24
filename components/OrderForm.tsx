@@ -10,7 +10,6 @@ export default function OrderForm({ product: p }: { product: Product }) {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<{ msg: string; waText?: string } | null>(null);
   const [done, setDone] = useState<Done | null>(null);
-  const [qty, setQty] = useState(1);
   const formRef = useRef<HTMLFormElement>(null);
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
@@ -48,7 +47,6 @@ export default function OrderForm({ product: p }: { product: Product }) {
       if (!res.ok || !data.ok) throw new Error(data.error || "Request failed");
       setDone({ orderId: data.orderId, phone: f.phone, waText: waText(data.orderId) });
       form.reset();
-      setQty(1);
     } catch (err) {
       console.error(err);
       setError({ msg: "Sorry, we couldn't send your order right now. Please ", waText: waText() });
@@ -68,7 +66,7 @@ export default function OrderForm({ product: p }: { product: Product }) {
         <p>
           Our team will contact you shortly on <strong>{done.phone}</strong> to confirm your order and delivery.
         </p>
-        <a href={waLink(done.waText)} className="btn btn--outline btn--block" target="_blank" rel="noopener">
+        <a href={waLink(done.waText)} className="btn btn--ghost-dark btn--block" target="_blank" rel="noopener">
           Also send on WhatsApp
         </a>
         <Link href="/shop" className="btn btn--gold btn--block">
@@ -79,30 +77,8 @@ export default function OrderForm({ product: p }: { product: Product }) {
   }
 
   return (
-    <form ref={formRef} onSubmit={submit} noValidate className="order-form">
+    <form ref={formRef} onSubmit={submit} noValidate>
       <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hp" aria-hidden="true" />
-
-      <div className="qty">
-        <span>Quantity</span>
-        <div className="qty__ctrl">
-          <button type="button" onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="Decrease quantity">
-            −
-          </button>
-          <input
-            name="quantity"
-            type="number"
-            min={1}
-            max={20}
-            value={qty}
-            onChange={(e) => setQty(Math.min(20, Math.max(1, Number(e.target.value) || 1)))}
-            required
-            aria-label="Quantity"
-          />
-          <button type="button" onClick={() => setQty((q) => Math.min(20, q + 1))} aria-label="Increase quantity">
-            +
-          </button>
-        </div>
-      </div>
 
       <div className="field-row">
         <label>
@@ -112,6 +88,16 @@ export default function OrderForm({ product: p }: { product: Product }) {
         <label>
           Phone / WhatsApp*
           <input name="phone" type="tel" required autoComplete="tel" placeholder="03xx xxxxxxx" />
+        </label>
+      </div>
+      <div className="field-row">
+        <label>
+          Email
+          <input name="email" type="email" autoComplete="email" placeholder="optional" />
+        </label>
+        <label>
+          Quantity
+          <input name="quantity" type="number" min={1} max={20} defaultValue={1} required />
         </label>
       </div>
       <div className="field-row">
@@ -131,16 +117,10 @@ export default function OrderForm({ product: p }: { product: Product }) {
         Delivery address*
         <textarea name="address" rows={2} required autoComplete="street-address" />
       </label>
-      <div className="field-row">
-        <label>
-          Email
-          <input name="email" type="email" autoComplete="email" placeholder="optional" />
-        </label>
-        <label>
-          Note
-          <input name="note" placeholder="colour, call time…" />
-        </label>
-      </div>
+      <label>
+        Note (colour, size, preferred call time…)
+        <textarea name="note" rows={2} />
+      </label>
       {error && (
         <p className="form-msg" role="alert">
           {error.msg}
