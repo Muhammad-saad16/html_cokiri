@@ -1,30 +1,9 @@
-# Agent Instructions: City of Knowledge (IRI) Website
+<!-- BEGIN:nextjs-agent-rules -->
 
-## Files Rule:
-You are not allowed to read .env and other secret files.
+# This is NOT the Next.js you know
 
-## Before You Start
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 
-1. Read `GOAL.md` completely. It defines the project's purpose, target audience, value proposition, and ideal website creation approach.
-2. Every technical decision and line of code must align with the direction in `GOAL.md`.
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
-## Project Context
-
-- **Project:** Website for City of Knowledge (Islamic Research Institute), Karachi.
-- **Language:** English only. No Urdu or Arabic localization is required at this stage.
-- **CMS:** Content (programs, events, gallery, testimonials, videos, books, hero/carousel slides, site settings) is managed by the client through Sanity Studio at `/studio`, backed by project `0mhnrbkc` (dataset `production`). Sanity schemas live under `sanity/schemaTypes/`. Schema/structure changes are still a developer responsibility — the client edits content, not content types.
-- **Domain:** `cokiri.net` currently shows a placeholder page and will host the new site.
-
-## Working Principles
-
-- Keep changes minimal and purposeful.
-- Follow the existing code style and project structure once they are established.
-- Do not introduce new dependencies, frameworks, build tools, or services without asking the user first.
-- Prioritize performance, accessibility, and mobile-first design.
-- Reuse the institute’s existing brand, colors, and content where available. Ask if assets are missing.
-- When in doubt, ask for clarification before implementing.
-
-## Communication
-
-- Confirm the approach for any new section or feature before writing significant code.
-- Report what was done and what remains after each meaningful step.
+<!-- END:nextjs-agent-rules -->
