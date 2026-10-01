@@ -2,13 +2,12 @@
 
 import Image from "@/components/Img";
 import { useState } from "react";
-import { imgSrc } from "@/lib/site";
 
 type Slide = { type: "image"; src: string } | { type: "video"; src: string };
 
 export default function ProductGallery({ images, video, name }: { images: string[]; video?: string; name: string }) {
   const slides: Slide[] = [
-    ...images.map((src) => ({ type: "image" as const, src: imgSrc(src) })),
+    ...images.map((src) => ({ type: "image" as const, src })),
     ...(video ? [{ type: "video" as const, src: video }] : []),
   ];
   const [active, setActive] = useState(0);

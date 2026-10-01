@@ -6,7 +6,8 @@ import { waLink, type Product } from "@/lib/site";
 
 type Done = { orderId: string; phone: string; waText: string };
 
-export default function OrderForm({ product: p }: { product: Product }) {
+export default function OrderForm({ product: p, whatsapp }: { product: Product; whatsapp: string }) {
+  const maxQty = p.lowStock ?? 20;
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<{ msg: string; waText?: string } | null>(null);
   const [done, setDone] = useState<Done | null>(null);
@@ -44,12 +45,17 @@ export default function OrderForm({ product: p }: { product: Product }) {
         body: JSON.stringify({ ...f, productId: p.id }),
       });
       const data = await res.json().catch(() => ({}));
+      // 409 = not enough stock: show the server's message as-is.
+      if (res.status === 409) {
+        setError({ msg: data.error || "Sorry, this product just sold out." });
+        return;
+      }
       if (!res.ok || !data.ok) throw new Error(data.error || "Request failed");
       setDone({ orderId: data.orderId, phone: f.phone, waText: waText(data.orderId) });
       form.reset();
     } catch (err) {
       console.error(err);
-      setError({ msg: "Sorry, we couldn't send your order right now. Please ", waText: waText() });
+      setError({ msg: "Sorry, we couldn't place your order right now. Please ", waText: waText() });
     } finally {
       setSending(false);
     }
@@ -66,7 +72,7 @@ export default function OrderForm({ product: p }: { product: Product }) {
         <p>
           Our team will contact you shortly on <strong>{done.phone}</strong> to confirm your order and delivery.
         </p>
-        <a href={waLink(done.waText)} className="btn btn--ghost-dark btn--block" target="_blank" rel="noopener">
+        <a href={waLink(whatsapp, done.waText)} className="btn btn--ghost-dark btn--block" target="_blank" rel="noopener">
           Also send on WhatsApp
         </a>
         <Link href="/shop" className="btn btn--gold btn--block">
@@ -97,7 +103,7 @@ export default function OrderForm({ product: p }: { product: Product }) {
         </label>
         <label>
           Quantity
-          <input name="quantity" type="number" min={1} max={20} defaultValue={1} required />
+          <input name="quantity" type="number" min={1} max={maxQty} defaultValue={1} required />
         </label>
       </div>
       <div className="field-row">
@@ -126,7 +132,7 @@ export default function OrderForm({ product: p }: { product: Product }) {
           {error.msg}
           {error.waText && (
             <>
-              <a href={waLink(error.waText)} target="_blank" rel="noopener">
+              <a href={waLink(whatsapp, error.waText)} target="_blank" rel="noopener">
                 send it on WhatsApp
               </a>{" "}
               instead.

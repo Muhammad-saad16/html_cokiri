@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SITE, waLink } from "@/lib/site";
+import { getSettings } from "@/lib/cms";
+import { waLink } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact & FAQ",
@@ -15,7 +16,8 @@ const FAQ = [
   ["Returns & exchange", "If you have any issue with your order, please contact our support team on WhatsApp and we will be happy to help."],
 ];
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const site = await getSettings();
   return (
     <>
       <section className="page-head">
@@ -31,19 +33,19 @@ export default function ContactPage() {
 
       <section className="section">
         <div className="container contact-cards">
-          <a href={waLink("Hi Kangan! I have a question.")} target="_blank" rel="noopener" className="contact-card">
+          <a href={waLink(site.whatsapp, "Hi Kangan! I have a question.")} target="_blank" rel="noopener" className="contact-card">
             <span>WhatsApp</span>
-            <strong>{SITE.phone}</strong>
+            <strong>{site.phone}</strong>
             <span>Fastest reply — chat with us →</span>
           </a>
-          <a href={`tel:${SITE.phone.replace(/\s/g, "")}`} className="contact-card">
+          <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="contact-card">
             <span>Call Us</span>
-            <strong>{SITE.phone}</strong>
+            <strong>{site.phone}</strong>
             <span>Pakistan &amp; Bahrain</span>
           </a>
-          <a href={`mailto:${SITE.email}`} className="contact-card">
+          <a href={`mailto:${site.email}`} className="contact-card">
             <span>Email</span>
-            <strong>{SITE.email}</strong>
+            <strong>{site.email}</strong>
             <span>We reply within a day</span>
           </a>
         </div>

@@ -1,33 +1,28 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import CollectionView from "@/components/CollectionView";
-import { CATEGORIES, CATEGORY_INFO, PRODUCTS, isCategory } from "@/lib/site";
-
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return CATEGORIES.map((category) => ({ category }));
-}
+import { getCategories, getProducts } from "@/lib/cms";
 
 export async function generateMetadata({ params }: PageProps<"/collections/[category]">): Promise<Metadata> {
   const { category } = await params;
-  if (!isCategory(category)) return {};
-  const info = CATEGORY_INFO[category];
-  return { title: info.title, description: info.intro };
+  const info = (await getCategories()).find((c) => c.slug === category);
+  return info ? { title: info.title, description: info.intro } : {};
 }
 
 export default async function CollectionPage({ params }: PageProps<"/collections/[category]">) {
   const { category } = await params;
-  if (!isCategory(category)) notFound();
-  const info = CATEGORY_INFO[category];
+  const [categories, products] = await Promise.all([getCategories(), getProducts(category)]);
+  const info = categories.find((c) => c.slug === category);
+  if (!info) notFound();
 
   return (
     <CollectionView
-      active={category}
+      active={info.slug}
+      categories={categories}
       title={info.title}
       kicker={info.kicker}
       intro={info.intro}
-      products={PRODUCTS.filter((p) => p.cat === category)}
+      products={products}
     />
   );
 }

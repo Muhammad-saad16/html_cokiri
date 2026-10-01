@@ -4,15 +4,16 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import { getCategories, getSettings } from "@/lib/cms";
 import "./globals.css";
 
 const serif = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["300", "400", "500"],
   style: ["normal", "italic"],
   variable: "--font-serif",
 });
-const sans = Jost({ subsets: ["latin"], weight: ["300", "400", "500"], variable: "--font-sans" });
+const sans = Jost({ subsets: ["latin"], weight: ["200", "300", "400"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: {
@@ -26,7 +27,13 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#0b3d32" };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+// Content comes from the CMS, so render every request with the latest products, stock and offers.
+export const dynamic = "force-dynamic";
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const [settings, categories] = await Promise.all([getSettings(), getCategories()]);
+  const nav = categories.map((c) => ({ href: `/collections/${c.slug}`, label: c.title }));
+
   return (
     <html lang="en" className={`${serif.variable} ${sans.variable}`}>
       <body>
@@ -38,15 +45,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <circle cx="6" cy="17.5" r="1.6" />
                 <circle cx="16.5" cy="17.5" r="1.6" />
               </svg>
-              Door-to-door delivery across Pakistan &amp; Bahrain
+              {settings.announcement}
             </p>
             <p className="announce__tag">Love · Fashion · Beauty · Passion</p>
           </div>
         </div>
-        <Header />
+        <Header categories={nav} />
         <main>{children}</main>
-        <Footer />
-        <WhatsAppFloat />
+        <Footer settings={settings} categories={nav} />
+        <WhatsAppFloat whatsapp={settings.whatsapp} />
         <ScrollReveal />
       </body>
     </html>

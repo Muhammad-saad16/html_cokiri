@@ -5,18 +5,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const NAV = [
-  { href: "/", label: "Home" },
-  { href: "/shop", label: "Shop" },
-  { href: "/collections/jewellery", label: "Jewellery" },
-  { href: "/collections/handbags", label: "Handbags" },
-  { href: "/collections/watches", label: "Watches" },
-  { href: "/collections/perfumes", label: "Perfumes" },
-  { href: "/about", label: "About Us" },
-  { href: "/contact", label: "Contact" },
-];
+type NavLink = { href: string; label: string };
 
-export default function Header() {
+export default function Header({ categories }: { categories: NavLink[] }) {
+  const NAV: NavLink[] = [
+    { href: "/", label: "Home" },
+    { href: "/about", label: "About Us" },
+    ...categories,
+    { href: "/shop", label: "Shop" },
+    { href: "/contact", label: "Contact" },
+  ];
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);

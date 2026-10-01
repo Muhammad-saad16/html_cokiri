@@ -1,9 +1,9 @@
 import { waLink } from "@/lib/site";
 
-export default function WhatsAppFloat() {
+export default function WhatsAppFloat({ whatsapp }: { whatsapp: string }) {
   return (
     <a
-      href={waLink("Hi Kangan! I have a question.")}
+      href={waLink(whatsapp, "Hi Kangan! I have a question.")}
       className="wa-float"
       target="_blank"
       rel="noopener"

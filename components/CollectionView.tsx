@@ -1,20 +1,25 @@
 import Link from "next/link";
 import SubCategoryProducts from "@/components/SubCategoryProducts";
-import { CATEGORIES, CATEGORY_INFO, SUBCATEGORIES, type Category, type Product } from "@/lib/site";
+import type { Category, Product } from "@/lib/site";
 
 export default function CollectionView({
   active,
+  categories,
   title,
   kicker,
   intro,
   products,
 }: {
-  active: Category | "all";
+  /** Slug of the open category, or "all" for the shop page */
+  active: string;
+  categories: Category[];
   title: string;
   kicker: string;
   intro: string;
   products: Product[];
 }) {
+  const current = categories.find((c) => c.slug === active);
+
   return (
     <>
       <section className="page-head">
@@ -23,18 +28,18 @@ export default function CollectionView({
             <Link href="/">Home</Link> / {active === "all" ? "Shop" : <Link href="/shop">Shop</Link>}
             {active !== "all" && <> / {title}</>}
           </nav>
-          <p className="eyebrow">{kicker}</p>
+          {kicker && <p className="eyebrow">{kicker}</p>}
           <h1>{title}</h1>
-          <p>{intro}</p>
+          {intro && <p>{intro}</p>}
         </div>
       </section>
 
       <nav className="cat-tabs" aria-label="Collections">
         <div className="container cat-tabs__inner">
           <Link href="/shop" className={active === "all" ? "is-active" : undefined}>All</Link>
-          {CATEGORIES.map((c) => (
-            <Link key={c} href={`/collections/${c}`} className={active === c ? "is-active" : undefined}>
-              {CATEGORY_INFO[c].title}
+          {categories.map((c) => (
+            <Link key={c.slug} href={`/collections/${c.slug}`} className={active === c.slug ? "is-active" : undefined}>
+              {c.title}
             </Link>
           ))}
         </div>
@@ -42,7 +47,7 @@ export default function CollectionView({
 
       <section className="section section--tight">
         <div className="container">
-          <SubCategoryProducts products={products} subs={active === "all" ? [] : SUBCATEGORIES[active]} />
+          <SubCategoryProducts products={products} subs={current?.subs ?? []} />
         </div>
       </section>
     </>
