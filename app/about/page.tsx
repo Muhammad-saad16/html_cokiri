@@ -51,7 +51,10 @@ export default function AboutPage() {
             <div className="frame">
               <Image src="/media/bangle-model.jpg" alt="Woman wearing Kangan crystal bangles" fill sizes="(max-width: 860px) 100vw, 560px" />
             </div>
-            <div className="badge-year"><strong>2012</strong><span>Est.</span></div>
+            <div className="badge-year">
+              <Image src="/brand/mark-gold.png" alt="" width={125} height={133} />
+              <span>Since 2012</span>
+            </div>
           </div>
           <div className="split__text">
             <p className="eyebrow">Our Story</p>

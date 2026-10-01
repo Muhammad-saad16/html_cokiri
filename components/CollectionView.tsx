@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { ProductGrid } from "@/components/ProductCard";
-import { CATEGORIES, CATEGORY_INFO, type Category, type Product } from "@/lib/site";
+import SubCategoryProducts from "@/components/SubCategoryProducts";
+import { CATEGORIES, CATEGORY_INFO, SUBCATEGORIES, type Category, type Product } from "@/lib/site";
 
 export default function CollectionView({
   active,
@@ -29,18 +29,20 @@ export default function CollectionView({
         </div>
       </section>
 
-      <section className="section">
+      <nav className="cat-tabs" aria-label="Collections">
+        <div className="container cat-tabs__inner">
+          <Link href="/shop" className={active === "all" ? "is-active" : undefined}>All</Link>
+          {CATEGORIES.map((c) => (
+            <Link key={c} href={`/collections/${c}`} className={active === c ? "is-active" : undefined}>
+              {CATEGORY_INFO[c].title}
+            </Link>
+          ))}
+        </div>
+      </nav>
+
+      <section className="section section--tight">
         <div className="container">
-          <div className="filters">
-            <Link href="/shop" className={`filter${active === "all" ? " is-active" : ""}`}>All</Link>
-            {CATEGORIES.map((c) => (
-              <Link key={c} href={`/collections/${c}`} className={`filter${active === c ? " is-active" : ""}`}>
-                {CATEGORY_INFO[c].title}
-              </Link>
-            ))}
-          </div>
-          <p className="count">{products.length} products</p>
-          <ProductGrid products={products} />
+          <SubCategoryProducts products={products} subs={active === "all" ? [] : SUBCATEGORIES[active]} />
         </div>
       </section>
     </>

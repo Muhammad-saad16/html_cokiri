@@ -26,7 +26,7 @@ export default function ProductCard({ p }: { p: Product }) {
         <span className="card__quick">Order Now</span>
       </span>
       <span className="card__body">
-        <span className="card__cat">{p.cat}</span>
+        <span className="card__cat">{p.sub}</span>
         <span className="card__name">{p.name}</span>
         {p.price && <span className="card__price">{p.price}</span>}
         <span className="card__link">Order Now →</span>

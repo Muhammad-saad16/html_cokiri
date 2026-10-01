@@ -26,6 +26,8 @@ const TARGETS = [
   ".film",
   ".link-more",
   ".filters",
+  ".offers",
+  ".row-head",
 ].join(",");
 
 /** Adds scroll-in animations to page content. Content stays visible without JS or with reduced motion. */

@@ -7,11 +7,12 @@ import { useEffect, useState } from "react";
 
 const NAV = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
+  { href: "/shop", label: "Shop" },
   { href: "/collections/jewellery", label: "Jewellery" },
   { href: "/collections/handbags", label: "Handbags" },
-  { href: "/collections/perfumes", label: "Perfumes" },
   { href: "/collections/watches", label: "Watches" },
+  { href: "/collections/perfumes", label: "Perfumes" },
+  { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -46,10 +47,7 @@ export default function Header() {
           <span />
         </button>
         <Link href="/" className="logo" aria-label="Kangan home">
-          <Image src="/media/logo-mark.png" alt="" width={56} height={42} priority />
-          <span>
-            KANGAN<small>Luxury · Elegance · Lifestyle</small>
-          </span>
+          <Image src="/brand/logo-green.png" alt="Kangan — since 2012" width={575} height={228} priority />
         </Link>
         <nav className={`nav${open ? " is-open" : ""}`} aria-label="Main">
           {NAV.map((n) => (
@@ -58,7 +56,13 @@ export default function Header() {
             </Link>
           ))}
         </nav>
-        <Link href="/shop" className="header__cta">Shop</Link>
+        <Link href="/shop" className="header__cta" aria-label="Shop all products">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+            <path d="M5 8h14l-1.2 12H6.2L5 8Z" />
+            <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+          </svg>
+          <span>Shop</span>
+        </Link>
       </div>
     </header>
   );

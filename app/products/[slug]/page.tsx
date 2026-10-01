@@ -60,6 +60,12 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
               >
                 Have a question? Ask us on WhatsApp →
               </a>
+
+              <ul className="pdp__trust">
+                <li>Premium Quality</li>
+                <li>No Online Payment</li>
+                <li>Pakistan &amp; Bahrain Delivery</li>
+              </ul>
             </div>
           </div>
         </div>
