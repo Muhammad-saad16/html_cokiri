@@ -4,8 +4,14 @@ import { notFound } from "next/navigation";
 import OrderForm from "@/components/OrderForm";
 import { ProductGrid } from "@/components/ProductCard";
 import ProductGallery from "@/components/ProductGallery";
-import { getCategories, getProduct, getProducts, getSettings } from "@/lib/cms";
+import { getCategories, getProduct, getProducts, getSettings } from "@/lib/data";
 import { waLink } from "@/lib/site";
+
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  return (await getProducts()).map((p) => ({ slug: p.id.toLowerCase() }));
+}
 
 export async function generateMetadata({ params }: PageProps<"/products/[slug]">): Promise<Metadata> {
   const p = await getProduct((await params).slug);

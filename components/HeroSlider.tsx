@@ -7,7 +7,7 @@ import type { Slide } from "@/lib/site";
 
 const DURATION = 6500;
 
-/** Home page hero — slides are managed in the admin panel (Home Page → Hero Slider). */
+/** Home page hero — edit HERO_SLIDES in lib/content.ts. */
 export default function HeroSlider({ slides }: { slides: Slide[] }) {
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);

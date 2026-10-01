@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import { commitTransaction, createLocalReq, initTransaction, killTransaction } from "payload";
-import { getCms } from "@/lib/cms";
-import { formatPKR } from "@/lib/site";
+import { getProduct } from "@/lib/data";
 
 export const runtime = "nodejs";
 
@@ -41,14 +39,7 @@ export async function POST(req: Request) {
   // Bots fill every field; silently accept so they don't retry.
   if (body.website) return NextResponse.json({ ok: true, orderId: makeOrderId() });
 
-  const payload = await getCms();
-  const found = await payload.find({
-    collection: "products",
-    where: { code: { equals: clean(body.productId, 40).toUpperCase() }, status: { equals: "published" } },
-    depth: 1,
-    limit: 1,
-  });
-  const product = found.docs[0];
+  const product = await getProduct(clean(body.productId, 40));
   const name = clean(body.name, 100);
   const phone = clean(body.phone, 30);
   const email = clean(body.email, 120);
@@ -64,73 +55,25 @@ export async function POST(req: Request) {
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ ok: false, error: "Please enter a valid email address." }, { status: 400 });
   }
-
-  // ---- Inventory check ----
-  const stock = Number(product.stock ?? 0);
-  if (product.trackInventory && stock < quantity) {
-    const error = stock <= 0 ? "Sorry, this product has just sold out." : `Sorry, only ${stock} left in stock. Please reduce the quantity.`;
-    return NextResponse.json({ ok: false, error }, { status: 409 });
+  if (product.soldOut) {
+    return NextResponse.json({ ok: false, error: "Sorry, this product is sold out." }, { status: 409 });
   }
 
-  const unitPrice: number | undefined =
-    product.salePrice != null && product.price != null && product.salePrice < product.price
-      ? product.salePrice
-      : product.price ?? undefined;
-  const total = unitPrice != null ? unitPrice * quantity : undefined;
-  const categoryTitle = typeof product.category === "object" && product.category ? product.category.title : "";
-
-  // ---- Save the order and reduce stock (one transaction) ----
-  const orderId = makeOrderId();
-  let savedOrderId: number | string;
-  const localReq = await createLocalReq({}, payload);
-  const transactionID = await initTransaction(localReq);
-  try {
-    const order = await payload.create({
-      collection: "orders",
-      data: {
-        orderId,
-        status: "new",
-        product: product.id,
-        productName: product.name,
-        productCode: product.code,
-        quantity,
-        unitPrice,
-        total,
-        customerName: name,
-        phone,
-        email: email || undefined,
-        country,
-        city,
-        address,
-        note,
-      },
-      req: localReq,
-    });
-    savedOrderId = order.id;
-    if (product.trackInventory) {
-      await payload.update({ collection: "products", id: product.id, data: { stock: stock - quantity }, req: localReq });
-    }
-    if (transactionID) await commitTransaction(localReq);
-  } catch (err) {
-    if (transactionID) await killTransaction(localReq);
-    console.error("Failed to save order:", err);
-    return NextResponse.json({ ok: false, error: "Could not save your order." }, { status: 500 });
-  }
-
-  // ---- Optional email notification (the order is already saved in the admin panel) ----
   const { ORDER_EMAIL, SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
-  if (!ORDER_EMAIL || !SMTP_HOST || !SMTP_USER || !SMTP_PASS || SMTP_USER === "yourname@gmail.com") {
-    return NextResponse.json({ ok: true, orderId });
+  if (!ORDER_EMAIL || !SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
+    // The order form then offers the customer to send the order on WhatsApp instead.
+    console.error("Order email is not configured. Set ORDER_EMAIL and SMTP_* in .env.local");
+    return NextResponse.json({ ok: false, error: "Ordering is temporarily unavailable." }, { status: 500 });
   }
 
+  const orderId = makeOrderId();
   const rows: [string, string][] = [
     ["Order Number", orderId],
     ["Product", product.name],
-    ["Product Code", product.code],
-    ["Category", categoryTitle],
-    ["Price", unitPrice != null ? formatPKR(unitPrice) : "—"],
+    ["Product Code", product.id],
+    ["Category", product.cat],
+    ["Price", product.price || "—"],
     ["Quantity", String(quantity)],
-    ["Total", total != null ? formatPKR(total) : "—"],
     ["Customer Name", name],
     ["Phone / WhatsApp", phone],
     ["Email", email || "—"],
@@ -172,10 +115,9 @@ export async function POST(req: Request) {
       text,
       html,
     });
-    await payload.update({ collection: "orders", id: savedOrderId, data: { emailSent: true } });
   } catch (err) {
-    // The order is saved — a failed email must not fail the customer's order.
     console.error("Failed to send order email:", err);
+    return NextResponse.json({ ok: false, error: "Could not send your order." }, { status: 502 });
   }
 
   return NextResponse.json({ ok: true, orderId });

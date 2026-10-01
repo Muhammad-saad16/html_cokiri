@@ -6,7 +6,7 @@ import { ProductGrid } from "@/components/ProductCard";
 import ProductTabs from "@/components/ProductTabs";
 import StatsBand from "@/components/StatsBand";
 import Testimonials from "@/components/Testimonials";
-import { getCategories, getOffers, getProducts, getSlides, getStats, getTestimonials } from "@/lib/cms";
+import { getCategories, getOffers, getProducts, getSlides, getStats, getTestimonials } from "@/lib/data";
 
 export default async function Home() {
   const [slides, categories, offers, products, stats, testimonials] = await Promise.all([

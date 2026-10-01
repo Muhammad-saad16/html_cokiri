@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getSettings } from "@/lib/cms";
+import { getSettings } from "@/lib/data";
 import { waLink } from "@/lib/site";
 
 export const metadata: Metadata = {

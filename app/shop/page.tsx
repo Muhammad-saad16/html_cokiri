@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import CollectionView from "@/components/CollectionView";
-import { getCategories, getProducts } from "@/lib/cms";
+import { getCategories, getProducts } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Shop All",

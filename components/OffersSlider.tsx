@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { Offer } from "@/lib/site";
 
-/** Compact auto-playing strip of current offers (admin panel → Home Page → Offers). */
+/** Compact auto-playing strip of current offers (edit OFFERS in lib/content.ts). */
 export default function OffersSlider({ offers }: { offers: Offer[] }) {
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);

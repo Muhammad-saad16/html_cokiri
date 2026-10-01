@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
-import { getCategories, getSettings } from "@/lib/cms";
+import { getCategories, getSettings } from "@/lib/data";
 import "./globals.css";
 
 const serif = Cormorant_Garamond({
@@ -26,10 +26,6 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = { themeColor: "#0b3d32" };
-
-// Content comes from the CMS, so render every request with the latest products, stock and offers.
-export const dynamic = "force-dynamic";
-
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const [settings, categories] = await Promise.all([getSettings(), getCategories()]);
   const nav = categories.map((c) => ({ href: `/collections/${c.slug}`, label: c.title }));

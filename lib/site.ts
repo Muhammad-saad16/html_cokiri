@@ -1,7 +1,6 @@
 /* =========================================================
    KANGAN — Shared types & helpers for the website.
-   All content (products, stock, categories, offers, settings)
-   now lives in the CMS: http://localhost:3000/admin
+   The content itself (products, categories, offers…) is in lib/content.ts
    ========================================================= */
 
 export type Category = {

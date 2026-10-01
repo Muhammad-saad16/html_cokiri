@@ -6,11 +6,9 @@ out
 *.tsbuildinfo
 next-env.d.ts
 
-# CMS database & uploaded files (local data, not code)
+# old local CMS database & uploads (no longer used)
 *.db
 *.db-journal
-*.db-wal
-*.db-shm
 /media
 
 # client source document

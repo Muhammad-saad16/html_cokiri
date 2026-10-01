@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import CollectionView from "@/components/CollectionView";
-import { getCategories, getProducts } from "@/lib/cms";
+import { getCategories, getProducts } from "@/lib/data";
+
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  return (await getCategories()).map((c) => ({ category: c.slug }));
+}
 
 export async function generateMetadata({ params }: PageProps<"/collections/[category]">): Promise<Metadata> {
   const { category } = await params;

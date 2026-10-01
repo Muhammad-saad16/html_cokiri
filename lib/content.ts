@@ -1,10 +1,11 @@
 /* =========================================================
-   KANGAN — Starter content for the CMS.
-   Only used once by `npm run seed` to fill an empty database.
-   After that, edit everything in the admin panel at /admin.
+   KANGAN — All website content lives in this file.
+   Edit it to change products, prices, categories, offers,
+   the home slider, testimonials, numbers and contact details.
    ========================================================= */
 
 export const SITE = {
+  announcement: "Door-to-door delivery across Pakistan & Bahrain",
   // WhatsApp number in international format, digits only (no +, no spaces).
   // Example Pakistan: 923001234567  |  Bahrain: 97333123456
   whatsapp: "923000000000",
@@ -16,10 +17,10 @@ export const SITE = {
 };
 
 export const CATEGORIES = ["jewellery", "handbags", "watches", "perfumes"] as const;
-export type Category = (typeof CATEGORIES)[number];
+export type CategorySlug = (typeof CATEGORIES)[number];
 
 export const CATEGORY_INFO: Record<
-  Category,
+  CategorySlug,
   { title: string; kicker: string; intro: string; image: string }
 > = {
   jewellery: {
@@ -49,7 +50,7 @@ export const CATEGORY_INFO: Record<
 };
 
 /** Sub-categories per collection, in the order they appear as filters. */
-export const SUBCATEGORIES: Record<Category, string[]> = {
+export const SUBCATEGORIES: Record<CategorySlug, string[]> = {
   jewellery: ["Bangles & Bracelets", "Necklaces", "Earrings", "Rings", "Anklets"],
   handbags: ["Totes", "Top Handle"],
   perfumes: ["Eau de Parfum", "Gift Sets", "Perfume Oils"],
@@ -87,10 +88,10 @@ export const OFFERS = [
   },
 ];
 
-export type Product = {
+export type ProductEntry = {
   /** Product code, also used in the URL: /products/kj-101 */
   id: string;
-  cat: Category;
+  cat: CategorySlug;
   /** Sub-category shown as a filter on the collection page — must be one of SUBCATEGORIES[cat] */
   sub: string;
   name: string;
@@ -99,15 +100,21 @@ export type Product = {
   images: string[];
   /** Optional product video shown in the gallery, e.g. "/media/reel-bangle.mp4" */
   video?: string;
-  /** Leave "" to hide, or write e.g. "Rs 4,500 / BD 6" */
+  /** Leave "" to hide, or write e.g. "PKR 4,500" */
   price: string;
+  /** Optional old price shown crossed out, e.g. "PKR 5,500" */
+  oldPrice?: string;
+  /** Set to true to show "Sold Out" and hide the order form */
+  soldOut?: boolean;
   desc: string;
   details?: string[];
+  /** Shows in the "Hot Products" tab on the home page */
   best?: boolean;
+  /** Shows in the "New Arrivals" tab and gets a New label */
   isNew?: boolean;
 };
 
-export const PRODUCTS: Product[] = [
+export const PRODUCTS: ProductEntry[] = [
   // ---------- Jewellery ----------
   { id: "KJ-101", cat: "jewellery", sub: "Bangles & Bracelets", name: "Royal Crystal Bangle Pair", tag: "Bangles",
     images: ["/media/bangle.jpg", "/media/bangle-model.jpg"], video: "/media/reel-bangle.mp4", price: "", best: true,
@@ -206,8 +213,8 @@ export const HERO_SLIDES = [
 ];
 
 /**
- * SAMPLE reviews so the section can be previewed — replace them with real
- * customer reviews in /admin (Home Page → Testimonials) before going live.
+ * SAMPLE reviews so the section can be previewed — replace them with REAL
+ * customer reviews before going live (or delete them all to hide the section).
  */
 export const TESTIMONIALS = [
   { name: "Ayesha K.", city: "Lahore", country: "Pakistan", rating: 5, product: "KJ-101",
@@ -220,8 +227,9 @@ export const TESTIMONIALS = [
     quote: "Wore the kundan chandbali to my cousin's mehndi and everyone asked where they were from." },
 ];
 
-/** SAMPLE figures — replace with real numbers in /admin (Home Page → Numbers & Stats). */
+/** SAMPLE figures — replace with REAL numbers before going live (set show: false to hide). */
 export const STATS = {
+  show: true,
   heading: "Trusted by Women Across Pakistan & Bahrain",
   items: [
     { value: 25, suffix: "K+", label: "Instagram followers", icon: "heart" },
@@ -232,5 +240,5 @@ export const STATS = {
 };
 
 /** Unsplash id → full URL; local "/media/..." paths pass through unchanged. */
-export const seedImageUrl = (image: string) =>
-  /^(\/|https?:)/.test(image) ? image : `https://images.unsplash.com/photo-${image}?auto=format&fit=crop&w=1200&q=80`;
+export const imageUrl = (image: string) =>
+  /^(\/|https?:)/.test(image) ? image : `https://images.unsplash.com/photo-${image}?auto=format&fit=crop`;
