@@ -35,7 +35,7 @@ export default async function Home() {
             {categories.map((c) => (
               <Link key={c.slug} href={`/collections/${c.slug}`} className="cat">
                 <span className="cat__media">
-                  {c.image && <Image src={c.image} alt={c.title} fill sizes="(max-width: 1024px) 50vw, 300px" />}
+                  {c.image && <Image src={c.image} alt={c.title} fill sizes="(max-width: 1024px) 50vw, 25vw" />}
                 </span>
                 <span className="cat__body">
                   <h3>{c.title}</h3>

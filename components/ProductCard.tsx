@@ -7,14 +7,14 @@ export default function ProductCard({ p }: { p: Product }) {
   return (
     <Link href={productHref(p)} className={`card${p.soldOut ? " is-soldout" : ""}`}>
       <span className="card__media">
-        <Image src={p.images[0]} alt={p.name} fill sizes="(max-width: 560px) 50vw, (max-width: 1024px) 33vw, 300px" />
+        <Image src={p.images[0]} alt={p.name} fill sizes="(max-width: 560px) 50vw, (max-width: 1024px) 33vw, 25vw" />
         {p.images[1] && (
           <Image
             src={p.images[1]}
             alt=""
             fill
             className="card__alt"
-            sizes="(max-width: 560px) 50vw, (max-width: 1024px) 33vw, 300px"
+            sizes="(max-width: 560px) 50vw, (max-width: 1024px) 33vw, 25vw"
           />
         )}
         {label && <span className={`card__tag${p.soldOut ? " card__tag--soldout" : ""}`}>{label}</span>}
