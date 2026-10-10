@@ -17,3 +17,8 @@ next-env.d.ts
 # original uploads (site uses the optimised copies in public/media)
 public/images/*.mp4
 public/images/WhatsApp*
+/data
+
+# local backups
+/media.backup-*
+/data

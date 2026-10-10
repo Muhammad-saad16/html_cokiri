@@ -63,7 +63,7 @@ export default function Footer({
           <h4>Customer Care</h4>
           <ul>
             <li><Link href="/contact#faq">Delivery Information</Link></li>
-            <li><Link href="/contact#faq">Order Tracking</Link></li>
+            <li><Link href="/track">Track Your Order</Link></li>
             <li><Link href="/contact#faq">Returns &amp; Exchange</Link></li>
             <li><Link href="/contact#faq">FAQs</Link></li>
             <li><a href={support} target="_blank" rel="noopener">WhatsApp Support</a></li>

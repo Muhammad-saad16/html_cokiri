@@ -6,12 +6,7 @@ import { ProductGrid } from "@/components/ProductCard";
 import ProductGallery from "@/components/ProductGallery";
 import { getCategories, getProduct, getProducts, getSettings } from "@/lib/data";
 import { waLink } from "@/lib/site";
-
-export const dynamicParams = false;
-
-export async function generateStaticParams() {
-  return (await getProducts()).map((p) => ({ slug: p.id.toLowerCase() }));
-}
+import { getDeliverySettings, getPaymentSettings } from "@/lib/store";
 
 export async function generateMetadata({ params }: PageProps<"/products/[slug]">): Promise<Metadata> {
   const p = await getProduct((await params).slug);
@@ -22,7 +17,13 @@ export async function generateMetadata({ params }: PageProps<"/products/[slug]">
 export default async function ProductPage({ params }: PageProps<"/products/[slug]">) {
   const p = await getProduct((await params).slug);
   if (!p) notFound();
-  const [categories, sameCategory, settings] = await Promise.all([getCategories(), getProducts(p.cat), getSettings()]);
+  const [categories, sameCategory, settings, payments, delivery] = await Promise.all([
+    getCategories(),
+    getProducts(p.cat),
+    getSettings(),
+    getPaymentSettings(),
+    getDeliverySettings(),
+  ]);
   const cat = categories.find((c) => c.slug === p.cat);
   const catTitle = cat?.title ?? "Shop";
   const catHref = cat ? `/collections/${cat.slug}` : "/shop";
@@ -64,7 +65,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
               {!p.soldOut && (
                 <div className="pdp__order">
                   <h2>Place Your Order</h2>
-                  <OrderForm product={p} whatsapp={settings.whatsapp} />
+                  <OrderForm product={p} whatsapp={settings.whatsapp} payments={payments} delivery={delivery} />
                 </div>
               )}
 
@@ -79,7 +80,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
 
               <ul className="pdp__trust">
                 <li>Premium Quality</li>
-                <li>No Online Payment</li>
+                <li>COD · Easypaisa · JazzCash</li>
                 <li>Pakistan &amp; Bahrain Delivery</li>
               </ul>
             </div>

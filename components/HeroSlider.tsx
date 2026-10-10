@@ -2,22 +2,43 @@
 
 import Image from "@/components/Img";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Slide } from "@/lib/site";
 
 const DURATION = 6500;
+/** Video slides move on when the video ends, but never stay longer than this. */
+const MAX_VIDEO_DURATION = 30000;
 
-/** Home page hero — edit HERO_SLIDES in lib/content.ts. */
+/** Home page hero — edit in /admin → Home Page → Hero Slider. */
 export default function HeroSlider({ slides }: { slides: Slide[] }) {
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [videoMs, setVideoMs] = useState<Record<number, number>>({});
+  const videos = useRef<(HTMLVideoElement | null)[]>([]);
   const count = slides.length;
+  const active = slides[i];
+  const duration = active?.video ? Math.min(videoMs[i] ?? DURATION, MAX_VIDEO_DURATION) : DURATION;
 
   useEffect(() => {
     if (paused || count < 2) return;
-    const t = setTimeout(() => setI((n) => (n + 1) % count), DURATION);
+    const t = setTimeout(() => setI((n) => (n + 1) % count), duration);
     return () => clearTimeout(t);
-  }, [i, paused, count]);
+  }, [i, paused, count, duration]);
+
+  // Only the visible slide's video plays, from the start each time it comes back.
+  useEffect(() => {
+    videos.current.forEach((v, n) => {
+      if (!v) return;
+      if (n === i && !paused) {
+        if (v.dataset.slide !== String(i) || v.ended) v.currentTime = 0;
+        v.dataset.slide = String(i);
+        v.play().catch(() => {});
+      } else {
+        v.pause();
+        if (n !== i) delete v.dataset.slide;
+      }
+    });
+  }, [i, paused]);
 
   if (count === 0) return null;
   const go = (n: number) => setI((n + count) % count);
@@ -28,12 +49,34 @@ export default function HeroSlider({ slides }: { slides: Slide[] }) {
       aria-roledescription="carousel"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      style={{ "--hero-duration": `${DURATION}ms` } as React.CSSProperties}
+      style={{ "--hero-duration": `${duration}ms` } as React.CSSProperties}
     >
       {slides.map((s, n) => (
-        <div key={s.id} className={`hero__slide${n === i ? " is-active" : ""}`} aria-hidden={n !== i}>
+        <div
+          key={s.id}
+          className={`hero__slide${n === i ? " is-active" : ""}${s.video ? " hero__slide--video" : ""}`}
+          aria-hidden={n !== i}
+        >
           <div className="hero__media">
-            <Image src={s.image} alt={s.alt} fill priority={n === 0} sizes="(max-width: 860px) 100vw, 50vw" />
+            {s.video ? (
+              <video
+                ref={(el) => {
+                  videos.current[n] = el;
+                }}
+                src={s.video}
+                poster={s.image || undefined}
+                muted
+                playsInline
+                preload={n === 0 ? "auto" : "metadata"}
+                aria-label={s.alt}
+                onLoadedMetadata={(e) => {
+                  const ms = Math.round(e.currentTarget.duration * 1000);
+                  if (ms > 0) setVideoMs((m) => ({ ...m, [n]: ms }));
+                }}
+              />
+            ) : (
+              <Image src={s.image} alt={s.alt} fill priority={n === 0} sizes="(max-width: 860px) 100vw, 50vw" />
+            )}
           </div>
           <div className="hero__content">
             <p className="hero__badge">{s.badge}</p>

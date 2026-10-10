@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ProductGrid } from "@/components/ProductCard";
 import type { Product } from "@/lib/site";
 
-/** Hot Products / New Arrivals tabs on the home page (best / isNew flags in lib/content.ts). */
+/** Hot Products / New Arrivals tabs on the home page (Hot product / New arrival ticks on each product in /admin). */
 export default function ProductTabs({ hot, fresh }: { hot: Product[]; fresh: Product[] }) {
   const tabs = [
     { key: "hot", label: "Hot Products", kicker: "Most loved right now", items: hot },

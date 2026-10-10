@@ -1,6 +1,6 @@
 /* =========================================================
    KANGAN — Shared types & helpers for the website.
-   The content itself (products, categories, offers…) is in lib/content.ts
+   The content itself is managed in the Payload CMS at /admin
    ========================================================= */
 
 export type Category = {
@@ -42,6 +42,8 @@ export type Product = {
 export type Slide = {
   id: string;
   image: string;
+  /** Optional video shown instead of the photo (the photo becomes its poster) */
+  video?: string;
   alt: string;
   badge: string;
   showLogo: boolean;

@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 
 const FAQ = [
   ["How do I place an order?", "Open any product, fill in your name, phone number and delivery address, then press Confirm Order. Our team receives your order instantly and will contact you to confirm it."],
-  ["Do I need to pay online?", "No. There is no online payment on our website. After you place your order, we will call or WhatsApp you to confirm the price, payment method and delivery details."],
+  ["How can I pay?", "Choose Cash on Delivery, Easypaisa, JazzCash or PayPro when you order. For Easypaisa and JazzCash, send the total to the account number shown at checkout and enter the Transaction ID (TID) from your SMS. For PayPro we send you a payment ID on WhatsApp. We confirm every order by call or WhatsApp before dispatch."],
   ["Where do you deliver?", "We offer door-to-door delivery across Pakistan and Bahrain."],
-  ["How can I track my order?", "Every order gets an order number. Message us on WhatsApp with your order number and we will update you on its status."],
+  ["How can I track my order?", "Every order gets an order number. Enter it with your phone number on the Track Your Order page (link in the footer), or message us on WhatsApp."],
   ["Returns & exchange", "If you have any issue with your order, please contact our support team on WhatsApp and we will be happy to help."],
 ];
 

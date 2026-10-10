@@ -1,7 +1,7 @@
 /* =========================================================
-   KANGAN — All website content lives in this file.
-   Edit it to change products, prices, categories, offers,
-   the home slider, testimonials, numbers and contact details.
+   KANGAN — Starter content for the CMS.
+   Only used by `npm run seed` to fill an empty database.
+   After that, edit everything in the admin panel at /admin.
    ========================================================= */
 
 export const SITE = {
@@ -196,11 +196,21 @@ export const PRODUCTS: ProductEntry[] = [
     desc: "A slim dark-dial watch with a gold-tone case and woven strap for an effortless everyday look." },
 ];
 
-/** Home page hero slider */
-export const HERO_SLIDES = [
-  { image: "/media/bangle-model.jpg", badge: "Serving you since 2012", showLogo: true,
+/**
+ * Home page hero slider.
+ * `video` (optional) plays instead of the photo; the photo is shown while it loads.
+ * Video slides move on when the video ends (max 30 seconds).
+ */
+export const HERO_SLIDES: {
+  image: string; video?: string; badge: string; showLogo?: boolean; title?: string; subtitle?: string;
+  text: string; buttonLabel: string; link: string;
+}[] = [
+  { image: "/media/hero-poster.jpg", video: "/media/hero.mp4", badge: "Serving you since 2012", showLogo: true,
     text: "Elegant jewellery, stylish bags, watches and premium fragrances — all in one place.",
     buttonLabel: "Shop Now", link: "/shop" },
+  { image: "/media/film-poster.jpg", video: "/media/film.mp4", badge: "New Collection", title: "Made to Be Noticed", subtitle: "Watch the Kangan Edit",
+    text: "Jewellery, bags and fragrances styled the Kangan way — see them in motion.",
+    buttonLabel: "Shop New Arrivals", link: "/shop" },
   { image: "/media/necklace-3.jpg", badge: "Bridal Season Offer", title: "Wear Your Statement", subtitle: "Bridal & Festive Jewellery",
     text: "Kundan, zircon and 18K gold-plated pieces made for weddings, Eid and every celebration.",
     buttonLabel: "Shop Jewellery", link: "/collections/jewellery" },
