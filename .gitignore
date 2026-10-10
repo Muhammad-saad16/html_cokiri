@@ -22,3 +22,7 @@ public/images/WhatsApp*
 # local backups
 /media.backup-*
 /data
+.vercel
+
+.vercel
+.env*
