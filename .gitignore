@@ -26,3 +26,8 @@ public/images/WhatsApp*
 
 .vercel
 .env*
+
+# tool-generated agent skills
+/.agents
+/.claude/skills
+/skills-lock.json
