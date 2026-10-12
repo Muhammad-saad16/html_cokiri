@@ -1,6 +1,6 @@
 import { getList } from "@/lib/cms";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3002";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://cokiri.net";
 
 export default async function sitemap() {
   const [events, videos, publications, albums, news, programs] = await Promise.all([

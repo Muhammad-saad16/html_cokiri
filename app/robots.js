@@ -1,4 +1,4 @@
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3002";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://cokiri.net";
 
 export default function robots() {
   return {

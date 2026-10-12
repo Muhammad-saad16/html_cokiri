@@ -11,7 +11,7 @@ const kufi = Reem_Kufi({ variable: "--font-kufi", subsets: ["arabic"], weight: [
 // Amiri carries the ﷺ ligature, which Reem Kufi lacks.
 const amiri = Amiri({ variable: "--font-amiri", subsets: ["arabic"], weight: ["400"] });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3002";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://cokiri.net";
 
 const DEFAULT_TITLE = "City of Knowledge";
 const DEFAULT_DESCRIPTION =
