@@ -2,16 +2,14 @@
 
 Public website for City of Knowledge IRI, built with Next.js 16 (App Router), Tailwind CSS 4 and Motion.
 
-All content — events, programs & courses, research/publications, videos, gallery albums,
-people, news and site settings — comes from the shared **Payload CMS** through its read-only
-public API (`/api/public/...`). Nothing is hard-coded except page design and a few fixed photos
-in `public/images/`.
+All content — events, programs, publications, videos, gallery albums, people, news and site settings —
+lives in `lib/content/` (images under `public/content/`). `lib/cms.js` reads it with the same
+functions the pages always used, so no CMS or database is needed.
 
 ## Run locally
 
 ```bash
 npm install
-cp .env.example .env.local   # then set CMS_URL to the running Payload CMS
 npm run dev                  # http://localhost:3002
 ```
 
@@ -19,20 +17,23 @@ npm run dev                  # http://localhost:3002
 
 | Name | Purpose |
 | --- | --- |
-| `CMS_URL` | Base URL of the Payload CMS, e.g. `https://cms.cokiri.net` |
-| `SITE_CODE` | Always `COK` for this site (content tagged `COK` or `BOTH` is shown) |
 | `NEXT_PUBLIC_SITE_URL` | Public URL of this site, used for the sitemap and Open Graph tags |
+
+## Adding content
+
+Edit the arrays in `lib/content/index.js` (videos in `lib/content/videos.js`) and put images in
+`public/content/`. Dates are `YYYY-MM-DD`, or `YYYY-MM` when only the month is known.
 
 ## Deploy (Vercel)
 
-Import the repo in Vercel (framework: Next.js), add the variables above, and deploy.
-Pages revalidate every 60 seconds, so edits made in the CMS appear without a redeploy.
+Import the repo in Vercel (framework: Next.js), set `NEXT_PUBLIC_SITE_URL`, and deploy.
 
 ## Structure
 
 ```
 app/          Pages: home, about, programs, research, media, events, gallery, news, contact
 components/   Cards, hero, navigation, footer, motion helpers
-lib/cms.js    CMS client (getList / getPage / getItem / getSettings)
-public/       Logo and fixed photos
+lib/content/  All site content (edit here)
+lib/cms.js    Reads lib/content (getList / getPage / getItem / getSettings)
+public/       Logo, fixed photos and public/content/ images
 ```
