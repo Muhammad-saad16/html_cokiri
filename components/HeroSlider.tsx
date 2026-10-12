@@ -66,7 +66,11 @@ export default function HeroSlider({ slides }: { slides: Slide[] }) {
           className={`hero__slide${n === i ? " is-active" : ""}${s.video ? " hero__slide--video" : ""}`}
           aria-hidden={n !== i}
         >
-          <div className="hero__media">
+          <div
+            className="hero__media"
+            onClick={s.video ? () => setSoundOn((on) => !on) : undefined}
+            title={s.video ? (soundOn ? "Tap to mute" : "Tap for sound") : undefined}
+          >
             {s.video ? (
               <video
                 ref={(el) => {

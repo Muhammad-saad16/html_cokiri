@@ -954,3 +954,25 @@ h3 { font-size: var(--fs-h3); font-weight: 500; line-height: 1.35; letter-spacin
 .hero__sound:hover { background: var(--gold); border-color: var(--gold); color: var(--green); }
 .hero__sound[aria-pressed="true"] span { display: none; }
 @media (max-width: 860px) { .hero__sound { left: 14px; bottom: 14px; padding: 9px 12px; } }
+
+/* Tap anywhere on the video for sound; the button pulses gently while the video is muted */
+.hero__slide--video .hero__media { cursor: pointer; }
+.hero__sound { padding: 12px 20px; font-size: .78rem; }
+.hero__sound[aria-pressed="false"] { animation: sound-pulse 2.2s ease-out infinite; }
+@keyframes sound-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(212,175,55,.55); }
+  70% { box-shadow: 0 0 0 14px rgba(212,175,55,0); }
+  100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); }
+}
+
+/* Footer: same gold & white hexagon line pattern as the numbers band */
+.footer {
+  background-color: var(--green-deep);
+  background-image:
+    radial-gradient(ellipse 70% 60% at 50% 0%, rgba(255,255,255,.08), transparent 70%),
+    radial-gradient(ellipse 50% 70% at 100% 100%, rgba(212,175,55,.12), transparent 70%),
+    radial-gradient(ellipse 50% 70% at 0% 100%, rgba(212,175,55,.08), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cg fill='none' stroke-width='1'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34L28 66v34M28 0v0M0 50l-0 0' stroke='%23d4af37' stroke-opacity='.22'/%3E%3Cpath d='M28 16l14.7 8.5v17L28 50l-14.7-8.5v-17Z' stroke='%23ffffff' stroke-opacity='.10'/%3E%3Cpath d='M0 66l14.7 8.5v17L0 100l-14.7-8.5v-17Z M56 66l14.7 8.5v17L56 100l-14.7-8.5v-17Z' stroke='%23ffffff' stroke-opacity='.10'/%3E%3C/g%3E%3Cg fill='%23d4af37' fill-opacity='.35'%3E%3Ccircle cx='28' cy='0' r='1.3'/%3E%3Ccircle cx='28' cy='66' r='1.3'/%3E%3Ccircle cx='0' cy='16' r='1.3'/%3E%3Ccircle cx='56' cy='16' r='1.3'/%3E%3Ccircle cx='0' cy='50' r='1.3'/%3E%3Ccircle cx='56' cy='50' r='1.3'/%3E%3Ccircle cx='28' cy='100' r='1.3'/%3E%3C/g%3E%3C/svg%3E"),
+    linear-gradient(180deg, var(--green) 0%, var(--green-deep) 100%);
+  background-size: auto, auto, auto, 42px 75px, auto;
+}
