@@ -976,3 +976,17 @@ h3 { font-size: var(--fs-h3); font-weight: 500; line-height: 1.35; letter-spacin
     linear-gradient(180deg, var(--green) 0%, var(--green-deep) 100%);
   background-size: auto, auto, auto, 42px 75px, auto;
 }
+
+/* Headings on dark (green / photo) backgrounds are white, never green-on-green */
+.cta :is(h1, h2, h3, h4),
+.section--dark :is(h1, h2, h3, h4),
+.banner :is(h1, h2, h3, h4),
+.offers :is(h1, h2, h3, h4),
+.stats :is(h1, h2, h3, h4),
+.elegance :is(h1, h2, h3, h4),
+.page-head :is(h1, h2, h3, h4) { color: var(--white); }
+.cta p:not(.eyebrow) { color: rgba(255,255,255,.88); }
+/* Body text on dark backgrounds: soft cream instead of the dark body colour */
+.section--dark p:not(.eyebrow):not(.quote), .banner p:not(.eyebrow), .page-head p:not(.eyebrow), .elegance p { color: rgba(248,246,239,.8); }
+.section--dark .focus dd { color: rgba(248,246,239,.8); }
+.footer p:not(.muted) { color: rgba(248,246,239,.78); }
