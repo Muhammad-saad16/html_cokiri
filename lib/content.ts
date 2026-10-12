@@ -205,7 +205,7 @@ export const HERO_SLIDES: {
   image: string; video?: string; badge: string; showLogo?: boolean; title?: string; subtitle?: string;
   text: string; buttonLabel: string; link: string;
 }[] = [
-  { image: "/media/hero-store-poster.jpg", video: "/media/hero-store.mp4", badge: "Serving you since 2012", showLogo: true,
+  { image: "/media/hero-store-poster.jpg", video: "/media/hero-store-sound.mp4", badge: "Serving you since 2012", showLogo: true,
     text: "Elegant jewellery, stylish bags, watches and premium fragrances — all in one place.",
     buttonLabel: "Shop Now", link: "/shop" },
 ];

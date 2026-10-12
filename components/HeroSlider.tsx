@@ -14,6 +14,8 @@ export default function HeroSlider({ slides }: { slides: Slide[] }) {
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
   const [videoMs, setVideoMs] = useState<Record<number, number>>({});
+  // Browsers only allow videos to start on their own when muted — the visitor turns the sound on.
+  const [soundOn, setSoundOn] = useState(false);
   const videos = useRef<(HTMLVideoElement | null)[]>([]);
   const count = slides.length;
   const active = slides[i];
@@ -40,6 +42,12 @@ export default function HeroSlider({ slides }: { slides: Slide[] }) {
       }
     });
   }, [i, paused, count]);
+
+  useEffect(() => {
+    videos.current.forEach((v) => {
+      if (v) v.muted = !soundOn;
+    });
+  }, [soundOn]);
 
   if (count === 0) return null;
   const go = (n: number) => setI((n + count) % count);
@@ -121,6 +129,25 @@ export default function HeroSlider({ slides }: { slides: Slide[] }) {
           </div>
           <button className="hero__arrow" onClick={() => go(i + 1)} aria-label="Next slide">→</button>
         </div>
+      )}
+      {active?.video && (
+        <button
+          type="button"
+          className="hero__sound"
+          onClick={() => setSoundOn((on) => !on)}
+          aria-pressed={soundOn}
+          aria-label={soundOn ? "Mute video" : "Play video with sound"}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+            <path d="M4 9h4l5-4v14l-5-4H4Z" />
+            {soundOn ? (
+              <path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" />
+            ) : (
+              <path d="m17 9.5 5 5m0-5-5 5" />
+            )}
+          </svg>
+          <span>{soundOn ? "Sound on" : "Tap for sound"}</span>
+        </button>
       )}
     </section>
   );
