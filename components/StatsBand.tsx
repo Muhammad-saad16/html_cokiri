@@ -40,7 +40,8 @@ function CountUp({ value, start }: { value: number; start: boolean }) {
     const t0 = performance.now();
     let raf = 0;
     const tick = (t: number) => {
-      const p = Math.min(1, (t - t0) / duration);
+      // rAF can report a frame time slightly before t0 — clamp so the first frame is never negative.
+      const p = Math.min(1, Math.max(0, (t - t0) / duration));
       setN(Math.round(value * (1 - Math.pow(1 - p, 4))));
       if (p < 1) raf = requestAnimationFrame(tick);
     };
