@@ -97,7 +97,7 @@ export default function HeroSlider({ slides }: { slides: Slide[] }) {
             </p>
             <p className="hero__text">{s.text}</p>
             <div className="hero__actions">
-              <Link href={s.link} className="btn btn--ghost" tabIndex={n === i ? 0 : -1}>{s.buttonLabel}</Link>
+              <Link href={s.link} className="btn btn--ghost" tabIndex={n === i && !s.video ? 0 : -1}>{s.buttonLabel}</Link>
             </div>
           </div>
         </div>
