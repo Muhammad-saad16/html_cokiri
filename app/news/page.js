@@ -1,24 +1,28 @@
 import { getList } from "@/lib/cms";
 import { NewsCard } from "@/components/Cards";
-import Reveal from "@/components/motion/Reveal";
 import { StaggerGroup, StaggerItem } from "@/components/motion/Stagger";
+import { PageHero } from "@/components/Ornaments";
 
 export const metadata = { title: "News & Announcements" };
 
 export default async function NewsPage() {
-  const posts = await getList("news");
+  const news = await getList("news");
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-16">
-      <Reveal>
-        <h1 className="text-3xl font-serif text-slate-900" style={{ fontFamily: "var(--font-source-serif)" }}>News & Announcements</h1>
-      </Reveal>
-
-      <StaggerGroup className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-        {posts.map((p) => <StaggerItem key={p.id}><NewsCard post={p} /></StaggerItem>)}
-      </StaggerGroup>
-
-      {posts.length === 0 && <p className="mt-8 text-slate-500">No posts yet.</p>}
-    </div>
+    <>
+      <PageHero arabic="أَخْبَار" title="News & Announcements" subtitle="Updates from City of Knowledge and Dr. Umair Mahmood Siddiqui." />
+      <section className="pattern-ivory py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <StaggerGroup className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {news.map((n) => (
+              <StaggerItem key={n.id} className="h-full">
+                <NewsCard post={n} />
+              </StaggerItem>
+            ))}
+          </StaggerGroup>
+          {news.length === 0 && <p className="text-center text-muted">No posts yet.</p>}
+        </div>
+      </section>
+    </>
   );
 }

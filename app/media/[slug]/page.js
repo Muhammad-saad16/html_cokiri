@@ -1,13 +1,15 @@
-import { categoryLabel } from "@/lib/format";
 import { notFound } from "next/navigation";
-import { getItem } from "@/lib/cms";
+import { getItem, getList } from "@/lib/cms";
+import { categoryLabel, fmtDate } from "@/lib/format";
 import Reveal from "@/components/motion/Reveal";
+import { VideoCard } from "@/components/Cards";
+import { DetailHeader, Prose } from "@/components/Detail";
+import { SectionHeading } from "@/components/Ornaments";
 
 function toEmbedUrl(url) {
   if (!url) return null;
-  const idMatch = url.match(/(?:v=|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{6,})/);
-  const id = idMatch?.[1];
-  return id ? `https://www.youtube.com/embed/${id}` : url;
+  const id = url.match(/(?:v=|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{6,})/)?.[1];
+  return id ? `https://www.youtube-nocookie.com/embed/${id}?rel=0` : url;
 }
 
 export async function generateMetadata({ params }) {
@@ -23,27 +25,43 @@ export default async function MediaDetailPage({ params }) {
   if (!video) notFound();
 
   const embedUrl = toEmbedUrl(video.youtubeUrl);
+  const related = (await getList("videos")).filter((v) => v.category === video.category && v.slug !== video.slug).slice(0, 3);
 
   return (
-    <Reveal as="article" className="max-w-3xl mx-auto px-6 py-16">
-      <p className="text-xs uppercase tracking-wide text-orange-700 font-medium">{categoryLabel(video.category)}</p>
-      <h1 className="mt-2 text-3xl font-serif text-slate-900" style={{ fontFamily: "var(--font-source-serif)" }}>{video.title}</h1>
+    <>
+      <DetailHeader
+        back={{ href: "/media", label: "Media" }}
+        eyebrow={categoryLabel(video.category)}
+        title={video.title}
+        meta={[fmtDate(video.publishedAt), video.views && `${video.views} views`].filter(Boolean).join(" · ")}
+      />
+      <section className="pattern-ivory pb-20">
+        <Reveal as="article" className="mx-auto -mt-6 max-w-5xl px-4 sm:px-6">
+          {embedUrl && (
+            <div className="aspect-video overflow-hidden rounded-2xl border-4 border-gold bg-navy-deep shadow-2xl">
+              <iframe
+                src={embedUrl}
+                title={video.title}
+                className="h-full w-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          )}
+          <Prose text={video.description} className="mx-auto mt-8 max-w-3xl" />
+        </Reveal>
 
-      {embedUrl && (
-        <div className="mt-6 aspect-video rounded-xl overflow-hidden bg-slate-900 shadow-lg">
-          <iframe
-            src={embedUrl}
-            title={video.title}
-            className="w-full h-full"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        </div>
-      )}
-
-      {video.description && (
-        <div className="mt-6 text-slate-700 leading-relaxed whitespace-pre-wrap">{video.description}</div>
-      )}
-    </Reveal>
+        {related.length > 0 && (
+          <div className="mx-auto mt-20 max-w-7xl px-4 sm:px-6 lg:px-8">
+            <SectionHeading eyebrow="Keep Watching" title={`More ${categoryLabel(video.category)}`} />
+            <div className="mt-10 grid gap-6 md:grid-cols-3">
+              {related.map((v) => (
+                <VideoCard key={v.id} video={v} />
+              ))}
+            </div>
+          </div>
+        )}
+      </section>
+    </>
   );
 }

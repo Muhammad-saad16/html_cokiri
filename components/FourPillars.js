@@ -1,8 +1,6 @@
-"use client";
-
 import { BookOpenText, GraduationCap, Lightbulb, HeartHandshake } from "lucide-react";
-import Reveal from "./motion/Reveal";
 import { StaggerGroup, StaggerItem } from "./motion/Stagger";
+import { SectionHeading } from "./Ornaments";
 
 const PILLARS = [
   { icon: BookOpenText, title: "Knowledge & Tarbiyyah", description: "Authentic knowledge paired with character building for all ages." },
@@ -13,25 +11,23 @@ const PILLARS = [
 
 export default function FourPillars() {
   return (
-    <section className="max-w-6xl mx-auto px-6 py-16 border-t border-slate-200">
-      <Reveal>
-        <h2 className="text-2xl font-serif text-slate-900" style={{ fontFamily: "var(--font-source-serif)" }}>
-          What We Impart
-        </h2>
-      </Reveal>
-      <StaggerGroup className="grid grid-cols-2 md:grid-cols-4 gap-5 mt-8">
-        {PILLARS.map((p) => (
-          <StaggerItem key={p.title}>
-            <div className="group h-full border border-slate-200 rounded-xl bg-white p-5 hover:border-orange-300 hover:shadow-lg hover:shadow-slate-900/[0.05] transition-all hover:-translate-y-1">
-              <div className="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center group-hover:bg-orange-100 transition-colors">
-                <p.icon size={18} className="text-orange-700" strokeWidth={1.75} />
+    <section className="pattern-navy py-20 sm:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading eyebrow="Our Foundation" title="What We Impart" dark />
+        <StaggerGroup className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {PILLARS.map((p) => (
+            <StaggerItem key={p.title} className="h-full">
+              <div className="group h-full rounded-2xl border border-gold/30 bg-navy-deep/50 p-7 text-center transition duration-300 hover:-translate-y-1 hover:border-gold">
+                <span className="mx-auto grid h-16 w-16 place-items-center rounded-full border border-gold/60 text-gold-light transition group-hover:bg-gold group-hover:text-navy-deep">
+                  <p.icon size={28} strokeWidth={1.5} />
+                </span>
+                <h3 className="mt-5 font-serif text-xl font-semibold text-gold-light">{p.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ivory/70">{p.description}</p>
               </div>
-              <h3 className="mt-4 font-medium text-slate-900">{p.title}</h3>
-              <p className="text-sm text-slate-500 mt-1">{p.description}</p>
-            </div>
-          </StaggerItem>
-        ))}
-      </StaggerGroup>
+            </StaggerItem>
+          ))}
+        </StaggerGroup>
+      </div>
     </section>
   );
 }

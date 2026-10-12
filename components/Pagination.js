@@ -14,7 +14,7 @@ export default function Pagination({ basePath, page, totalPages, params = {} }) 
     .filter((p) => p >= 1 && p <= totalPages)
     .sort((a, b) => a - b);
   const base = "min-w-9 h-9 px-3 inline-flex items-center justify-center rounded-full text-sm border transition-colors";
-  const idle = "border-slate-300 text-slate-600 hover:border-slate-400";
+  const idle = "border-gold/50 text-gold-light hover:bg-gold/10";
 
   return (
     <nav aria-label="Pagination" className="mt-12 flex flex-wrap items-center justify-center gap-2">
@@ -25,11 +25,11 @@ export default function Pagination({ basePath, page, totalPages, params = {} }) 
       )}
       {pages.map((p, i) => (
         <span key={p} className="contents">
-          {i > 0 && p - pages[i - 1] > 1 && <span className="text-slate-400 px-1">…</span>}
+          {i > 0 && p - pages[i - 1] > 1 && <span className="text-gold-light/60 px-1">…</span>}
           <Link
             href={href(p)}
             aria-current={p === page ? "page" : undefined}
-            className={`${base} ${p === page ? "bg-slate-900 text-white border-slate-900" : idle}`}
+            className={`${base} ${p === page ? "bg-gold text-navy-deep border-gold" : idle}`}
           >
             {p}
           </Link>

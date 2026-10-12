@@ -4,35 +4,11 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
-import { Menu, X } from "lucide-react";
-
-const LINKS = [
-  { href: "/about", label: "About" },
-  { href: "/programs", label: "Programs" },
-  { href: "/research", label: "Research" },
-  { href: "/media", label: "Media" },
-  { href: "/events", label: "Events" },
-  { href: "/gallery", label: "Gallery" },
-  { href: "/news", label: "News" },
-  { href: "/contact", label: "Contact" },
-];
-
-function NavLink({ href, label }) {
-  const pathname = usePathname();
-  const active = pathname === href || pathname.startsWith(href + "/");
-  return (
-    <Link href={href} className="relative text-sm text-slate-600 hover:text-slate-900 transition-colors py-1 group">
-      {label}
-      <span
-        className={`absolute left-0 -bottom-0.5 h-px bg-orange-700 transition-all duration-300 ${
-          active ? "w-full" : "w-0 group-hover:w-full"
-        }`}
-      />
-    </Link>
-  );
-}
+import { Menu, X, PlayCircle } from "lucide-react";
+import { LINKS, isActive } from "@/lib/nav";
 
 export default function SiteNav() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -43,46 +19,88 @@ export default function SiteNav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+  }, [open]);
+
   return (
     <header
-      className={`sticky top-0 z-40 backdrop-blur transition-all duration-300 ${
-        scrolled ? "bg-slate-50/95 border-b border-slate-200 shadow-sm shadow-slate-900/[0.03]" : "bg-slate-50/70 border-b border-transparent"
-      }`}
+      className={`sticky top-0 z-50 border-b border-gold/25 bg-navy-deep/95 backdrop-blur transition-shadow ${scrolled ? "shadow-lg shadow-black/20" : ""}`}
     >
-      <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-        <Link href="/" className="flex items-center" aria-label="City of Knowledge — home">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
+        <Link href="/" className="flex shrink-0 items-center" aria-label="City of Knowledge — home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.png" alt="City of Knowledge Islamic Research Institute" className="h-14 w-auto" />
+          <img src="/logo.png" alt="City of Knowledge Islamic Research Institute" className="h-12 w-auto sm:h-14" />
         </Link>
 
-        <nav className="hidden md:flex items-center gap-7">
-          {LINKS.map((link) => (
-            <NavLink key={link.href} {...link} />
-          ))}
+        <nav className="hidden items-center gap-6 lg:flex xl:gap-8" aria-label="Main">
+          {LINKS.map((l) => {
+            const active = isActive(pathname, l.href);
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                className={`relative py-2 text-[13px] font-medium tracking-[0.14em] whitespace-nowrap uppercase transition-colors ${
+                  active ? "text-gold-light" : "text-ivory/80 hover:text-gold-light"
+                }`}
+              >
+                {l.label}
+                <span className={`absolute inset-x-0 -bottom-0.5 h-px bg-gold transition-transform ${active ? "scale-x-100" : "scale-x-0"}`} />
+              </Link>
+            );
+          })}
         </nav>
 
-        <button className="md:hidden text-slate-700" onClick={() => setOpen((v) => !v)} aria-label="Toggle menu">
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        <div className="flex items-center gap-3">
+          <Link href="/programs/weekly-dars-e-quran" className="btn-gold hidden !px-4 !py-2.5 !text-xs xl:inline-flex">
+            <PlayCircle size={16} /> Weekly Dars
+          </Link>
+          <button
+            className="rounded-md p-2 text-ivory lg:hidden"
+            onClick={() => setOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={open}
+          >
+            <Menu size={26} />
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
         {open && (
-          <motion.nav
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="md:hidden border-t border-slate-200 overflow-hidden"
-          >
-            <div className="px-6 py-4 flex flex-col gap-4">
-              {LINKS.map((link) => (
-                <Link key={link.href} href={link.href} className="text-sm text-slate-700" onClick={() => setOpen(false)}>
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </motion.nav>
+          <motion.div className="fixed inset-0 z-50 lg:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <div className="absolute inset-0 bg-black/60" onClick={() => setOpen(false)} />
+            <motion.nav
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="pattern-navy absolute inset-y-0 right-0 flex w-80 max-w-[85%] flex-col p-6 shadow-2xl"
+              aria-label="Mobile"
+            >
+              <div className="flex items-center justify-between">
+                <span className="font-arabic text-3xl text-gold-light" lang="ar">مَدِينَةُ العِلْم</span>
+                <button onClick={() => setOpen(false)} className="p-2 text-ivory" aria-label="Close menu">
+                  <X size={26} />
+                </button>
+              </div>
+              <div className="mt-8 flex flex-col">
+                {[{ href: "/", label: "Home" }, ...LINKS].map((l) => (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    onClick={() => setOpen(false)}
+                    className={`border-b border-gold/20 py-3.5 font-serif text-xl ${isActive(pathname, l.href) ? "text-gold-light" : "text-ivory"}`}
+                  >
+                    {l.label}
+                  </Link>
+                ))}
+              </div>
+              <Link href="/programs/weekly-dars-e-quran" onClick={() => setOpen(false)} className="btn-gold mt-auto justify-center">
+                <PlayCircle size={16} /> Weekly Dars-e-Quran
+              </Link>
+            </motion.nav>
+          </motion.div>
         )}
       </AnimatePresence>
     </header>

@@ -1,15 +1,7 @@
 import Link from "next/link";
-import { Phone, Mail, MapPin, Globe } from "lucide-react";
+import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 import { getSettings } from "@/lib/cms";
-
-const LINKS = [
-  { href: "/about", label: "About" },
-  { href: "/programs", label: "Programs" },
-  { href: "/research", label: "Research & Publications" },
-  { href: "/events", label: "Events" },
-  { href: "/gallery", label: "Gallery" },
-  { href: "/contact", label: "Contact" },
-];
+import { LINKS } from "@/lib/nav";
 
 function parseSocial(settings) {
   try {
@@ -22,53 +14,69 @@ function parseSocial(settings) {
 export default async function SiteFooter() {
   const settings = await getSettings();
   const social = parseSocial(settings);
+  const phone = settings?.contactPhone;
 
   return (
-    <footer className="mt-20 bg-slate-950 text-slate-400">
-      <div className="h-1 bg-orange-600" />
-      <div className="max-w-6xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-3 gap-10 text-sm">
+    <footer className="pattern-navy mt-0 pb-20 text-ivory/75 md:pb-0">
+      {/* Qur'anic verse band */}
+      <div className="border-y border-gold/25 bg-navy-deep/60">
+        <div className="mx-auto max-w-5xl px-4 py-10 text-center sm:px-6">
+          <p className="font-arabic text-2xl leading-loose text-gold-light sm:text-3xl" lang="ar" dir="rtl">
+            وَقُل رَّبِّ زِدْنِي عِلْمًا
+          </p>
+          <p className="mt-2 font-serif text-xl text-ivory/90 italic">&ldquo;And say: My Lord, increase me in knowledge.&rdquo;</p>
+          <p className="mt-1 text-xs tracking-[0.25em] text-gold uppercase">— Surah Ta-Ha 20:114</p>
+        </div>
+      </div>
+
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 text-sm sm:px-6 md:grid-cols-[1.3fr_1fr_1.3fr] lg:px-8">
         <div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo.png" alt="City of Knowledge Islamic Research Institute" className="h-20 w-auto" />
-          <p className="mt-4 leading-relaxed">
-            A project of ITQAN Educational & Research Foundation, under the supervision of Dr. Umair Mahmood Siddiqui.
+          <p className="mt-5 max-w-xs leading-relaxed">
+            A project of ITQAN Educational &amp; Research Foundation, under the supervision of{" "}
+            <a href="https://drumairsiddiqui.com" className="text-gold-light hover:underline">
+              Dr. Umair Mahmood Siddiqui
+            </a>
+            .
           </p>
         </div>
 
         <div>
-          <p className="text-white font-semibold mb-4">Explore</p>
-          <ul className="space-y-2">
+          <h3 className="font-serif text-lg tracking-[0.15em] text-gold-light uppercase">Explore</h3>
+          <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2">
             {LINKS.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className="hover:text-white transition-colors">{l.label}</Link>
+                <Link href={l.href} className="transition-colors hover:text-gold-light">
+                  {l.label}
+                </Link>
               </li>
             ))}
-            <li>
-              <a href="https://drumairsiddiqui.com" className="hover:text-white transition-colors">Dr. Umair Mahmood Siddiqui</a>
-            </li>
           </ul>
         </div>
 
         <div className="space-y-3">
-          <p className="text-white font-semibold mb-4">Contact</p>
-          {settings?.contactPhone && (
-            <a href={`tel:${settings.contactPhone.replace(/[^+\d]/g, "")}`} className="flex items-center gap-2.5 hover:text-white">
-              <Phone size={15} className="text-orange-500" /> {settings.contactPhone}
+          <h3 className="mb-4 font-serif text-lg tracking-[0.15em] text-gold-light uppercase">Contact</h3>
+          {phone && (
+            <a href={`tel:${phone.replace(/[^+\d]/g, "")}`} className="flex items-center gap-3 hover:text-gold-light">
+              <Phone size={16} className="text-gold" /> {phone}
+            </a>
+          )}
+          {phone && (
+            <a href={`https://wa.me/${phone.replace(/[^\d]/g, "")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-gold-light">
+              <MessageCircle size={16} className="text-gold" /> WhatsApp
             </a>
           )}
           {settings?.contactEmail && (
-            <a href={`mailto:${settings.contactEmail}`} className="flex items-center gap-2.5 hover:text-white">
-              <Mail size={15} className="text-orange-500" /> {settings.contactEmail}
+            <a href={`mailto:${settings.contactEmail}`} className="flex items-center gap-3 hover:text-gold-light">
+              <Mail size={16} className="text-gold" /> {settings.contactEmail}
             </a>
           )}
           {settings?.address && (
-            <p className="flex items-start gap-2.5">
-              <MapPin size={15} className="text-orange-500 mt-0.5 shrink-0" /> {settings.address}
+            <p className="flex items-start gap-3">
+              <MapPin size={16} className="mt-0.5 shrink-0 text-gold" /> {settings.address}
             </p>
           )}
-          <p className="flex items-center gap-2.5">
-            <Globe size={15} className="text-orange-500" /> cokiri.net · @cityofknowledgeiri
-          </p>
           {Object.keys(social).length > 0 && (
             <div className="flex flex-wrap gap-2 pt-2">
               {Object.entries(social).map(([platform, url]) => (
@@ -77,7 +85,7 @@ export default async function SiteFooter() {
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full border border-slate-700 px-3 py-1 text-xs capitalize hover:border-orange-500 hover:text-white transition-colors"
+                  className="rounded-full border border-gold/40 px-3 py-1 text-xs transition-colors hover:border-gold hover:bg-gold hover:text-navy-deep"
                 >
                   {platform}
                 </a>
@@ -86,8 +94,12 @@ export default async function SiteFooter() {
           )}
         </div>
       </div>
-      <div className="border-t border-slate-800">
-        <p className="max-w-6xl mx-auto px-6 py-5 text-xs">© {new Date().getFullYear()} City of Knowledge Islamic Research Institute. All rights reserved.</p>
+
+      <div className="border-t border-gold/20">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-5 text-xs text-ivory/55 sm:flex-row sm:px-6 lg:px-8">
+          <p>© {new Date().getFullYear()} City of Knowledge Islamic Research Institute. All rights reserved.</p>
+          <p className="font-arabic text-base text-gold-light/80" lang="ar">مَدِينَةُ العِلْم</p>
+        </div>
       </div>
     </footer>
   );

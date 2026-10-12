@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CalendarDays, MapPin } from "lucide-react";
 import { getItem } from "@/lib/cms";
 import { fmtDate } from "@/lib/format";
 import Reveal from "@/components/motion/Reveal";
 import FitImage from "@/components/FitImage";
+import { DetailHeader, Prose } from "@/components/Detail";
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -22,29 +23,32 @@ export default async function EventDetailPage({ params }) {
   if (!event) notFound();
 
   return (
-    <Reveal as="article" className="max-w-3xl mx-auto px-6 py-16">
-      {event.coverImageUrl && (
-        <FitImage src={event.coverImageUrl} alt={event.title} className="w-full h-72 rounded-xl mb-8" />
-      )}
-      <p className="text-sm text-orange-700 font-medium">{fmtDate(event.startDate)}{event.location ? ` · ${event.location}` : ""}</p>
-      <h1 className="mt-2 text-3xl font-serif text-slate-900" style={{ fontFamily: "var(--font-source-serif)" }}>{event.title}</h1>
-
-      {event.summary && <p className="mt-4 text-lg text-slate-600">{event.summary}</p>}
-      {event.description && (
-        <div className="mt-6 text-slate-700 leading-relaxed whitespace-pre-wrap">{event.description}</div>
-      )}
-
-      {event.googleFormUrl && (
-        <a
-          href={event.googleFormUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group mt-8 inline-flex items-center gap-2 rounded-full bg-slate-900 text-white text-sm font-medium px-6 py-3.5 hover:bg-slate-800 transition shadow-lg shadow-slate-900/10"
-        >
-          Register for this event
-          <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
-        </a>
-      )}
-    </Reveal>
+    <>
+      <DetailHeader back={{ href: "/events", label: "All events" }} eyebrow="Event" title={event.title} />
+      <section className="pattern-ivory pb-20">
+        <Reveal as="article" className="mx-auto -mt-6 max-w-4xl px-4 sm:px-6">
+          {event.coverImageUrl && (
+            <FitImage src={event.coverImageUrl} alt={event.title} className="h-72 w-full rounded-2xl border-4 border-white shadow-xl sm:h-96" />
+          )}
+          <div className="mt-8 flex flex-wrap gap-3">
+            <span className="inline-flex items-center gap-2 rounded-md bg-navy px-3 py-2 text-sm text-gold-light">
+              <CalendarDays size={16} /> {fmtDate(event.startDate)}
+            </span>
+            {event.location && (
+              <span className="inline-flex items-center gap-2 rounded-md border border-gold/50 bg-white/80 px-3 py-2 text-sm text-navy">
+                <MapPin size={16} className="text-maroon" /> {event.location}
+              </span>
+            )}
+          </div>
+          {event.summary && <p className="mt-6 font-serif text-2xl leading-snug text-navy">{event.summary}</p>}
+          <Prose text={event.description} className="mt-6" />
+          {event.googleFormUrl && (
+            <a href={event.googleFormUrl} target="_blank" rel="noopener noreferrer" className="btn-gold mt-8">
+              Register for this event <ArrowRight size={16} />
+            </a>
+          )}
+        </Reveal>
+      </section>
+    </>
   );
 }

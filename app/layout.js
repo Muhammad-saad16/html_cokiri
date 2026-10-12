@@ -1,18 +1,19 @@
-import { Geist, Geist_Mono, Source_Serif_4 } from "next/font/google";
+import { Amiri, Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
+import MobileTabBar from "@/components/MobileTabBar";
 import { getSettings } from "@/lib/cms";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
-const sourceSerif = Source_Serif_4({ variable: "--font-source-serif", subsets: ["latin"] });
+const cormorant = Cormorant_Garamond({ variable: "--font-cormorant", subsets: ["latin"], weight: ["400", "500", "600", "700"], style: ["normal", "italic"] });
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
+const amiri = Amiri({ variable: "--font-amiri", subsets: ["arabic"], weight: ["400", "700"] });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3002";
 
 const DEFAULT_TITLE = "City of Knowledge";
 const DEFAULT_DESCRIPTION =
-  "City of Knowledge Islamic Research Institute — research, education, publications and knowledge resources.";
+  "City of Knowledge Islamic Research Institute, Karachi — weekly Dars-e-Quran, programs, research and publications under the supervision of Dr. Umair Mahmood Siddiqui.";
 
 export async function generateMetadata() {
   const settings = await getSettings();
@@ -32,12 +33,13 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${sourceSerif.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${inter.variable} ${amiri.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-slate-50 text-slate-900">
+      <body className="flex min-h-full flex-col">
         <SiteNav />
         <main className="flex-1">{children}</main>
         <SiteFooter />
+        <MobileTabBar />
       </body>
     </html>
   );

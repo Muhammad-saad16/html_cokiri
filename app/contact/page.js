@@ -1,7 +1,8 @@
-import { Mail, Phone, MapPin, Link2, MessageCircle, Globe } from "lucide-react";
-import { getSettings, mediaUrl } from "@/lib/cms";
+import { Mail, Phone, MapPin, MessageCircle, Link2 } from "lucide-react";
+import { getSettings } from "@/lib/cms";
 import Reveal from "@/components/motion/Reveal";
 import FitImage from "@/components/FitImage";
+import { PageHero } from "@/components/Ornaments";
 
 export const metadata = {
   title: "Contact",
@@ -21,71 +22,79 @@ export default async function ContactPage() {
   const phone = settings?.contactPhone || "+92-336-2342386";
   const phoneDigits = phone.replace(/[^\d]/g, "");
 
+  const cards = [
+    { Icon: Phone, label: "Call", value: phone, href: `tel:+${phoneDigits}` },
+    { Icon: MessageCircle, label: "WhatsApp", value: phone, href: `https://wa.me/${phoneDigits}` },
+    settings?.contactEmail && { Icon: Mail, label: "Email", value: settings.contactEmail, href: `mailto:${settings.contactEmail}` },
+    settings?.address && { Icon: MapPin, label: "Visit", value: settings.address },
+  ].filter(Boolean);
+
   return (
-    <div className="max-w-6xl mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-12">
-      <div>
-        <Reveal>
-          <h1 className="text-4xl font-extrabold uppercase tracking-tight text-orange-600">Contact Us</h1>
-          <p className="mt-4 text-slate-600">
-            For admissions, program details, the weekly Dars-e-Quran, research inquiries or general questions — call,
-            WhatsApp, email or visit us.
-          </p>
-        </Reveal>
+    <>
+      <PageHero
+        arabic="تَوَاصَلُوا مَعَنَا"
+        title="Contact Us"
+        subtitle="For admissions, program details, the weekly Dars-e-Quran, research inquiries or general questions — call, WhatsApp, email or visit us."
+      />
+      <section className="pattern-ivory py-16 sm:py-20">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+          <Reveal className="space-y-4">
+            {cards.map(({ Icon, label, value, href }) => {
+              const body = (
+                <>
+                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-gold bg-navy text-gold-light">
+                    <Icon size={20} />
+                  </span>
+                  <span>
+                    <span className="block text-xs font-semibold tracking-[0.2em] text-maroon uppercase">{label}</span>
+                    <span className="block font-medium text-navy">{value}</span>
+                  </span>
+                </>
+              );
+              const cls = "flex items-center gap-4 rounded-2xl border border-gold/30 bg-white/80 p-5 transition hover:border-gold hover:shadow-md";
+              return href ? (
+                <a key={label} href={href} className={cls} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
+                  {body}
+                </a>
+              ) : (
+                <div key={label} className={cls}>
+                  {body}
+                </div>
+              );
+            })}
 
-        <Reveal delay={0.1} className="mt-8 space-y-4 text-slate-700">
-          <a href={`tel:+${phoneDigits}`} className="flex items-center gap-3 hover:text-orange-800 transition-colors">
-            <Phone size={18} className="text-orange-600" /> {phone}
-          </a>
-          <a href={`https://wa.me/${phoneDigits}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-orange-800 transition-colors">
-            <MessageCircle size={18} className="text-orange-600" /> WhatsApp {phone}
-          </a>
-          {settings?.contactEmail && (
-            <a href={`mailto:${settings.contactEmail}`} className="flex items-center gap-3 hover:text-orange-800 transition-colors">
-              <Mail size={18} className="text-orange-600" /> {settings.contactEmail}
-            </a>
-          )}
-          {settings?.contactEmail !== "iricn786@gmail.com" && (
-            <a href="mailto:iricn786@gmail.com" className="flex items-center gap-3 hover:text-orange-800 transition-colors">
-              <Mail size={18} className="text-orange-600" /> iricn786@gmail.com
-            </a>
-          )}
-          <div className="flex items-center gap-3">
-            <Globe size={18} className="text-orange-600" /> cokiri.net · @cityofknowledgeiri
-          </div>
-          {settings?.address && (
-            <div className="flex items-start gap-3">
-              <MapPin size={18} className="text-orange-600 mt-0.5 shrink-0" /> {settings.address}
-            </div>
-          )}
-        </Reveal>
-
-        {Object.keys(socialLinks).length > 0 && (
-          <Reveal delay={0.2} className="mt-8 flex flex-wrap gap-3">
-            {Object.entries(socialLinks).map(([platform, url]) => (
-              <a
-                key={platform}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-4 py-2 text-sm text-slate-600 hover:bg-orange-600 hover:text-white transition-colors capitalize"
-              >
-                <Link2 size={14} /> {platform}
-              </a>
-            ))}
+            {Object.keys(socialLinks).length > 0 && (
+              <div className="pattern-navy rounded-2xl border border-gold/40 p-6 text-center">
+                <p className="text-xs font-semibold tracking-[0.25em] text-gold-light uppercase">Follow</p>
+                <div className="mt-4 flex flex-wrap justify-center gap-3">
+                  {Object.entries(socialLinks).map(([platform, url]) => (
+                    <a
+                      key={platform}
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded-md border border-gold/60 px-4 py-2 text-sm text-ivory transition-colors hover:bg-gold hover:text-navy-deep"
+                    >
+                      <Link2 size={14} /> {platform}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
           </Reveal>
-        )}
-      </div>
 
-      <Reveal delay={0.1} className="space-y-4">
-        <FitImage src="/images/building-front.jpg" alt="City of Knowledge building" className="w-full h-60 rounded-2xl" />
-        <iframe
-          title="City of Knowledge on Google Maps"
-          src={`https://maps.google.com/maps?q=${encodeURIComponent(MAP_QUERY)}&output=embed`}
-          className="w-full h-64 rounded-2xl border-0"
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
-      </Reveal>
-    </div>
+          <Reveal delay={0.1} className="space-y-4">
+            <FitImage src="/images/building-front.jpg" alt="City of Knowledge building" className="h-64 w-full rounded-2xl border-4 border-white shadow-xl" />
+            <iframe
+              title="City of Knowledge on Google Maps"
+              src={`https://maps.google.com/maps?q=${encodeURIComponent(MAP_QUERY)}&output=embed`}
+              className="h-72 w-full rounded-2xl border-4 border-white shadow-xl"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </Reveal>
+        </div>
+      </section>
+    </>
   );
 }

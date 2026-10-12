@@ -1,7 +1,84 @@
 @import "tailwindcss";
 
-@theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-serif: var(--font-source-serif);
+@theme {
+  --color-navy-deep: #08142a;
+  --color-navy: #0e1f3d;
+  --color-navy-soft: #172c52;
+  --color-maroon: #8a1c2b;
+  --color-maroon-dark: #6b1421;
+  --color-gold: #c9a227;
+  --color-gold-light: #e8cc6a;
+  --color-gold-dark: #9c7a12;
+  --color-ivory: #fbf8f1;
+  --color-ivory-2: #f3ede0;
+  --color-ink: #1a2133;
+  --color-muted: #5d6475;
+
+  --font-serif: var(--font-cormorant), var(--font-amiri), Georgia, serif;
+  --font-sans: var(--font-inter), var(--font-amiri), system-ui, sans-serif;
+  --font-arabic: var(--font-amiri), "Traditional Arabic", serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+/* Islamic geometric pattern backgrounds */
+.pattern-navy {
+  background-color: var(--color-navy);
+  background-image: url("/pattern-gold.svg");
+  background-size: 96px 96px;
+}
+.pattern-ivory {
+  background-color: var(--color-ivory);
+  background-image: url("/pattern-ivory.svg");
+  background-size: 120px 120px;
+}
+
+.text-gold-gradient {
+  background: linear-gradient(180deg, #f6e08e 0%, #c9a227 55%, #9c7a12 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@layer components {
+  .btn-gold {
+    @apply inline-flex items-center gap-2 rounded-md bg-gold px-6 py-3 text-sm font-semibold tracking-[0.14em] whitespace-nowrap text-navy-deep uppercase shadow-md transition hover:bg-gold-light;
+  }
+  .btn-navy {
+    @apply inline-flex items-center gap-2 rounded-md border border-gold bg-navy px-6 py-3 text-sm font-semibold tracking-[0.14em] whitespace-nowrap text-gold-light uppercase shadow-md transition hover:bg-navy-soft;
+  }
+  .btn-outline {
+    @apply inline-flex items-center gap-2 rounded-md border border-gold px-6 py-3 text-sm font-semibold tracking-[0.14em] whitespace-nowrap text-gold-dark uppercase transition hover:bg-gold hover:text-navy-deep;
+  }
+  .btn-outline-light {
+    @apply inline-flex items-center gap-2 rounded-md border border-gold/70 px-6 py-3 text-sm font-semibold tracking-[0.14em] whitespace-nowrap text-gold-light uppercase transition hover:bg-gold hover:text-navy-deep;
+  }
+  .card {
+    @apply overflow-hidden rounded-2xl border border-gold/30 bg-white/80 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-gold hover:shadow-xl;
+  }
+}
+
+.arch {
+  border-radius: 999px 999px 1.25rem 1.25rem;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
