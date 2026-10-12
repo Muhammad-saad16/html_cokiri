@@ -901,3 +901,30 @@ h3 { font-size: var(--fs-h3); font-weight: 500; line-height: 1.35; letter-spacin
 }
 .stats::before { border-color: rgba(212,175,55,.38); box-shadow: inset 0 0 0 5px rgba(255,255,255,.03), inset 0 0 0 6px rgba(212,175,55,.14); }
 .stats__grid li + li { border-left-color: rgba(212,175,55,.25); }
+
+/* ============ Hero: no green anywhere (client feedback) ============
+   Every slide — photo or video — fills the whole hero. The text sits on top
+   with a light neutral shade only, so the picture keeps its own colours. */
+.hero { background: #141414; }
+.hero__slide, .hero__slide--video { grid-template-columns: 1fr; }
+.hero__slide .hero__media { position: absolute; inset: 0; }
+.hero__slide.is-active .hero__media { animation: none; }
+.hero__media video { background: #141414; }
+.hero__media::after,
+.hero__slide--video .hero__media::after {
+  background: linear-gradient(90deg, rgba(0,0,0,0) 35%, rgba(0,0,0,.2) 58%, rgba(0,0,0,.45) 100%);
+}
+.hero__content { margin-left: 46%; }
+.hero__content > * { text-shadow: 0 2px 14px rgba(0,0,0,.45); }
+.hero__brand img { filter: drop-shadow(0 3px 14px rgba(0,0,0,.4)); }
+
+@media (max-width: 860px) {
+  .hero { height: clamp(520px, 82vh, 640px); }
+  .hero__slide { position: absolute; inset: 0; display: grid; grid-template-rows: none; }
+  .hero__slide.is-active { display: grid; }
+  .hero__media::after,
+  .hero__slide--video .hero__media::after {
+    background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,.35) 60%, rgba(0,0,0,.6) 100%);
+  }
+  .hero__content { margin-left: 0; justify-content: flex-end; padding: 24px 22px 84px; }
+}
