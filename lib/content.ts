@@ -205,21 +205,9 @@ export const HERO_SLIDES: {
   image: string; video?: string; badge: string; showLogo?: boolean; title?: string; subtitle?: string;
   text: string; buttonLabel: string; link: string;
 }[] = [
-  { image: "/media/hero-poster.jpg", video: "/media/hero.mp4", badge: "Serving you since 2012", showLogo: true,
+  { image: "/media/hero-store-poster.jpg", video: "/media/hero-store.mp4", badge: "Serving you since 2012", showLogo: true,
     text: "Elegant jewellery, stylish bags, watches and premium fragrances — all in one place.",
     buttonLabel: "Shop Now", link: "/shop" },
-  { image: "/media/slide2.jpg", badge: "New Collection", title: "Made to Be Noticed", subtitle: "The Kangan Edit",
-    text: "Jewellery, handbags and fragrances — curated the Kangan way.",
-    buttonLabel: "Shop New Arrivals", link: "/shop" },
-  { image: "/media/necklace-3.jpg", badge: "Bridal Season Offer", title: "Wear Your Statement", subtitle: "Bridal & Festive Jewellery",
-    text: "Kundan, zircon and 18K gold-plated pieces made for weddings, Eid and every celebration.",
-    buttonLabel: "Shop Jewellery", link: "/collections/jewellery" },
-  { image: "/media/bag-green.jpg", badge: "New Arrivals", title: "Carry Your Style", subtitle: "The Emerald Handbag Edit",
-    text: "Structured totes and top-handle bags — polished for the office, elegant for evenings.",
-    buttonLabel: "Shop Handbags", link: "/collections/handbags" },
-  { image: "/media/perfume-2.jpg", badge: "Signature Scent", title: "Elegance in Every Drop", subtitle: "Kangan 12 AM",
-    text: "Our signature midnight fragrance — warm, sophisticated and unforgettable.",
-    buttonLabel: "Discover 12 AM", link: "/products/kp-301" },
 ];
 
 /**

@@ -26,10 +26,11 @@ export default function HeroSlider({ slides }: { slides: Slide[] }) {
   }, [i, paused, count, duration]);
 
   // Only the visible slide's video plays, from the start each time it comes back.
+  // A single video slide just keeps looping, even while the mouse is over it.
   useEffect(() => {
     videos.current.forEach((v, n) => {
       if (!v) return;
-      if (n === i && !paused) {
+      if (n === i && (!paused || count === 1)) {
         if (v.dataset.slide !== String(i) || v.ended) v.currentTime = 0;
         v.dataset.slide = String(i);
         v.play().catch(() => {});
@@ -38,7 +39,7 @@ export default function HeroSlider({ slides }: { slides: Slide[] }) {
         if (n !== i) delete v.dataset.slide;
       }
     });
-  }, [i, paused]);
+  }, [i, paused, count]);
 
   if (count === 0) return null;
   const go = (n: number) => setI((n + count) % count);
@@ -66,6 +67,7 @@ export default function HeroSlider({ slides }: { slides: Slide[] }) {
                 src={s.video}
                 poster={s.image || undefined}
                 muted
+                loop={count === 1}
                 playsInline
                 preload={n === 0 ? "auto" : "metadata"}
                 aria-label={s.alt}
