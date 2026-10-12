@@ -2,84 +2,96 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
-import { ArrowRight, MapPin, CalendarClock } from "lucide-react";
-import { Ornament, ArchEdge } from "./Ornaments";
+import { ArrowRight, MapPin } from "lucide-react";
 
-const container = { hidden: {}, show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } } };
-const item = {
-  hidden: { opacity: 0, y: 26 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
-};
+const rise = (delay = 0) => ({
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] },
+});
 
-export default function Hero({ description, imageUrl, highlight }) {
+/**
+ * Full-bleed photographic hero with a "this week" timetable panel
+ * and a scrolling ticker of current programs underneath.
+ */
+export default function Hero({ imageUrl, schedule = [], ticker = [] }) {
   return (
-    <section className="pattern-navy relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-navy-deep/70 via-transparent to-maroon-dark/30" aria-hidden />
-      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 pt-14 pb-28 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:pt-20 lg:pb-36">
-        <motion.div variants={container} initial="hidden" animate="show" className="text-center lg:text-left">
-          <motion.p variants={item} className="text-gold-gradient font-arabic text-5xl leading-[1.5] font-bold sm:text-6xl" lang="ar" dir="rtl">
-            مَدِينَةُ العِلْم
+    <section className="relative isolate overflow-hidden bg-ink">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={imageUrl} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover opacity-45" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/85 to-ink/30" />
+      <div className="kufic absolute inset-0 -z-10 opacity-60" />
+
+      <div className="mx-auto grid max-w-7xl gap-12 px-4 pt-16 pb-20 sm:px-6 lg:min-h-[calc(100vh-9.25rem)] lg:grid-cols-[1.25fr_0.75fr] lg:items-center lg:px-8 lg:py-24">
+        <div>
+          <motion.p {...rise(0)} className="label flex items-center gap-3 text-gold">
+            <span className="h-px w-10 bg-gold" /> Islamic Research Institute · Karachi
           </motion.p>
-          <motion.div variants={item}>
-            <Ornament className="mt-1 lg:!justify-start" light />
-          </motion.div>
-          <motion.h1 variants={item} className="mt-5 font-serif text-5xl leading-[1.05] font-semibold text-ivory sm:text-6xl lg:text-7xl">
-            City of Knowledge
+          <motion.h1 {...rise(0.1)} className="mt-6 font-display text-[3.4rem] leading-[0.92] font-extrabold tracking-tight text-white sm:text-7xl lg:text-[6.5rem]">
+            City of
+            <br />
+            <span className="relative inline-block">
+              Knowledge
+              <span className="absolute -bottom-1 left-0 h-2 w-full bg-crimson sm:h-3" aria-hidden />
+            </span>
           </motion.h1>
-          <motion.p variants={item} className="mt-3 text-sm font-semibold tracking-[0.35em] text-gold-light uppercase">
-            Islamic Research Institute
+          <motion.p {...rise(0.2)} className="mt-4 font-arabic text-4xl text-gold sm:text-5xl" lang="ar" dir="rtl" style={{ textAlign: "left" }}>
+            مدينة العلم
           </motion.p>
-          <motion.p variants={item} className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-ivory/75 lg:mx-0">
-            {description ||
-              "A dynamic hub for encyclopaedic knowledge and multidisciplinary research — imparting Knowledge and Tarbiyyah to prepare minds to serve Islam with dedication."}
+          <motion.p {...rise(0.3)} className="mt-6 max-w-xl text-lg leading-relaxed text-white/75">
+            A hub for encyclopaedic knowledge and multidisciplinary research — imparting Knowledge and Tarbiyyah to men, women
+            and children, under the supervision of <span className="font-semibold text-white">Dr. Umair Mahmood Siddiqui</span>.
           </motion.p>
-          <motion.p variants={item} className="mt-4 text-sm text-ivory/60">
-            A project of ITQAN Educational &amp; Research Foundation · under the supervision of{" "}
-            <span className="font-semibold text-gold-light">Dr. Umair Mahmood Siddiqui</span>
-          </motion.p>
-          <motion.div variants={item} className="mt-9 flex flex-wrap justify-center gap-4 lg:justify-start">
-            <Link href="/programs" className="btn-gold group">
-              Explore Programs <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
+          <motion.div {...rise(0.4)} className="mt-9 flex flex-wrap gap-3">
+            <Link href="/programs" className="btn-red group">
+              Explore programs <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
             </Link>
-            <Link href="/about" className="btn-outline-light">
-              Vision &amp; Mission
+            <Link href="/about" className="btn-line-light">
+              About the institute
             </Link>
           </motion.div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto w-full max-w-md"
-        >
-          <div className="arch absolute -inset-3 border-2 border-gold/50" aria-hidden />
-          <div className="arch relative aspect-[4/5] overflow-hidden border-4 border-gold shadow-2xl shadow-black/40">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={imageUrl} alt="City of Knowledge Islamic Research Institute building" className="h-full w-full object-cover object-[60%_center]" />
-            <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-gradient-to-t from-navy-deep/90 to-transparent p-5 pt-12 text-sm text-ivory">
-              <MapPin size={15} className="text-gold" /> B-105, 13-D/1, Gulshan-e-Iqbal, Karachi
+        {schedule.length > 0 && (
+          <motion.aside {...rise(0.5)} className="bg-white shadow-[12px_12px_0_0_var(--color-crimson)]">
+            <div className="flex items-center justify-between border-b border-line px-6 py-4">
+              <p className="label text-crimson">This week at CoK</p>
+              <span className="h-2 w-2 animate-pulse rounded-full bg-crimson" aria-hidden />
             </div>
-          </div>
-
-          {highlight && (
-            <Link
-              href={highlight.href}
-              className="absolute -bottom-10 left-1/2 flex w-[92%] -translate-x-1/2 items-center gap-4 rounded-2xl border border-gold/50 bg-ivory p-4 shadow-2xl transition hover:-translate-y-1 sm:-left-10 sm:w-80 sm:translate-x-0"
-            >
-              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-maroon text-gold-light">
-                <CalendarClock size={22} />
-              </span>
-              <span className="text-left">
-                <span className="block text-[10px] font-bold tracking-[0.2em] text-maroon uppercase">Every week</span>
-                <span className="block font-serif text-lg leading-tight font-semibold text-navy">{highlight.title}</span>
-                <span className="block text-xs text-muted">{highlight.schedule}</span>
-              </span>
-            </Link>
-          )}
-        </motion.div>
+            <ul>
+              {schedule.map((s) => (
+                <li key={s.href} className="border-b border-line last:border-0">
+                  <Link href={s.href} className="group grid grid-cols-[4.5rem_1fr] items-center gap-4 px-6 py-4 transition hover:bg-sand">
+                    <span className="bg-ink py-2 text-center font-display text-sm leading-tight font-bold text-white uppercase">
+                      {s.day}
+                    </span>
+                    <span>
+                      <span className="block font-display text-lg leading-tight font-bold text-ink group-hover:text-crimson">{s.title}</span>
+                      <span className="mt-0.5 block text-xs text-muted">{s.time}</span>
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <p className="flex items-center gap-2 bg-sand px-6 py-3 text-xs text-muted">
+              <MapPin size={13} className="text-crimson" /> B-105, 13-D/1, Gulshan-e-Iqbal, Karachi
+            </p>
+          </motion.aside>
+        )}
       </div>
-      <ArchEdge className="absolute inset-x-0 -bottom-px" />
+
+      {ticker.length > 0 && (
+        <div className="overflow-hidden bg-crimson py-3 text-white">
+          <div className="flex w-max animate-ticker gap-10 whitespace-nowrap">
+            {[...ticker, ...ticker].map((t, i) => (
+              <span key={i} className="flex items-center gap-10 text-sm font-semibold" aria-hidden={i >= ticker.length}>
+                {t}
+                <span className="text-gold">✦</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 }

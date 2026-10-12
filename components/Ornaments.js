@@ -1,91 +1,82 @@
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import Reveal from "./motion/Reveal";
 
-/** Gold line — floral knot — line. */
-export function Ornament({ className = "", light = false }) {
+/**
+ * Editorial section title: a numbered kicker, a bold left-aligned headline,
+ * and an optional "view all" link on the right.
+ */
+export function SectionTitle({ index, kicker, title, intro, action, dark = false, className = "" }) {
   return (
-    <div className={`flex items-center justify-center gap-3 ${light ? "text-gold-light" : "text-gold"} ${className}`} aria-hidden>
-      <span className="h-px w-16 bg-gradient-to-r from-transparent to-current sm:w-28" />
-      <svg viewBox="0 0 48 16" className="h-4 w-12" fill="none" stroke="currentColor" strokeWidth="1.2">
-        <path d="M24 2l4 6-4 6-4-6 4-6Z" fill="currentColor" fillOpacity=".25" />
-        <path d="M20 8c-3-4-7-4-9-1.5S12 11 15 9.5M28 8c3-4 7-4 9-1.5S36 11 33 9.5" />
-        <circle cx="4" cy="8" r="1.2" fill="currentColor" />
-        <circle cx="44" cy="8" r="1.2" fill="currentColor" />
-      </svg>
-      <span className="h-px w-16 bg-gradient-to-l from-transparent to-current sm:w-28" />
-    </div>
-  );
-}
-
-export function SectionHeading({ eyebrow, title, children, dark = false, align = "center", className = "" }) {
-  const left = align === "left";
-  return (
-    <Reveal className={`${left ? "" : "mx-auto text-center"} max-w-3xl ${className}`}>
-      <div
-        className={`flex items-center gap-3 text-xs font-semibold tracking-[0.3em] uppercase ${left ? "" : "justify-center"} ${
-          dark ? "text-gold-light" : "text-maroon"
-        }`}
-      >
-        {!left && <span className="h-px w-10 bg-current opacity-50 sm:w-16" />}
-        <span aria-hidden>✦</span>
-        {eyebrow}
-        <span aria-hidden>✦</span>
-        <span className="h-px w-10 bg-current opacity-50 sm:w-16" />
+    <Reveal className={`grid gap-6 md:grid-cols-[1fr_auto] md:items-end ${className}`}>
+      <div className="max-w-3xl">
+        <p className={`label flex items-center gap-3 ${dark ? "text-gold" : "text-crimson"}`}>
+          {index && <span className={`font-display text-sm ${dark ? "text-white/50" : "text-ink/40"}`}>{index}</span>}
+          <span className={`h-px w-8 ${dark ? "bg-gold" : "bg-crimson"}`} />
+          {kicker}
+        </p>
+        <h2 className={`mt-4 font-display text-4xl leading-[1.05] font-bold tracking-tight sm:text-5xl ${dark ? "text-white" : "text-ink"}`}>
+          {title}
+        </h2>
+        {intro && <p className={`mt-4 max-w-2xl text-lg ${dark ? "text-white/70" : "text-muted"}`}>{intro}</p>}
       </div>
-      <h2 className={`mt-4 font-serif text-3xl leading-tight font-semibold sm:text-4xl lg:text-5xl ${dark ? "text-ivory" : "text-navy"}`}>
-        {title}
-      </h2>
-      <Ornament className={`mt-4 ${left ? "!justify-start" : ""}`} light={dark} />
-      {children && <p className={`mt-4 text-base sm:text-lg ${dark ? "text-ivory/75" : "text-muted"}`}>{children}</p>}
+      {action && (
+        <Link
+          href={action.href}
+          className={`group inline-flex items-center gap-2 border-b-2 pb-1 text-sm font-bold ${
+            dark ? "border-gold text-white hover:text-gold" : "border-crimson text-ink hover:text-crimson"
+          }`}
+        >
+          {action.label} <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </Link>
+      )}
     </Reveal>
   );
 }
 
-/** Mihrab-style arched edge used where a dark band meets a light one. */
-export function ArchEdge({ className = "", fill = "var(--color-ivory)" }) {
+/** Inner-page header: sand band, Kufic motif, breadcrumb, oversized title. */
+export function PageHeader({ kicker, title, intro, arabic, crumbs = [] }) {
   return (
-    <svg viewBox="0 0 1440 72" preserveAspectRatio="none" className={`block h-10 w-full sm:h-16 ${className}`} aria-hidden>
-      <path d="M0 72V44c40 0 60-16 84-16h560c34 0 50-28 76-28s42 28 76 28h560c24 0 44 16 84 16v28Z" fill={fill} />
-      <path
-        d="M0 44c40 0 60-16 84-16h560c34 0 50-28 76-28s42 28 76 28h560c24 0 44 16 84 16"
-        fill="none"
-        stroke="var(--color-gold)"
-        strokeWidth="2"
-        vectorEffect="non-scaling-stroke"
-      />
-    </svg>
-  );
-}
-
-/** Dark page header used by every inner page. */
-export function PageHero({ title, arabic, subtitle, eyebrow }) {
-  return (
-    <section className="pattern-navy relative overflow-hidden text-center">
-      <div className="absolute inset-0 bg-gradient-to-b from-navy-deep/50 to-transparent" />
-      <div className="relative mx-auto max-w-4xl px-4 pt-14 pb-20 sm:pt-20 sm:pb-24">
+    <section className="kufic-light relative overflow-hidden border-b border-line bg-sand">
+      <div className="mx-auto max-w-7xl px-4 pt-10 pb-14 sm:px-6 sm:pt-14 sm:pb-20 lg:px-8">
         <Reveal>
-          {arabic && (
-            <p className="font-arabic text-3xl text-gold-light sm:text-4xl" lang="ar" dir="rtl">
-              {arabic}
-            </p>
-          )}
-          {eyebrow && <p className="mt-3 text-xs font-semibold tracking-[0.3em] text-gold-light/80 uppercase">{eyebrow}</p>}
-          <h1 className="mt-3 font-serif text-4xl font-semibold text-ivory sm:text-5xl lg:text-6xl">{title}</h1>
-          <Ornament className="mt-5" light />
-          {subtitle && <p className="mx-auto mt-5 max-w-2xl text-ivory/75 sm:text-lg">{subtitle}</p>}
+          <nav className="label flex flex-wrap items-center gap-2 text-ink/50" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-crimson">Home</Link>
+            {crumbs.map((c) => (
+              <span key={c.href} className="flex items-center gap-2">
+                <span>/</span>
+                <Link href={c.href} className="hover:text-crimson">{c.label}</Link>
+              </span>
+            ))}
+          </nav>
+          <div className="mt-8 grid items-end gap-6 lg:grid-cols-[1fr_auto]">
+            <div>
+              {kicker && <p className="label text-crimson">{kicker}</p>}
+              <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] font-bold tracking-tight text-ink sm:text-6xl lg:text-7xl">
+                <Honorific text={title} />
+              </h1>
+              {intro && <p className="mt-5 max-w-2xl text-lg text-muted">{intro}</p>}
+            </div>
+            {arabic && (
+              <p className="font-arabic text-5xl text-crimson/15 select-none sm:text-7xl" lang="ar" dir="rtl" aria-hidden>
+                {arabic}
+              </p>
+            )}
+          </div>
         </Reveal>
       </div>
-      <ArchEdge className="absolute inset-x-0 -bottom-px" />
+      <div className="h-1.5 bg-gradient-to-r from-crimson via-crimson to-gold" />
     </section>
   );
 }
 
-/** Renders "ﷺ" in the Arabic face, a little larger, so it stays legible inside Latin text. */
+/** Renders "ﷺ" in the Arabic face so it stays legible inside Latin text. */
 export function Honorific({ text = "" }) {
   const parts = String(text).split("ﷺ");
   return parts.map((p, i) => (
     <span key={i}>
       {p}
-      {i < parts.length - 1 && <span className="mx-0.5 font-arabic text-[1.3em] leading-none text-gold">ﷺ</span>}
+      {i < parts.length - 1 && <span className="mx-0.5 font-honorific text-[1.25em] leading-none">ﷺ</span>}
     </span>
   ));
 }

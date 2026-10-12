@@ -1,144 +1,147 @@
 import Link from "next/link";
-import { ArrowRight, BookOpen, GraduationCap, Images, PlayCircle, Library, Phone, MessageCircle } from "lucide-react";
+import { ArrowUpRight, Library } from "lucide-react";
 import { getList, getSettings } from "@/lib/cms";
-import { EventCard, VideoCard, ProgramCard, NewsCard, GalleryCard } from "@/components/Cards";
+import { EventCard, NewsCard, GalleryCard } from "@/components/Cards";
 import Reveal from "@/components/motion/Reveal";
 import { StaggerGroup, StaggerItem } from "@/components/motion/Stagger";
 import Counter from "@/components/motion/Counter";
 import Hero from "@/components/Hero";
 import FourPillars from "@/components/FourPillars";
-import FitImage from "@/components/FitImage";
+import Timetable from "@/components/Timetable";
+import MediaFeature from "@/components/MediaFeature";
 import BookShelf from "@/components/BookShelf";
-import { SectionHeading, Ornament } from "@/components/Ornaments";
+import { SectionTitle, Honorific } from "@/components/Ornaments";
 
-function MoreLink({ href, children, light = false }) {
-  return (
-    <Reveal className="mt-12 text-center">
-      <Link href={href} className={light ? "btn-outline-light" : "btn-navy"}>
-        {children} <ArrowRight size={16} />
-      </Link>
-    </Reveal>
-  );
-}
+const FACILITIES = [
+  ["/images/library.jpg", "The Library", "Tafsir, Hadith, Sirah, Shariah, philosophy and travelogues."],
+  ["/images/main-hall.jpg", "Main Hall", "Spacious, air-conditioned and equipped with ed-tech tools."],
+  ["/images/lounge.jpg", "Reception Lounge", "A dignified space to welcome scholars and guests."],
+  ["/images/reception.jpg", "Guest Area", "Comfortable seating for families and visitors."],
+];
 
 export default async function HomePage() {
-  const [events, videos, publications, people, programs, news, albums, settings] = await Promise.all([
+  const [events, videos, publications, people, programs, news, albums] = await Promise.all([
     getList("events", { limit: 3 }),
-    getList("videos", { limit: 6 }),
+    getList("videos"),
     getList("publications"),
     getList("people"),
     getList("programs"),
-    getList("news", { limit: 3 }),
+    getList("news", { limit: 4 }),
     getList("gallery-albums"),
     getSettings(),
   ]);
-  const allVideos = await getList("videos");
   const leader = people.find((p) => p.order < 10);
-  const phone = settings?.contactPhone || "+92-336-2342386";
 
-  const stats = [
-    { icon: GraduationCap, value: programs.length, label: "Weekly Programs" },
-    { icon: PlayCircle, value: allVideos.length, label: "Lectures & Videos" },
-    { icon: BookOpen, value: publications.length, label: "Books Published" },
-    { icon: Images, value: albums.reduce((n, a) => n + (a.images?.length || 0), 0), label: "Photos in Gallery" },
+  const schedule = programs.map((p) => ({ href: `/programs/${p.slug}`, day: p.day, title: p.title.split(" — ")[0], time: p.time }));
+  const ticker = [
+    ...programs.map((p) => `${p.title} — ${p.schedule}`),
+    ...news.slice(0, 2).map((n) => n.title),
   ];
+  const stats = [
+    { value: programs.length, label: "Weekly programs" },
+    { value: videos.length, label: "Lectures online" },
+    { value: publications.length, label: "Books published" },
+    { value: albums.reduce((n, a) => n + (a.images?.length || 0), 0), label: "Photos archived" },
+  ];
+  const [leadNews, ...moreNews] = news;
 
   return (
     <div>
-      <Hero
-        description={settings?.seoDescription}
-        imageUrl="/images/building-front.jpg"
-        highlight={programs[0] && { href: `/programs/${programs[0].slug}`, title: programs[0].title.split(" — ")[0], schedule: programs[0].schedule }}
-      />
+      <Hero imageUrl="/images/library.jpg" schedule={schedule} ticker={ticker} />
 
-      {/* Stats */}
-      <section className="pattern-ivory pt-20 pb-6 sm:pt-24">
-        <StaggerGroup className="mx-auto grid max-w-6xl grid-cols-2 gap-4 px-4 sm:px-6 md:grid-cols-4 lg:px-8">
-          {stats.map((s) => (
-            <StaggerItem key={s.label}>
-              <div className="rounded-2xl border border-gold/30 bg-white/80 p-5 text-center shadow-sm">
-                <s.icon size={26} className="mx-auto text-maroon" strokeWidth={1.6} />
-                <div className="mt-2 font-serif text-4xl font-bold text-navy">
-                  <Counter value={s.value || 0} />
-                </div>
-                <div className="text-xs font-semibold tracking-wider text-gold-dark uppercase">{s.label}</div>
+      {/* 01 — Introduction */}
+      <section className="py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-14 lg:grid-cols-[1.1fr_0.9fr]">
+            <div>
+              <SectionTitle index="01" kicker="Introduction" title="Knowledge and Tarbiyyah for every age." />
+              <Reveal delay={0.1} className="mt-8 space-y-5 text-lg leading-relaxed text-ink/80">
+                <p>
+                  City of Knowledge – Islamic Research Institute (CoK) serves as a dynamic hub for encyclopaedic knowledge and
+                  multidisciplinary research — imparting “Knowledge and Tarbiyyah”, “Learning and Teaching” and “Intellectual
+                  Acumen”, while paying significant attention to spiritual growth.
+                </p>
+                <p className="text-base text-muted">
+                  We provide knowledge for both men and women of all ages, and Tarbiyyah for young children through
+                  specially designed courses.
+                </p>
+              </Reveal>
+              <Reveal delay={0.15} className="mt-10 grid grid-cols-2 border-t-2 border-ink sm:grid-cols-4">
+                {stats.map((s) => (
+                  <div key={s.label} className="border-b border-line py-5 pr-4 sm:border-b-0">
+                    <p className="font-display text-5xl font-extrabold text-crimson">
+                      <Counter value={s.value || 0} />
+                    </p>
+                    <p className="mt-1 text-xs font-semibold text-muted">{s.label}</p>
+                  </div>
+                ))}
+              </Reveal>
+            </div>
+            <Reveal delay={0.1} className="relative min-h-[28rem]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/building-front.jpg" alt="City of Knowledge building" className="absolute top-0 right-0 h-[75%] w-[85%] object-cover" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/kids-course-speech.jpg" alt="A child speaking during a children's course" className="absolute bottom-0 left-0 h-[48%] w-[48%] border-8 border-white object-cover shadow-xl" />
+              <div className="absolute right-0 bottom-6 bg-crimson px-5 py-4 text-white">
+                <p className="font-display text-3xl font-extrabold">CoK</p>
+                <p className="label text-white/80">Est. by ITQAN Foundation</p>
               </div>
-            </StaggerItem>
-          ))}
-        </StaggerGroup>
-      </section>
-
-      {/* Introduction */}
-      <section className="pattern-ivory py-20 sm:py-24">
-        <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-          <div>
-            <SectionHeading eyebrow="Introduction" title="A Dynamic Hub of Knowledge & Tarbiyyah" align="left" />
-            <Reveal delay={0.1}>
-              <p className="mt-6 leading-relaxed text-ink/80">
-                City of Knowledge – Islamic Research Institute (CoK) serves as a dynamic hub for encyclopaedic knowledge and
-                multidisciplinary research that not only imparts “Knowledge and Tarbiyyah”, “Learning and Teaching”, and
-                “Intellectual Acumen” among all knowledge pursuers and knowledge contributors, but also pays significant
-                attention to spiritual growth, preparing the minds to serve Islam with dedication.
-              </p>
-              <p className="mt-4 leading-relaxed text-ink/80">
-                We strive to provide knowledge for both men and women of all ages, and even provide Tarbiyyah for young
-                children through specifically designed courses to broaden their understanding and guide them through to a
-                better future.
-              </p>
-              <Link href="/about" className="btn-outline mt-8">
-                Read our Vision &amp; Mission <ArrowRight size={16} />
-              </Link>
             </Reveal>
           </div>
-          <Reveal delay={0.15} className="grid grid-cols-2 gap-4">
-            <FitImage src="/images/visit-imam-soharwardi.jpg" alt="Imam Syed Badi-ud-Din Soharwardi visiting City of Knowledge" className="col-span-2 h-64 w-full rounded-2xl border-4 border-white shadow-xl" />
-            <FitImage src="/images/kids-course-speech.jpg" alt="A child speaking during a children's course" className="h-48 w-full rounded-2xl border-4 border-white shadow-xl" />
-            <FitImage src="/images/hadith-workshop-audience.jpg" alt="Workshop on the Significance of Hadith" className="h-48 w-full rounded-2xl border-4 border-white shadow-xl" />
-          </Reveal>
         </div>
       </section>
 
-      <FourPillars />
+      <FourPillars index="02" />
 
-      {/* Weekly programs */}
+      {/* 03 — Weekly timetable */}
       {programs.length > 0 && (
-        <section className="pattern-ivory py-20 sm:py-24">
+        <section className="py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <SectionHeading eyebrow="Join Us Every Week" title="Academic Activities">
-              Weekly Dars-e-Quran, the Friday Dars and Khutbah, and the Dars-e-Shama&apos;il series.
-            </SectionHeading>
-            <StaggerGroup className="mt-12 grid gap-6 md:grid-cols-3">
-              {programs.slice(0, 6).map((p) => (
-                <StaggerItem key={p.id} className="h-full">
-                  <ProgramCard program={p} />
-                </StaggerItem>
-              ))}
-            </StaggerGroup>
+            <SectionTitle
+              index="03"
+              kicker="Weekly timetable"
+              title="Join a circle of knowledge this week."
+              intro="Open to men, women and families — no registration needed for the weekly Dars."
+              action={{ href: "/programs", label: "All programs" }}
+            />
+            <Timetable programs={programs} />
           </div>
         </section>
       )}
 
-      {/* Leadership */}
+      {/* 04 — Media */}
+      {videos.length > 0 && (
+        <section className="kufic bg-ink py-20 sm:py-28">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <SectionTitle index="04" kicker="Media library" title="Lectures, Dars & discussions." action={{ href: "/media", label: `All ${videos.length} videos` }} dark />
+            <MediaFeature videos={videos.slice(0, 5)} />
+          </div>
+        </section>
+      )}
+
+      {/* 05 — Leadership */}
       {leader && (
-        <section className="bg-ivory-2 py-20 sm:py-24">
-          <div className="mx-auto grid max-w-6xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
-            <Reveal className="relative mx-auto w-full max-w-sm">
-              <div className="arch absolute -inset-3 border-2 border-gold/60" aria-hidden />
-              <div className="arch relative aspect-[4/5] overflow-hidden border-4 border-gold shadow-2xl">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={leader.photoUrl} alt={leader.name} className="h-full w-full object-cover object-top" />
-              </div>
+        <section className="overflow-hidden">
+          <div className="mx-auto grid max-w-7xl lg:grid-cols-2">
+            <Reveal className="relative min-h-[26rem] bg-sand">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={leader.photoUrl} alt={leader.name} className="absolute inset-0 h-full w-full object-cover object-top" />
+              <span className="label absolute top-6 left-6 bg-crimson px-3 py-1.5 text-white">{leader.designation}</span>
             </Reveal>
-            <div>
-              <SectionHeading eyebrow={leader.designation} title={leader.name} align="left" />
+            <div className="px-4 py-16 sm:px-10 lg:px-14 lg:py-24">
+              <SectionTitle index="05" kicker="Under the supervision of" title={leader.name} />
               <Reveal delay={0.1} className="mt-6 space-y-4 leading-relaxed text-ink/80">
-                {leader.bio?.split("\n\n").map((para, i) => <p key={i}>{para}</p>)}
+                {leader.bio?.split("\n\n").map((para, i) => (
+                  <p key={i}>
+                    <Honorific text={para} />
+                  </p>
+                ))}
               </Reveal>
-              <Reveal delay={0.15} className="mt-8 flex flex-wrap gap-4">
-                <Link href="/about#leadership" className="btn-navy">
-                  Leadership <ArrowRight size={16} />
+              <Reveal delay={0.15} className="mt-8 flex flex-wrap gap-3">
+                <Link href="/about#leadership" className="btn-ink">
+                  Read more <ArrowUpRight size={16} />
                 </Link>
-                <a href="https://drumairsiddiqui.com" target="_blank" rel="noopener noreferrer" className="btn-outline">
+                <a href="https://drumairsiddiqui.com" target="_blank" rel="noopener noreferrer" className="btn-line">
                   drumairsiddiqui.com
                 </a>
               </Reveal>
@@ -147,11 +150,11 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Events */}
+      {/* 06 — Events */}
       {events.length > 0 && (
-        <section className="pattern-ivory py-20 sm:py-24">
+        <section className="bg-sand py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <SectionHeading eyebrow="Majalis & Gatherings" title="Recent Events" />
+            <SectionTitle index="06" kicker="Events" title="Recent gatherings." action={{ href: "/events", label: "All events" }} />
             <StaggerGroup className="mt-12 grid gap-6 md:grid-cols-3">
               {events.map((e) => (
                 <StaggerItem key={e.id} className="h-full">
@@ -159,127 +162,91 @@ export default async function HomePage() {
                 </StaggerItem>
               ))}
             </StaggerGroup>
-            <MoreLink href="/events">All events</MoreLink>
           </div>
         </section>
       )}
 
-      {/* Media */}
-      {videos.length > 0 && (
-        <section className="pattern-navy py-20 sm:py-24">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <SectionHeading eyebrow="Lectures & Dars" title="Latest from the Media Library" dark />
-            <StaggerGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {videos.map((v) => (
-                <StaggerItem key={v.id} className="h-full">
-                  <VideoCard video={v} dark />
-                </StaggerItem>
-              ))}
-            </StaggerGroup>
-            <MoreLink href="/media" light>
-              Browse {allVideos.length} videos
-            </MoreLink>
-          </div>
-        </section>
-      )}
-
-      {/* Facilities */}
-      <section className="pattern-ivory py-20 sm:py-24">
-        <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
-          <Reveal className="grid grid-cols-3 grid-rows-2 gap-4">
-            <FitImage src="/images/library.jpg" alt="City of Knowledge Library" className="col-span-2 row-span-2 h-full min-h-80 w-full rounded-2xl border-4 border-white shadow-xl" />
-            <FitImage src="/images/main-hall.jpg" alt="Main lecture hall" className="h-full min-h-36 w-full rounded-2xl border-4 border-white shadow-xl" />
-            <FitImage src="/images/lounge.jpg" alt="Reception lounge" className="h-full min-h-36 w-full rounded-2xl border-4 border-white shadow-xl" />
-          </Reveal>
-          <div>
-            <SectionHeading eyebrow="Our Facilities" title="A Rich Environment for Deep Learning" align="left" />
-            <Reveal delay={0.1}>
-              <p className="mt-6 leading-relaxed text-ink/80">
-                Located in a serene and respectable neighbourhood, CoK offers an environment that reflects dignity, respect,
-                and academic excellence. Our well-furnished, spacious, and fully air-conditioned classrooms are equipped with
-                modern interactive ed-tech tools.
-              </p>
-              <div className="mt-6 flex items-start gap-4 rounded-2xl border border-gold/40 bg-white/80 p-5">
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-navy text-gold-light">
-                  <Library size={20} />
-                </span>
-                <p className="text-sm leading-relaxed text-ink/80">
-                  <span className="font-semibold text-navy">City of Knowledge Library</span> — a resource-rich collection of
-                  the latest and historical works on Tafsir, Hadith, History, Sirah, Shariah, Islamic Philosophy, Travelogues and
-                  more.
-                </p>
-              </div>
-            </Reveal>
-          </div>
+      {/* 07 — Facilities */}
+      <section className="py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionTitle
+            index="07"
+            kicker="Our campus"
+            title="A setting built for deep learning."
+            intro="A serene, respectable neighbourhood; well-furnished, spacious and fully air-conditioned classrooms."
+            action={{ href: "/about#facilities", label: "Facilities" }}
+          />
+          <StaggerGroup className="mt-12 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+            {FACILITIES.map(([src, title, text], i) => (
+              <StaggerItem key={src} className="group bg-white">
+                <div className="relative h-56 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={src} alt={title} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+                </div>
+                <div className="p-5">
+                  <p className="font-display text-xs font-bold text-crimson">0{i + 1}</p>
+                  <h3 className="mt-1 flex items-center gap-2 font-display text-xl font-bold text-ink">
+                    {i === 0 && <Library size={18} className="text-crimson" />} {title}
+                  </h3>
+                  <p className="mt-1 text-sm text-muted">{text}</p>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerGroup>
         </div>
       </section>
 
-      {/* Books */}
+      {/* 08 — Books */}
       {publications.length > 0 && (
-        <section className="bg-ivory-2 py-20 sm:py-24">
+        <section className="bg-sand py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <SectionHeading eyebrow="Research & Publications" title="Books by Dr. Umair Mahmood Siddiqui">
-              {publications.length} works on theology, comparative religion, jurisprudence and history.
-            </SectionHeading>
+            <SectionTitle
+              index="08"
+              kicker="Research & publications"
+              title="Books by Dr. Umair Mahmood Siddiqui."
+              action={{ href: "/research", label: `All ${publications.length} books` }}
+            />
             <BookShelf books={publications} />
           </div>
         </section>
       )}
 
-      {/* Gallery */}
+      {/* 09 — Gallery */}
       {albums.length > 0 && (
-        <section className="pattern-ivory py-20 sm:py-24">
+        <section className="py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <SectionHeading eyebrow="Moments" title="Gallery" />
-            <StaggerGroup className="mt-12 grid gap-6 md:grid-cols-2">
-              {albums.slice(0, 2).map((a) => (
-                <StaggerItem key={a.id}>
-                  <GalleryCard album={a} />
+            <SectionTitle index="09" kicker="Gallery" title="Moments from the institute." action={{ href: "/gallery", label: "Open gallery" }} />
+            <StaggerGroup className="mt-12 grid gap-4 md:h-[32rem] md:grid-cols-[1.6fr_1fr]">
+              {albums.slice(0, 2).map((a, i) => (
+                <StaggerItem key={a.id} className="h-full">
+                  <GalleryCard album={a} large={i === 0} />
                 </StaggerItem>
               ))}
             </StaggerGroup>
-            <MoreLink href="/gallery">Open gallery</MoreLink>
           </div>
         </section>
       )}
 
-      {/* News */}
-      {news.length > 0 && (
-        <section className="bg-ivory-2 py-20 sm:py-24">
+      {/* 10 — News */}
+      {leadNews && (
+        <section className="border-t border-line py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <SectionHeading eyebrow="Announcements" title="News & Updates" />
-            <StaggerGroup className="mt-12 grid gap-6 md:grid-cols-3">
-              {news.map((n) => (
-                <StaggerItem key={n.id} className="h-full">
-                  <NewsCard post={n} />
-                </StaggerItem>
-              ))}
-            </StaggerGroup>
-            <MoreLink href="/news">All news</MoreLink>
+            <SectionTitle index="10" kicker="Announcements" title="News & updates." action={{ href: "/news", label: "All news" }} />
+            <div className="mt-12 grid gap-10 lg:grid-cols-[1.2fr_1fr]">
+              <Reveal>
+                <NewsCard post={leadNews} featured />
+              </Reveal>
+              <StaggerGroup className="space-y-8 border-t-2 border-ink pt-8 lg:border-t-0 lg:border-l lg:border-line lg:pt-0 lg:pl-10">
+                {moreNews.map((n) => (
+                  <StaggerItem key={n.id}>
+                    <NewsCard post={n} />
+                  </StaggerItem>
+                ))}
+              </StaggerGroup>
+            </div>
           </div>
         </section>
       )}
-
-      {/* Call to action */}
-      <section className="relative overflow-hidden bg-maroon py-20 text-center">
-        <div className="absolute inset-0 opacity-60" style={{ backgroundImage: "url(/pattern-gold.svg)", backgroundSize: "96px" }} aria-hidden />
-        <Reveal className="relative mx-auto max-w-3xl px-4">
-          <p className="font-arabic text-3xl text-gold-light" lang="ar">أَهْلًا وَسَهْلًا</p>
-          <h2 className="mt-3 font-serif text-3xl font-semibold text-ivory sm:text-4xl">
-            Interested in our programs, admissions or the weekly Dars-e-Quran?
-          </h2>
-          <Ornament className="mt-5" light />
-          <p className="mt-5 text-ivory/80">Call or WhatsApp {phone} — or send us a message.</p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <a href={`https://wa.me/${phone.replace(/[^\d]/g, "")}`} target="_blank" rel="noopener noreferrer" className="btn-gold">
-              <MessageCircle size={16} /> WhatsApp
-            </a>
-            <Link href="/contact" className="btn-outline-light">
-              <Phone size={16} /> Contact us
-            </Link>
-          </div>
-        </Reveal>
-      </section>
     </div>
   );
 }

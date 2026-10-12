@@ -1,7 +1,7 @@
 import { getList } from "@/lib/cms";
 import { EventCard } from "@/components/Cards";
 import { StaggerGroup, StaggerItem } from "@/components/motion/Stagger";
-import { PageHero, SectionHeading } from "@/components/Ornaments";
+import { PageHeader, SectionTitle } from "@/components/Ornaments";
 
 export const metadata = { title: "Events" };
 
@@ -26,18 +26,18 @@ export default async function EventsPage() {
 
   return (
     <>
-      <PageHero arabic="مَجَالِسُ العِلْم" title="Events" subtitle="Gatherings, lectures, panel discussions and programs." />
-      <section className="pattern-ivory py-16 sm:py-20">
+      <PageHeader arabic="مَجَالِسُ العِلْم" title="Events" intro="Gatherings, lectures, panel discussions and programs." />
+      <section className="bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {upcoming.length > 0 && (
             <div className="mb-20">
-              <SectionHeading eyebrow="Coming Up" title="Upcoming Events" />
+              <SectionTitle kicker="Coming Up" title="Upcoming Events" />
               {grid(upcoming)}
             </div>
           )}
           {past.length > 0 && (
             <>
-              <SectionHeading eyebrow="Archive" title="Recent & Past Events" />
+              <SectionTitle kicker="Archive" title="Recent & Past Events" />
               {grid(past)}
             </>
           )}

@@ -4,7 +4,7 @@ import { categoryLabel, fmtDate } from "@/lib/format";
 import Reveal from "@/components/motion/Reveal";
 import { VideoCard } from "@/components/Cards";
 import { DetailHeader, Prose } from "@/components/Detail";
-import { SectionHeading } from "@/components/Ornaments";
+import { SectionTitle } from "@/components/Ornaments";
 
 function toEmbedUrl(url) {
   if (!url) return null;
@@ -31,14 +31,14 @@ export default async function MediaDetailPage({ params }) {
     <>
       <DetailHeader
         back={{ href: "/media", label: "Media" }}
-        eyebrow={categoryLabel(video.category)}
+        kicker={categoryLabel(video.category)}
         title={video.title}
         meta={[fmtDate(video.publishedAt), video.views && `${video.views} views`].filter(Boolean).join(" · ")}
       />
-      <section className="pattern-ivory pb-20">
-        <Reveal as="article" className="mx-auto -mt-6 max-w-5xl px-4 sm:px-6">
+      <section className="bg-white pb-20">
+        <Reveal as="article" className="mx-auto mt-12 max-w-5xl px-4 sm:px-6">
           {embedUrl && (
-            <div className="aspect-video overflow-hidden rounded-2xl border-4 border-gold bg-navy-deep shadow-2xl">
+            <div className="aspect-video overflow-hidden bg-ink shadow-2xl">
               <iframe
                 src={embedUrl}
                 title={video.title}
@@ -53,7 +53,7 @@ export default async function MediaDetailPage({ params }) {
 
         {related.length > 0 && (
           <div className="mx-auto mt-20 max-w-7xl px-4 sm:px-6 lg:px-8">
-            <SectionHeading eyebrow="Keep Watching" title={`More ${categoryLabel(video.category)}`} />
+            <SectionTitle kicker="Keep Watching" title={`More ${categoryLabel(video.category)}`} />
             <div className="mt-10 grid gap-6 md:grid-cols-3">
               {related.map((v) => (
                 <VideoCard key={v.id} video={v} />

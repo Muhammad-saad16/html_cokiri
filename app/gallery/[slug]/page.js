@@ -21,11 +21,11 @@ export default async function GalleryAlbumPage({ params }) {
     <>
       <DetailHeader
         back={{ href: "/gallery", label: "Gallery" }}
-        eyebrow={`${album.images?.length || 0} photos`}
+        kicker={`${album.images?.length || 0} photos`}
         title={album.title}
         meta={[fmtDate(album.date), album.location].filter(Boolean).join(" · ")}
       />
-      <section className="pattern-ivory pb-20">
+      <section className="bg-white pt-4 pb-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {album.description && (
             <Reveal>

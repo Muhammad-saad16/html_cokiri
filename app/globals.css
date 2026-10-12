@@ -1,22 +1,26 @@
 @import "tailwindcss";
 
 @theme {
-  --color-navy-deep: #08142a;
-  --color-navy: #0e1f3d;
-  --color-navy-soft: #172c52;
-  --color-maroon: #8a1c2b;
-  --color-maroon-dark: #6b1421;
+  --color-ink: #0f1d3a;
+  --color-ink-soft: #1d2f55;
+  --color-crimson: #b01e2f;
+  --color-crimson-dark: #8c1524;
   --color-gold: #c9a227;
-  --color-gold-light: #e8cc6a;
-  --color-gold-dark: #9c7a12;
-  --color-ivory: #fbf8f1;
-  --color-ivory-2: #f3ede0;
-  --color-ink: #1a2133;
-  --color-muted: #5d6475;
+  --color-paper: #ffffff;
+  --color-sand: #f5f2ec;
+  --color-line: #e6e0d4;
+  --color-muted: #5f6677;
 
-  --font-serif: var(--font-cormorant), var(--font-amiri), Georgia, serif;
-  --font-sans: var(--font-inter), var(--font-amiri), system-ui, sans-serif;
-  --font-arabic: var(--font-amiri), "Traditional Arabic", serif;
+  --font-display: var(--font-outfit), var(--font-kufi), system-ui, sans-serif;
+  --font-sans: var(--font-manrope), var(--font-kufi), system-ui, sans-serif;
+  --font-arabic: var(--font-kufi), sans-serif;
+  --font-honorific: var(--font-amiri), serif;
+
+  --animate-ticker: ticker 40s linear infinite;
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
 }
 
 html {
@@ -24,50 +28,46 @@ html {
 }
 
 body {
-  background: var(--color-ivory);
+  background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans);
 }
 
-/* Islamic geometric pattern backgrounds */
-.pattern-navy {
-  background-color: var(--color-navy);
-  background-image: url("/pattern-gold.svg");
-  background-size: 96px 96px;
+/* Square-Kufic inspired grid motif */
+.kufic {
+  background-image: url("/kufic.svg");
+  background-size: 64px 64px;
 }
-.pattern-ivory {
-  background-color: var(--color-ivory);
-  background-image: url("/pattern-ivory.svg");
-  background-size: 120px 120px;
+.kufic-light {
+  background-image: url("/kufic-light.svg");
+  background-size: 64px 64px;
 }
 
-.text-gold-gradient {
-  background: linear-gradient(180deg, #f6e08e 0%, #c9a227 55%, #9c7a12 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
+/* Outlined display text */
+.text-outline {
   color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.35);
 }
 
 @layer components {
-  .btn-gold {
-    @apply inline-flex items-center gap-2 rounded-md bg-gold px-6 py-3 text-sm font-semibold tracking-[0.14em] whitespace-nowrap text-navy-deep uppercase shadow-md transition hover:bg-gold-light;
+  .btn-red {
+    @apply inline-flex items-center gap-2.5 bg-crimson px-6 py-3.5 text-sm font-bold whitespace-nowrap text-white transition hover:bg-crimson-dark;
   }
-  .btn-navy {
-    @apply inline-flex items-center gap-2 rounded-md border border-gold bg-navy px-6 py-3 text-sm font-semibold tracking-[0.14em] whitespace-nowrap text-gold-light uppercase shadow-md transition hover:bg-navy-soft;
+  .btn-ink {
+    @apply inline-flex items-center gap-2.5 bg-ink px-6 py-3.5 text-sm font-bold whitespace-nowrap text-white transition hover:bg-ink-soft;
   }
-  .btn-outline {
-    @apply inline-flex items-center gap-2 rounded-md border border-gold px-6 py-3 text-sm font-semibold tracking-[0.14em] whitespace-nowrap text-gold-dark uppercase transition hover:bg-gold hover:text-navy-deep;
+  .btn-line {
+    @apply inline-flex items-center gap-2.5 border-2 border-ink px-6 py-3 text-sm font-bold whitespace-nowrap text-ink transition hover:bg-ink hover:text-white;
   }
-  .btn-outline-light {
-    @apply inline-flex items-center gap-2 rounded-md border border-gold/70 px-6 py-3 text-sm font-semibold tracking-[0.14em] whitespace-nowrap text-gold-light uppercase transition hover:bg-gold hover:text-navy-deep;
+  .btn-line-light {
+    @apply inline-flex items-center gap-2.5 border-2 border-white/70 px-6 py-3 text-sm font-bold whitespace-nowrap text-white transition hover:bg-white hover:text-ink;
   }
-  .card {
-    @apply overflow-hidden rounded-2xl border border-gold/30 bg-white/80 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-gold hover:shadow-xl;
+  .label {
+    @apply text-[11px] font-bold tracking-[0.18em] uppercase;
   }
-}
-
-.arch {
-  border-radius: 999px 999px 1.25rem 1.25rem;
+  .tile {
+    @apply border border-line bg-white transition duration-300 hover:border-ink hover:shadow-[8px_8px_0_0_var(--color-ink)];
+  }
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -80,5 +80,8 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .animate-ticker {
+    animation: none;
   }
 }

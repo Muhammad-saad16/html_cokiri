@@ -1,13 +1,15 @@
-import { Amiri, Cormorant_Garamond, Inter } from "next/font/google";
+import { Amiri, Manrope, Outfit, Reem_Kufi } from "next/font/google";
 import "./globals.css";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import MobileTabBar from "@/components/MobileTabBar";
 import { getSettings } from "@/lib/cms";
 
-const cormorant = Cormorant_Garamond({ variable: "--font-cormorant", subsets: ["latin"], weight: ["400", "500", "600", "700"], style: ["normal", "italic"] });
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
-const amiri = Amiri({ variable: "--font-amiri", subsets: ["arabic"], weight: ["400", "700"] });
+const outfit = Outfit({ variable: "--font-outfit", subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
+const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"] });
+const kufi = Reem_Kufi({ variable: "--font-kufi", subsets: ["arabic"], weight: ["400", "600", "700"] });
+// Amiri carries the ﷺ ligature, which Reem Kufi lacks.
+const amiri = Amiri({ variable: "--font-amiri", subsets: ["arabic"], weight: ["400"] });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3002";
 
@@ -33,7 +35,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${inter.variable} ${amiri.variable} h-full antialiased`}
+      className={`${outfit.variable} ${manrope.variable} ${kufi.variable} ${amiri.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <SiteNav />

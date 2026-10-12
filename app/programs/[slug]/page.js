@@ -20,19 +20,19 @@ export default async function ProgramDetailPage({ params }) {
 
   return (
     <>
-      <DetailHeader back={{ href: "/programs", label: "Programs" }} eyebrow="Academic Activity" title={program.title} />
-      <section className="pattern-ivory pb-20">
-        <Reveal as="article" className="mx-auto -mt-6 max-w-4xl px-4 sm:px-6">
+      <DetailHeader back={{ href: "/programs", label: "Programs" }} kicker="Academic Activity" title={program.title} />
+      <section className="bg-white pb-20">
+        <Reveal as="article" className="mx-auto mt-12 max-w-4xl px-4 sm:px-6">
           {program.coverImageUrl && (
-            <FitImage src={program.coverImageUrl} alt={program.title} className="h-72 w-full rounded-2xl border-4 border-white shadow-xl sm:h-[28rem]" />
+            <FitImage src={program.coverImageUrl} alt={program.title} className="h-72 w-full sm:h-[28rem]" />
           )}
           {program.schedule && (
-            <p className="mt-8 flex items-start gap-3 rounded-2xl border border-gold/40 bg-white/80 px-5 py-4 font-medium text-navy">
-              <CalendarClock size={20} className="mt-0.5 shrink-0 text-maroon" /> {program.schedule}
+            <p className="mt-8 flex items-start gap-3 border border-line bg-white/80 px-5 py-4 font-medium text-ink">
+              <CalendarClock size={20} className="mt-0.5 shrink-0 text-crimson" /> {program.schedule}
             </p>
           )}
           {(program.startDate || program.endDate) && (
-            <p className="mt-3 text-sm font-medium text-maroon">
+            <p className="mt-3 text-sm font-medium text-crimson">
               {fmtDate(program.startDate)}
               {program.endDate ? ` – ${fmtDate(program.endDate)}` : ""}
             </p>

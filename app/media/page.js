@@ -4,7 +4,7 @@ import { categoryLabel } from "@/lib/format";
 import { VideoCard } from "@/components/Cards";
 import { StaggerGroup, StaggerItem } from "@/components/motion/Stagger";
 import Pagination from "@/components/Pagination";
-import { PageHero } from "@/components/Ornaments";
+import { PageHeader } from "@/components/Ornaments";
 
 export const metadata = { title: "Media — Lectures, Dars & Videos" };
 
@@ -19,21 +19,21 @@ export default async function MediaPage({ searchParams }) {
   ]);
 
   const chip = (active) =>
-    `shrink-0 rounded-md border px-4 py-2 text-xs font-semibold tracking-[0.12em] whitespace-nowrap uppercase transition ${
-      active ? "border-gold bg-gold text-navy-deep" : "border-gold/50 text-gold-light hover:bg-gold/10"
+    `shrink-0 border-2 px-4 py-2 text-xs font-bold tracking-[0.12em] whitespace-nowrap uppercase transition ${
+      active ? "border-crimson bg-crimson text-white" : "border-line text-ink hover:border-ink"
     }`;
 
   return (
     <>
-      <PageHero
+      <PageHeader
         arabic="مُحَاضَرَات"
         title="Media"
-        subtitle="Lectures, Dars-e-Shama'il, Dars-e-Quran, Q&A sessions and panel discussions by Dr. Umair Mahmood Siddiqui."
+        intro="Lectures, Dars-e-Shama'il, Dars-e-Quran, Q&A sessions and panel discussions by Dr. Umair Mahmood Siddiqui."
       />
-      <section className="pattern-navy py-16 sm:py-20">
+      <section className="bg-white py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {categories.length > 0 && (
-            <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 sm:flex-wrap sm:justify-center">
+            <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 sm:flex-wrap">
               <Link href="/media" className={chip(!category)}>
                 All
               </Link>
@@ -44,17 +44,17 @@ export default async function MediaPage({ searchParams }) {
               ))}
             </div>
           )}
-          <p className="mt-6 text-center text-sm text-ivory/60">{totalDocs} videos</p>
+          <p className="label mt-6 text-muted">{totalDocs} videos</p>
 
-          <StaggerGroup key={`${category}-${page}`} className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <StaggerGroup key={`${category}-${page}`} className="mt-8 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
             {videos.map((v) => (
               <StaggerItem key={v.id} className="h-full">
-                <VideoCard video={v} dark />
+                <VideoCard video={v} />
               </StaggerItem>
             ))}
           </StaggerGroup>
 
-          {videos.length === 0 && <p className="mt-8 text-center text-ivory/60">No media published yet.</p>}
+          {videos.length === 0 && <p className="mt-8 text-center text-muted">No media published yet.</p>}
 
           <Pagination basePath="/media" page={page} totalPages={totalPages} params={{ category }} />
         </div>

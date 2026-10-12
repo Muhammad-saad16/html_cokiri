@@ -4,7 +4,7 @@ import Reveal from "@/components/motion/Reveal";
 import { StaggerGroup, StaggerItem } from "@/components/motion/Stagger";
 import FourPillars from "@/components/FourPillars";
 import FitImage from "@/components/FitImage";
-import { PageHero, SectionHeading, Honorific } from "@/components/Ornaments";
+import { PageHeader, SectionTitle, Honorific } from "@/components/Ornaments";
 
 export const metadata = {
   title: "About — Vision, Mission & Leadership",
@@ -27,21 +27,21 @@ export default async function AboutPage() {
 
   return (
     <div>
-      <PageHero
+      <PageHeader
         arabic="رُؤْيَتُنَا وَرِسَالَتُنَا"
-        eyebrow="Islamic Research Institute"
+        kicker="Islamic Research Institute"
         title="Vision & Mission"
-        subtitle="A project of ITQAN Educational & Research Foundation"
+        intro="A project of ITQAN Educational & Research Foundation"
       />
 
-      <section className="pattern-ivory py-16 sm:py-20">
+      <section className="bg-white py-16 sm:py-20">
         <div className="mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
           <div>
-            <SectionHeading eyebrow="Who We Are" title="Introduction" align="left" />
+            <SectionTitle index="01" kicker="Who we are" title="An institute for knowledge, research and Tarbiyyah." />
             <div className="mt-6 space-y-5 text-[17px] leading-relaxed text-ink/85">
               {paragraphs.map((p, i) => (
                 <Reveal key={i} delay={i * 0.06}>
-                  <p className={i === 0 ? "first-letter:float-left first-letter:mr-3 first-letter:font-serif first-letter:text-6xl first-letter:leading-none first-letter:text-maroon" : ""}>
+                  <p className={i === 0 ? "first-letter:float-left first-letter:mr-3 first-letter:font-display first-letter:text-6xl first-letter:leading-none first-letter:text-crimson" : ""}>
                     {p}
                   </p>
                 </Reveal>
@@ -49,30 +49,29 @@ export default async function AboutPage() {
             </div>
           </div>
           <Reveal delay={0.1} className="space-y-4">
-            <FitImage src="/images/building-front.jpg" alt="City of Knowledge building" className="h-72 w-full rounded-2xl border-4 border-white shadow-xl" />
-            <FitImage src="/images/prof-zahid-hadith-workshop.jpg" alt="Workshop on the Significance of Hadith" className="h-60 w-full rounded-2xl border-4 border-white shadow-xl" />
+            <FitImage src="/images/building-front.jpg" alt="City of Knowledge building" className="h-72 w-full shadow-[10px_10px_0_0_var(--color-crimson)]" />
+            <FitImage src="/images/prof-zahid-hadith-workshop.jpg" alt="Workshop on the Significance of Hadith" className="h-60 w-full" />
           </Reveal>
         </div>
       </section>
 
-      <FourPillars />
+      <FourPillars index="02" />
 
       {leaders.length > 0 && (
-        <section id="leadership" className="scroll-mt-20 bg-ivory-2 py-20 sm:py-24">
+        <section id="leadership" className="scroll-mt-20 bg-sand py-20 sm:py-24">
           <div className="mx-auto max-w-6xl space-y-20 px-4 sm:px-6 lg:px-8">
-            <SectionHeading eyebrow="Guidance" title="Leadership" />
+            <SectionTitle index="03" kicker="Guidance" title="Leadership." />
             {leaders.map((p, i) => (
               <div key={p.id} className={`grid items-center gap-12 ${i % 2 ? "md:grid-cols-[1fr_20rem]" : "md:grid-cols-[20rem_1fr]"}`}>
                 <Reveal className={`relative mx-auto w-full max-w-xs ${i % 2 ? "md:order-2" : ""}`}>
-                  <div className="arch absolute -inset-3 border-2 border-gold/60" aria-hidden />
-                  <div className="arch relative aspect-[4/5] overflow-hidden border-4 border-gold shadow-2xl">
+                                    <div className="relative aspect-[4/5] overflow-hidden shadow-[12px_12px_0_0_var(--color-ink)]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={p.photoUrl} alt={p.name} className="h-full w-full object-cover object-top" />
                   </div>
                 </Reveal>
                 <Reveal delay={0.1}>
-                  <span className="inline-block rounded-md bg-maroon px-3 py-1 text-xs font-semibold tracking-[0.15em] text-gold-light uppercase">{p.designation}</span>
-                  <h2 className="mt-3 font-serif text-4xl font-semibold text-navy">{p.name}</h2>
+                  <span className="label inline-block bg-crimson px-3 py-1.5 text-white">{p.designation}</span>
+                  <h2 className="mt-4 font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">{p.name}</h2>
                   <div className="mt-5 space-y-4 leading-relaxed text-ink/85">
                     {(p.bio || "").split("\n\n").map((para, j) => (
                       <p key={j}>
@@ -88,9 +87,9 @@ export default async function AboutPage() {
       )}
 
       {advisors.length > 0 && (
-        <section className="pattern-ivory py-20">
+        <section className="bg-white py-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <SectionHeading eyebrow="Counsel" title="Advisory Board" />
+            <SectionTitle index="04" kicker="Counsel" title="Advisory Board." />
             <StaggerGroup className="mt-12 grid gap-6 sm:grid-cols-3">
               {advisors.map((p) => (
                 <StaggerItem key={p.id}>
@@ -102,25 +101,26 @@ export default async function AboutPage() {
         </section>
       )}
 
-      <section id="facilities" className="pattern-ivory scroll-mt-20 py-20 sm:py-24">
+      <section id="facilities" className="bg-white scroll-mt-20 py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading eyebrow="Our Facilities" title="A Rich Environment Conducive to Deep Learning">
-            Located in a serene and respectable neighbourhood, CoK offers an environment that reflects dignity, respect, and
-            academic excellence. Our well-furnished, spacious, and fully air-conditioned classrooms are equipped with modern
-            interactive ed-tech tools.
-          </SectionHeading>
-          <StaggerGroup className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
+          <SectionTitle
+            index="05"
+            kicker="Our facilities"
+            title="A rich environment conducive to deep learning."
+            intro="Located in a serene and respectable neighbourhood, CoK offers an environment that reflects dignity, respect and academic excellence — well-furnished, spacious, fully air-conditioned classrooms with modern ed-tech tools."
+          />
+          <StaggerGroup className="mt-12 grid grid-cols-2 gap-6 md:grid-cols-4">
             {FACILITY_PHOTOS.map(([src, caption]) => (
               <StaggerItem key={src}>
                 <figure>
-                  <FitImage src={src} alt={caption} className="h-52 w-full rounded-2xl border-4 border-white shadow-lg" />
-                  <figcaption className="mt-3 text-center font-serif text-lg text-navy">{caption}</figcaption>
+                  <FitImage src={src} alt={caption} className="h-52 w-full" />
+                  <figcaption className="mt-3 font-display text-lg font-bold text-ink">{caption}</figcaption>
                 </figure>
               </StaggerItem>
             ))}
           </StaggerGroup>
-          <Reveal className="mx-auto mt-12 max-w-3xl rounded-2xl border border-gold/40 bg-white/80 p-6 text-center">
-            <h3 className="font-serif text-2xl font-semibold text-maroon">City of Knowledge Library</h3>
+          <Reveal className="mt-12 border-l-4 border-crimson bg-sand p-7">
+            <h3 className="font-display text-2xl font-bold text-ink">City of Knowledge Library</h3>
             <p className="mt-2 leading-relaxed text-ink/80">
               The institute is adorned with a well-equipped, resource-rich library — a beautiful collection of the latest and
               historical literary works on Tafsir, Hadith, History, Sirah, Shariah, Islamic Philosophy, Travelogues and more.

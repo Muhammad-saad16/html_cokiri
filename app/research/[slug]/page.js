@@ -18,9 +18,9 @@ export default async function ResearchDetailPage({ params }) {
 
   return (
     <>
-      <DetailHeader back={{ href: "/research", label: "All books" }} eyebrow={pub.type?.replace("_", " ")} title={pub.title} meta="By Dr. Umair Mahmood Siddiqui" />
-      <section className="pattern-ivory pb-20">
-        <Reveal as="article" className="mx-auto -mt-6 grid max-w-4xl items-start gap-10 px-4 sm:px-6 md:grid-cols-[16rem_1fr]">
+      <DetailHeader back={{ href: "/research", label: "All books" }} kicker={pub.type?.replace("_", " ")} title={pub.title} meta="By Dr. Umair Mahmood Siddiqui" />
+      <section className="bg-white pb-20">
+        <Reveal as="article" className="mx-auto mt-12 grid max-w-4xl items-start gap-10 px-4 sm:px-6 md:grid-cols-[16rem_1fr]">
           {pub.coverImageUrl && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -30,10 +30,10 @@ export default async function ResearchDetailPage({ params }) {
             />
           )}
           <div className="md:pt-10">
-            {pub.summary && <p className="font-serif text-2xl leading-snug text-navy">{pub.summary}</p>}
+            {pub.summary && <p className="font-display text-2xl leading-snug text-ink">{pub.summary}</p>}
             <Prose text={pub.content} className="mt-6" />
             {pub.fileUrl && (
-              <a href={pub.fileUrl} target="_blank" rel="noopener noreferrer" className="btn-gold mt-8">
+              <a href={pub.fileUrl} target="_blank" rel="noopener noreferrer" className="btn-red mt-8">
                 <Download size={16} /> Read / Download
               </a>
             )}

@@ -1,40 +1,19 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import Reveal from "./motion/Reveal";
 
-/** Two-row bookshelf of covers standing on a gold ledge. */
-export default function BookShelf({ books, perRow = 4, rows = 2 }) {
-  const shelves = Array.from({ length: rows }, (_, r) => books.slice(r * perRow, (r + 1) * perRow)).filter((s) => s.length);
+/** Horizontally scrolling row of book covers, editorial style. */
+export default function BookShelf({ books }) {
   return (
-    <div className="mx-auto mt-14 max-w-5xl">
-      {shelves.map((row, r) => (
-        <Reveal key={r} delay={r * 0.1} className={r ? "mt-12" : ""}>
-          <div className="grid grid-cols-4 items-end gap-3 px-2 sm:gap-8 sm:px-8">
-            {row.map((b) => (
-              <Link key={b.id} href={`/research/${b.slug}`} className="group block" aria-label={b.title}>
-                <div className="relative aspect-[3/4] overflow-hidden rounded-r-md rounded-l-sm shadow-[6px_8px_16px_rgba(14,31,61,0.35)] transition duration-300 group-hover:-translate-y-3 group-hover:shadow-[10px_18px_28px_rgba(14,31,61,0.4)]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={b.coverImageUrl} alt="" className="h-full w-full object-cover" loading="lazy" />
-                  <span className="absolute inset-y-0 left-0 w-2 bg-gradient-to-r from-black/35 to-transparent" aria-hidden />
-                </div>
-              </Link>
-            ))}
+    <div className="no-scrollbar -mx-4 mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-6 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+      {books.map((b, i) => (
+        <Link key={b.id} href={`/research/${b.slug}`} className="group w-40 shrink-0 snap-start sm:w-48">
+          <div className="relative aspect-[3/4] overflow-hidden bg-sand shadow-[6px_6px_0_0_var(--color-line)] transition duration-300 group-hover:-translate-y-2 group-hover:shadow-[8px_8px_0_0_var(--color-crimson)]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={b.coverImageUrl} alt="" className="h-full w-full object-cover" loading="lazy" />
           </div>
-          <div className="h-3 rounded-sm bg-gradient-to-b from-gold-light via-gold to-gold-dark shadow-[0_10px_18px_-6px_rgba(14,31,61,0.45)]" aria-hidden />
-          <div className="grid grid-cols-4 gap-3 px-2 pt-3 sm:gap-8 sm:px-8">
-            {row.map((b) => (
-              <p key={b.id} className="text-center font-serif text-xs leading-snug font-semibold text-navy sm:text-base">
-                {b.title}
-              </p>
-            ))}
-          </div>
-        </Reveal>
-      ))}
-      <Reveal className="mt-12 text-center">
-        <Link href="/research" className="btn-navy">
-          All {books.length} books <ArrowRight size={16} />
+          <p className="mt-4 font-display text-xs font-bold text-crimson">{String(i + 1).padStart(2, "0")}</p>
+          <p className="mt-1 font-display text-base leading-snug font-bold text-ink group-hover:text-crimson">{b.title}</p>
         </Link>
-      </Reveal>
+      ))}
     </div>
   );
 }
