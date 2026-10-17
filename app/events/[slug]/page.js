@@ -25,22 +25,22 @@ export default async function EventDetailPage({ params }) {
   return (
     <>
       <DetailHeader back={{ href: "/events", label: "All events" }} kicker="Event" title={event.title} />
-      <section className="bg-white pb-20">
+      <section className="bg-coal pb-20">
         <Reveal as="article" className="mx-auto mt-12 max-w-4xl px-4 sm:px-6">
           {event.coverImageUrl && (
             <FitImage src={event.coverImageUrl} alt={event.title} className="h-72 w-full sm:h-96" />
           )}
           <div className="mt-8 flex flex-wrap gap-3">
-            <span className="inline-flex items-center gap-2 bg-ink px-3 py-2 text-sm text-gold">
+            <span className="inline-flex items-center gap-2 bg-black px-3 py-2 text-sm text-gold">
               <CalendarDays size={16} /> {fmtDate(event.startDate)}
             </span>
             {event.location && (
-              <span className="inline-flex items-center gap-2 border border-line bg-white/80 px-3 py-2 text-sm text-ink">
-                <MapPin size={16} className="text-crimson" /> {event.location}
+              <span className="inline-flex items-center gap-2 border border-line bg-coal-3 px-3 py-2 text-sm text-ivory">
+                <MapPin size={16} className="text-gold" /> {event.location}
               </span>
             )}
           </div>
-          {event.summary && <p className="mt-6 font-display text-2xl leading-snug text-ink">{event.summary}</p>}
+          {event.summary && <p className="mt-6 font-display text-2xl leading-snug text-ivory">{event.summary}</p>}
           <Prose text={event.description} className="mt-6" />
           {event.googleFormUrl && (
             <a href={event.googleFormUrl} target="_blank" rel="noopener noreferrer" className="btn-red mt-8">

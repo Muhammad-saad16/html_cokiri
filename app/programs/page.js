@@ -16,7 +16,7 @@ export default async function ProgramsPage() {
         title="Academic Activities"
         intro="Weekly Dars-e-Quran, the Friday Dars and Khutbah, the Dars-e-Shama'il series and more — open to men, women and families."
       />
-      <section className="bg-white py-16 sm:py-20">
+      <section className="bg-coal py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <StaggerGroup className="grid gap-6 md:grid-cols-3">
             {programs.map((p) => (

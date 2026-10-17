@@ -20,7 +20,7 @@ export default async function MediaPage({ searchParams }) {
 
   const chip = (active) =>
     `shrink-0 border-2 px-4 py-2 text-xs font-bold tracking-[0.12em] whitespace-nowrap uppercase transition ${
-      active ? "border-crimson bg-crimson text-white" : "border-line text-ink hover:border-ink"
+      active ? "border-gold bg-gold text-black" : "border-line text-ivory hover:border-gold"
     }`;
 
   return (
@@ -30,7 +30,7 @@ export default async function MediaPage({ searchParams }) {
         title="Media"
         intro="Lectures, Dars-e-Shama'il, Dars-e-Quran, Q&A sessions and panel discussions by Dr. Umair Mahmood Siddiqui."
       />
-      <section className="bg-white py-12 sm:py-16">
+      <section className="bg-coal py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {categories.length > 0 && (
             <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 sm:flex-wrap">

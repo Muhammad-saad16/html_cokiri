@@ -33,7 +33,7 @@ export default function Lightbox({ images, fallbackAlt = "" }) {
           <button
             key={img.id || img.url}
             onClick={() => setIndex(i)}
-            className="group mb-3 block w-full break-inside-avoid overflow-hidden border border-line bg-sand shadow-sm transition hover:border-gold hover:shadow-lg sm:mb-4"
+            className="group mb-3 block w-full break-inside-avoid overflow-hidden border border-line bg-coal-2 shadow-sm transition hover:border-gold hover:shadow-lg sm:mb-4"
             aria-label={`Open photo ${i + 1}`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -44,8 +44,8 @@ export default function Lightbox({ images, fallbackAlt = "" }) {
       </div>
 
       {current && (
-        <div role="dialog" aria-modal="true" aria-label={current.altText || fallbackAlt} className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/95 p-4" onClick={close}>
-          <button onClick={close} className="absolute top-4 right-4 grid h-11 w-11 place-items-center border border-line text-white hover:bg-gold hover:text-ink" aria-label="Close">
+        <div role="dialog" aria-modal="true" aria-label={current.altText || fallbackAlt} className="fixed inset-0 z-[60] flex items-center justify-center bg-black/95 p-4" onClick={close}>
+          <button onClick={close} className="absolute top-4 right-4 grid h-11 w-11 place-items-center border border-line text-white hover:bg-gold hover:text-ivory" aria-label="Close">
             <X size={22} />
           </button>
           <div className="relative flex max-w-6xl flex-col items-center" onClick={(e) => e.stopPropagation()}>
@@ -61,7 +61,7 @@ export default function Lightbox({ images, fallbackAlt = "" }) {
               e.stopPropagation();
               step(-1);
             }}
-            className="absolute left-2 grid h-12 w-12 place-items-center bg-ink/80 text-gold hover:bg-gold hover:text-ink sm:left-6"
+            className="absolute left-2 grid h-12 w-12 place-items-center bg-black/80 text-gold hover:bg-gold hover:text-ivory sm:left-6"
             aria-label="Previous photo"
           >
             <ChevronLeft size={26} />
@@ -71,7 +71,7 @@ export default function Lightbox({ images, fallbackAlt = "" }) {
               e.stopPropagation();
               step(1);
             }}
-            className="absolute right-2 grid h-12 w-12 place-items-center bg-ink/80 text-gold hover:bg-gold hover:text-ink sm:right-6"
+            className="absolute right-2 grid h-12 w-12 place-items-center bg-black/80 text-gold hover:bg-gold hover:text-ivory sm:right-6"
             aria-label="Next photo"
           >
             <ChevronRight size={26} />

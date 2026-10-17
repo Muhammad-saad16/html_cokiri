@@ -17,8 +17,8 @@ export default async function SiteFooter() {
   const phone = settings?.contactPhone;
 
   return (
-    <footer className="kufic relative overflow-hidden bg-ink pb-20 text-white/70 md:pb-0">
-      <div className="h-1.5 bg-gradient-to-r from-crimson via-crimson to-gold" />
+    <footer className="kufic relative overflow-hidden bg-black pb-20 text-white/70 md:pb-0">
+      <div className="h-1.5 bg-gradient-to-r from-gold-dark via-gold to-gold-dark" />
 
       {/* Verse + CTA */}
       <div className="mx-auto grid max-w-7xl gap-10 border-b border-white/10 px-4 py-14 sm:px-6 lg:grid-cols-[1.3fr_1fr] lg:items-center lg:px-8">
@@ -71,17 +71,17 @@ export default async function SiteFooter() {
           <p className="label mb-5 text-gold">Contact</p>
           {phone && (
             <a href={`tel:${phone.replace(/[^+\d]/g, "")}`} className="flex items-center gap-3 hover:text-white">
-              <Phone size={16} className="text-crimson" /> {phone}
+              <Phone size={16} className="text-gold" /> {phone}
             </a>
           )}
           {settings?.contactEmail && (
             <a href={`mailto:${settings.contactEmail}`} className="flex items-center gap-3 hover:text-white">
-              <Mail size={16} className="text-crimson" /> {settings.contactEmail}
+              <Mail size={16} className="text-gold" /> {settings.contactEmail}
             </a>
           )}
           {settings?.address && (
             <p className="flex items-start gap-3">
-              <MapPin size={16} className="mt-0.5 shrink-0 text-crimson" /> {settings.address}
+              <MapPin size={16} className="mt-0.5 shrink-0 text-gold" /> {settings.address}
             </p>
           )}
           {Object.keys(social).length > 0 && (

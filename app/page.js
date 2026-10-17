@@ -55,7 +55,7 @@ export default async function HomePage() {
           <div className="grid gap-14 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
               <SectionTitle index="01" kicker="Introduction" title="Knowledge and Tarbiyyah for every age." />
-              <Reveal delay={0.1} className="mt-8 space-y-5 text-lg leading-relaxed text-ink/80">
+              <Reveal delay={0.1} className="mt-8 space-y-5 text-lg leading-relaxed text-ivory/80">
                 <p>
                   City of Knowledge – Islamic Research Institute (CoK) serves as a dynamic hub for encyclopaedic knowledge and
                   multidisciplinary research — imparting “Knowledge and Tarbiyyah”, “Learning and Teaching” and “Intellectual
@@ -66,10 +66,10 @@ export default async function HomePage() {
                   specially designed courses.
                 </p>
               </Reveal>
-              <Reveal delay={0.15} className="mt-10 grid grid-cols-2 border-t-2 border-ink sm:grid-cols-4">
+              <Reveal delay={0.15} className="mt-10 grid grid-cols-2 border-t-2 border-gold sm:grid-cols-4">
                 {stats.map((s) => (
                   <div key={s.label} className="border-b border-line py-5 pr-4 sm:border-b-0">
-                    <p className="font-display text-5xl font-extrabold text-crimson">
+                    <p className="font-display text-5xl font-extrabold text-gold">
                       <Counter value={s.value || 0} />
                     </p>
                     <p className="mt-1 text-xs font-semibold text-muted">{s.label}</p>
@@ -79,12 +79,10 @@ export default async function HomePage() {
             </div>
             <Reveal delay={0.1} className="relative min-h-[28rem]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/building-front.jpg" alt="City of Knowledge building" className="absolute top-0 right-0 h-[75%] w-[85%] object-cover" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/kids-course-speech.jpg" alt="A child speaking during a children's course" className="absolute bottom-0 left-0 h-[48%] w-[48%] border-8 border-white object-cover shadow-xl" />
-              <div className="absolute right-0 bottom-6 bg-crimson px-5 py-4 text-white">
+              <img src="/images/building-front.jpg" alt="City of Knowledge building" className="absolute inset-0 h-full w-full object-cover" />
+              <div className="absolute -bottom-5 -left-5 bg-gold px-5 py-4 text-black shadow-xl">
                 <p className="font-display text-3xl font-extrabold">CoK</p>
-                <p className="label text-white/80">Est. by ITQAN Foundation</p>
+                <p className="label text-black/70">A project of ITQAN Foundation</p>
               </div>
             </Reveal>
           </div>
@@ -111,7 +109,7 @@ export default async function HomePage() {
 
       {/* 04 — Media */}
       {videos.length > 0 && (
-        <section className="kufic bg-ink py-20 sm:py-28">
+        <section className="kufic bg-black py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <SectionTitle index="04" kicker="Media library" title="Lectures, Dars & discussions." action={{ href: "/media", label: `All ${videos.length} videos` }} dark />
             <MediaFeature videos={videos.slice(0, 5)} />
@@ -123,14 +121,14 @@ export default async function HomePage() {
       {leader && (
         <section className="overflow-hidden">
           <div className="mx-auto grid max-w-7xl lg:grid-cols-2">
-            <Reveal className="relative min-h-[26rem] bg-sand">
+            <Reveal className="relative min-h-[26rem] bg-coal-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={leader.photoUrl} alt={leader.name} className="absolute inset-0 h-full w-full object-cover object-top" />
-              <span className="label absolute top-6 left-6 bg-crimson px-3 py-1.5 text-white">{leader.designation}</span>
+              <span className="label absolute top-6 left-6 bg-gold px-3 py-1.5 text-black">{leader.designation}</span>
             </Reveal>
             <div className="px-4 py-16 sm:px-10 lg:px-14 lg:py-24">
               <SectionTitle index="05" kicker="Under the supervision of" title={leader.name} />
-              <Reveal delay={0.1} className="mt-6 space-y-4 leading-relaxed text-ink/80">
+              <Reveal delay={0.1} className="mt-6 space-y-4 leading-relaxed text-ivory/80">
                 {leader.bio?.split("\n\n").map((para, i) => (
                   <p key={i}>
                     <Honorific text={para} />
@@ -152,7 +150,7 @@ export default async function HomePage() {
 
       {/* 06 — Events */}
       {events.length > 0 && (
-        <section className="bg-sand py-20 sm:py-28">
+        <section className="bg-coal-2 py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <SectionTitle index="06" kicker="Events" title="Recent gatherings." action={{ href: "/events", label: "All events" }} />
             <StaggerGroup className="mt-12 grid gap-6 md:grid-cols-3">
@@ -178,15 +176,15 @@ export default async function HomePage() {
           />
           <StaggerGroup className="mt-12 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
             {FACILITIES.map(([src, title, text], i) => (
-              <StaggerItem key={src} className="group bg-white">
+              <StaggerItem key={src} className="group bg-coal">
                 <div className="relative h-56 overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={src} alt={title} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
                 </div>
                 <div className="p-5">
-                  <p className="font-display text-xs font-bold text-crimson">0{i + 1}</p>
-                  <h3 className="mt-1 flex items-center gap-2 font-display text-xl font-bold text-ink">
-                    {i === 0 && <Library size={18} className="text-crimson" />} {title}
+                  <p className="font-display text-xs font-bold text-gold">0{i + 1}</p>
+                  <h3 className="mt-1 flex items-center gap-2 font-display text-xl font-bold text-ivory">
+                    {i === 0 && <Library size={18} className="text-gold" />} {title}
                   </h3>
                   <p className="mt-1 text-sm text-muted">{text}</p>
                 </div>
@@ -198,7 +196,7 @@ export default async function HomePage() {
 
       {/* 08 — Books */}
       {publications.length > 0 && (
-        <section className="bg-sand py-20 sm:py-28">
+        <section className="bg-coal-2 py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <SectionTitle
               index="08"
@@ -236,7 +234,7 @@ export default async function HomePage() {
               <Reveal>
                 <NewsCard post={leadNews} featured />
               </Reveal>
-              <StaggerGroup className="space-y-8 border-t-2 border-ink pt-8 lg:border-t-0 lg:border-l lg:border-line lg:pt-0 lg:pl-10">
+              <StaggerGroup className="space-y-8 border-t-2 border-gold pt-8 lg:border-t-0 lg:border-l lg:border-line lg:pt-0 lg:pl-10">
                 {moreNews.map((n) => (
                   <StaggerItem key={n.id}>
                     <NewsCard post={n} />

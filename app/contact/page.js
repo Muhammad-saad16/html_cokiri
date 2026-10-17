@@ -36,22 +36,22 @@ export default async function ContactPage() {
         title="Contact Us"
         intro="For admissions, program details, the weekly Dars-e-Quran, research inquiries or general questions — call, WhatsApp, email or visit us."
       />
-      <section className="bg-white py-16 sm:py-20">
+      <section className="bg-coal py-16 sm:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
           <Reveal className="space-y-4">
             {cards.map(({ Icon, label, value, href }) => {
               const body = (
                 <>
-                  <span className="grid h-12 w-12 shrink-0 place-items-center border border-gold bg-ink text-gold">
+                  <span className="grid h-12 w-12 shrink-0 place-items-center border border-gold bg-black text-gold">
                     <Icon size={20} />
                   </span>
                   <span>
-                    <span className="block text-xs font-semibold tracking-[0.2em] text-crimson uppercase">{label}</span>
-                    <span className="block font-medium text-ink">{value}</span>
+                    <span className="block text-xs font-semibold tracking-[0.2em] text-gold uppercase">{label}</span>
+                    <span className="block font-medium text-ivory">{value}</span>
                   </span>
                 </>
               );
-              const cls = "flex items-center gap-4  border border-line bg-white/80 p-5 transition hover:border-gold hover:shadow-md";
+              const cls = "flex items-center gap-4  border border-line bg-coal-3 p-5 transition hover:border-gold hover:shadow-md";
               return href ? (
                 <a key={label} href={href} className={cls} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
                   {body}
@@ -64,7 +64,7 @@ export default async function ContactPage() {
             })}
 
             {Object.keys(socialLinks).length > 0 && (
-              <div className="kufic bg-ink border border-line p-6 text-center">
+              <div className="kufic bg-black border border-line p-6 text-center">
                 <p className="text-xs font-semibold tracking-[0.25em] text-gold uppercase">Follow</p>
                 <div className="mt-4 flex flex-wrap justify-center gap-3">
                   {Object.entries(socialLinks).map(([platform, url]) => (
@@ -73,7 +73,7 @@ export default async function ContactPage() {
                       href={url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 border border-line px-4 py-2 text-sm text-white transition-colors hover:bg-gold hover:text-ink"
+                      className="inline-flex items-center gap-1.5 border border-line px-4 py-2 text-sm text-ivory transition-colors hover:bg-gold hover:text-black"
                     >
                       <Link2 size={14} /> {platform}
                     </a>

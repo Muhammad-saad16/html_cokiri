@@ -25,7 +25,7 @@ export default async function GalleryAlbumPage({ params }) {
         title={album.title}
         meta={[fmtDate(album.date), album.location].filter(Boolean).join(" · ")}
       />
-      <section className="bg-white pt-4 pb-20">
+      <section className="bg-coal pt-4 pb-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {album.description && (
             <Reveal>

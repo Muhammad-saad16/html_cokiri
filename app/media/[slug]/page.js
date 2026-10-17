@@ -35,10 +35,10 @@ export default async function MediaDetailPage({ params }) {
         title={video.title}
         meta={[fmtDate(video.publishedAt), video.views && `${video.views} views`].filter(Boolean).join(" · ")}
       />
-      <section className="bg-white pb-20">
+      <section className="bg-coal pb-20">
         <Reveal as="article" className="mx-auto mt-12 max-w-5xl px-4 sm:px-6">
           {embedUrl && (
-            <div className="aspect-video overflow-hidden bg-ink shadow-2xl">
+            <div className="aspect-video overflow-hidden bg-black shadow-2xl">
               <iframe
                 src={embedUrl}
                 title={video.title}

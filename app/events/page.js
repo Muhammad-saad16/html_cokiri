@@ -27,7 +27,7 @@ export default async function EventsPage() {
   return (
     <>
       <PageHeader arabic="مَجَالِسُ العِلْم" title="Events" intro="Gatherings, lectures, panel discussions and programs." />
-      <section className="bg-white py-16 sm:py-20">
+      <section className="bg-coal py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {upcoming.length > 0 && (
             <div className="mb-20">

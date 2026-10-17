@@ -14,7 +14,7 @@ export default function MediaFeature({ videos }) {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={featured.thumbnailUrl} alt={featured.title} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
           <span className="absolute inset-0 grid place-items-center">
-            <span className="grid h-20 w-20 place-items-center bg-crimson text-white shadow-2xl transition group-hover:scale-110">
+            <span className="grid h-20 w-20 place-items-center bg-gold text-black shadow-2xl transition group-hover:scale-110">
               <Play size={30} fill="currentColor" className="ml-1" />
             </span>
           </span>
