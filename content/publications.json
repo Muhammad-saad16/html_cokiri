@@ -1,0 +1,114 @@
+{
+  "items": [
+    {
+      "slug": "what-is-ahmadism",
+      "title": "What is Ahmadism?",
+      "type": "BOOK",
+      "coverImageUrl": "/content/books/book16.jpg",
+      "summary": "An in-depth study of Qadianism, its beliefs and claims."
+    },
+    {
+      "slug": "40-ahadith-for-kids",
+      "title": "40 Ahadith for Kids",
+      "type": "BOOK",
+      "coverImageUrl": "/content/books/book1.jpeg",
+      "summary": "A simplified collection of 40 Ahadith for children."
+    },
+    {
+      "slug": "ojhri-khane-ki-sharai-hesiat",
+      "title": "Ojhri Khane Ki Sharai Hesiat",
+      "type": "BOOK",
+      "coverImageUrl": "/content/books/book17.jpg",
+      "summary": "The Shariah ruling on eating tripe (ojhri).",
+      "fileUrl": "https://drive.google.com/file/d/1ER4oIXQi_nqrSyCFov3v9LSC3bSkR2Ho/view?usp=sharing"
+    },
+    {
+      "slug": "the-beacon-light",
+      "title": "The Beacon Light",
+      "type": "BOOK",
+      "coverImageUrl": "/content/books/book2.jpeg",
+      "summary": "A collection of writings of Dr. Umair Mahmood Siddiqui."
+    },
+    {
+      "slug": "tazkira",
+      "title": "Tazkira",
+      "type": "BOOK",
+      "coverImageUrl": "/content/books/book3.jpeg",
+      "summary": "A comprehensive source exposing Qadianiat through its own content."
+    },
+    {
+      "slug": "sheikh-ibn-arabi",
+      "title": "Sheikh Ibn Arabi",
+      "type": "BOOK",
+      "coverImageUrl": "/content/books/book4.jpeg",
+      "summary": "An analysis of the life and teachings of Sheikh Ibn Arabi."
+    },
+    {
+      "slug": "pakistan-ka-matlab-kya",
+      "title": "Pakistan Ka Matlab Kya?",
+      "type": "BOOK",
+      "coverImageUrl": "/content/books/book5.jpeg",
+      "summary": "A discourse on the meaning and significance of Pakistan."
+    },
+    {
+      "slug": "ghazwa-e-hind",
+      "title": "Ghazwa-e-Hind",
+      "type": "BOOK",
+      "coverImageUrl": "/content/books/book6.jpeg",
+      "summary": "A discussion on the concept and implications of Ghazwa-e-Hind."
+    },
+    {
+      "slug": "muhammad-the-glory-of-the-ages",
+      "title": "Muhammad: The Glory of the Ages",
+      "type": "BOOK",
+      "coverImageUrl": "/content/books/book7.jpeg",
+      "summary": "A tribute to the life and legacy of the Prophet Muhammad ﷺ."
+    },
+    {
+      "slug": "40-ahadith",
+      "title": "40 Ahadith",
+      "type": "BOOK",
+      "coverImageUrl": "/content/books/book8.jpeg",
+      "summary": "A curated selection of 40 Ahadith with commentary."
+    },
+    {
+      "slug": "communist-challenge-to-islam",
+      "title": "Communist Challenge to Islam",
+      "type": "BOOK",
+      "coverImageUrl": "/content/books/book9.jpeg",
+      "summary": "An exposition on the conflict between communism and Islam."
+    },
+    {
+      "slug": "dr-fazlur-rahman-ansari",
+      "title": "Dr. Fazlur Rahman Ansari",
+      "type": "BOOK",
+      "coverImageUrl": "/content/books/book10.jpeg",
+      "summary": "A biography highlighting Dr. Fazlur Rahman Ansari's scholarly contributions."
+    },
+    {
+      "slug": "islamic-jurisprudence",
+      "title": "Islamic Jurisprudence",
+      "type": "BOOK",
+      "coverImageUrl": "/content/books/book11.jpeg",
+      "summary": "A comprehensive guide to Islamic law and its principles."
+    },
+    {
+      "slug": "introduction-to-islamic-economics",
+      "title": "Introduction to Islamic Economics",
+      "type": "BOOK",
+      "coverImageUrl": "/content/books/book12.jpeg"
+    },
+    {
+      "slug": "islamic-theology",
+      "title": "Islamic Theology",
+      "type": "BOOK",
+      "coverImageUrl": "/content/books/book13.jpeg"
+    },
+    {
+      "slug": "revival-of-muslim-thought",
+      "title": "Revival of Muslim Thought",
+      "type": "BOOK",
+      "coverImageUrl": "/content/books/book14.jpeg"
+    }
+  ]
+}

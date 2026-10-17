@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "slug": "weekly-dars-e-quran",
+      "day": "Sat",
+      "time": "9:00 – 10:00 pm",
+      "venue": "City of Knowledge, Gulshan-e-Iqbal",
+      "title": "Weekly Dars-e-Quran — Surah Al-Jinn",
+      "schedule": "Every Saturday · 9:00 – 10:00 pm",
+      "coverImageUrl": "/content/posters/poster-surah-jinn.jpg",
+      "description": "Dr. Umair Mahmood Siddiqui's weekly Dars-e-Quran, currently on Surah Al-Jinn, followed by Du'a Hizb al-Bahr and a Mehfil of Durood-o-Salam.\n\nVenue: City of Knowledge, B-105, 13D/1, Gulshan-e-Iqbal, Karachi.\n\nMen may attend with their families; a separate arrangement is made for women."
+    },
+    {
+      "slug": "jumuah-khutbah-dars-e-quran",
+      "day": "Fri",
+      "time": "1:00 pm Dars · 2:00 pm Jumu'ah",
+      "venue": "Jamia Masjid Ali Haider Karrar, Clifton",
+      "title": "Jumu'ah Khutbah & Dars-e-Quran — Surah Hud",
+      "schedule": "Every Friday · Dars 1:00 – 1:45 pm · Jumu'ah 2:00 pm",
+      "coverImageUrl": "/content/posters/poster-surah-hud.jpg",
+      "description": "A Friday Dars-e-Quran by Dr. Umair Mahmood Siddiqui, currently on Surah Hud, followed by the Jumu'ah khutbah and prayer.\n\nVenue: Jamia Masjid Ali Haider Karrar, Bilawal Chowrangi, Clifton, Karachi.\n\nOrganised by Anjuman Qamar-ul-Islam Sulemania. Purdah arrangement for women."
+    },
+    {
+      "slug": "dars-e-shamail-muhammadiyyah",
+      "day": "Online",
+      "time": "New lessons on YouTube",
+      "venue": "Dr. Umair Mahmood Siddiqui YouTube channel",
+      "title": "Dars-e-Shama'il Muhammadiyyah",
+      "schedule": "Ongoing series · 46+ lessons on YouTube",
+      "coverImageUrl": "/content/videos/yt7L5atFgRc.jpg",
+      "description": "A lesson-by-lesson study of Al-Shama'il al-Muhammadiyyah — the noble character, appearance, habits and daily life of the Prophet Muhammad ﷺ — taught by Dr. Umair Mahmood Siddiqui.\n\nRecent lessons cover the Prophet's ﷺ blessed names, his age, his lifestyle, his humility and modesty, and Sunnahs such as hijama and washing the hands before eating. Watch the series in the Media section."
+    }
+  ]
+}

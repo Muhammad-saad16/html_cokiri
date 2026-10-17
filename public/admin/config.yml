@@ -1,0 +1,193 @@
+# Decap CMS — edits the JSON files in /content and commits them to GitHub.
+# Every save triggers a Vercel rebuild; changes are live in about 1–2 minutes.
+backend:
+  name: github
+  repo: Muhammad-saad16/html_cokiri
+  branch: main
+  base_url: https://www.cokiri.net
+  auth_endpoint: api/decap/auth
+
+# Lets `npx decap-server` edit files directly when the site runs on localhost.
+local_backend: true
+
+site_url: https://www.cokiri.net
+display_url: https://www.cokiri.net
+logo_url: /logo.png
+media_folder: public/content/uploads
+public_folder: /content/uploads
+
+collections:
+  - name: content
+    label: Website Content
+    editor: { preview: false }
+    files:
+      - name: programs
+        label: Weekly Programs
+        file: content/programs.json
+        fields:
+          - label: Programs
+            name: items
+            widget: list
+            summary: "{{fields.day}} — {{fields.title}}"
+            hint: Shown in the home page timetable and the hero's "This week" panel, in this order.
+            fields:
+              - { label: Title, name: title, widget: string }
+              - &slug { label: URL slug, name: slug, widget: string, pattern: ['^[a-z0-9-]+$', "Lowercase letters, numbers and dashes only"], hint: "Used in the page address, e.g. weekly-dars-e-quran. Must be unique." }
+              - { label: Day label, name: day, widget: string, hint: "Short — e.g. Sat, Fri, Online" }
+              - { label: Time, name: time, widget: string, hint: "e.g. 9:00 – 10:00 pm" }
+              - { label: Venue, name: venue, widget: string }
+              - { label: Schedule line, name: schedule, widget: string, hint: "e.g. Every Saturday · 9:00 – 10:00 pm" }
+              - { label: Poster / cover image, name: coverImageUrl, widget: image }
+              - { label: Description, name: description, widget: text, hint: "Leave a blank line between paragraphs. Links are clickable." }
+
+      - name: events
+        label: Events
+        file: content/events.json
+        fields:
+          - label: Events
+            name: items
+            widget: list
+            collapsed: true
+            summary: "{{fields.startDate}} — {{fields.title}}"
+            hint: Sorted by date automatically; future dates show under "Upcoming".
+            fields:
+              - { label: Title, name: title, widget: string }
+              - *slug
+              - { label: Date, name: startDate, widget: string, pattern: ['^\d{4}-\d{2}(-\d{2})?$', "Use YYYY-MM-DD, or YYYY-MM if you only know the month"], hint: "YYYY-MM-DD, e.g. 2026-10-15" }
+              - { label: Location, name: location, widget: string, required: false }
+              - { label: Cover image, name: coverImageUrl, widget: image, required: false }
+              - { label: Summary, name: summary, widget: text, required: false }
+              - { label: Description, name: description, widget: text, required: false, hint: "Paste YouTube links on their own line — they become 'Watch on YouTube' links." }
+              - { label: Registration form link (optional), name: googleFormUrl, widget: string, required: false }
+
+      - name: videos
+        label: Media (Videos)
+        file: content/videos.json
+        fields:
+          - label: Videos
+            name: items
+            widget: list
+            collapsed: true
+            summary: "{{fields.publishedAt}} — {{fields.title}}"
+            hint: Newest videos appear first automatically (sorted by date).
+            fields:
+              - { label: YouTube video ID, name: youtubeId, widget: string, hint: "The part after watch?v= — e.g. for youtube.com/watch?v=cD7_pTbXP24 enter cD7_pTbXP24" }
+              - { label: Title, name: title, widget: string }
+              - label: Category
+                name: category
+                widget: select
+                options:
+                  - { label: Lecture, value: LECTURE }
+                  - { label: "Dars-e-Shama'il", value: SHAMAIL }
+                  - { label: Dars-e-Quran, value: DARS_E_QURAN }
+                  - { label: Q&A, value: QA }
+                  - { label: Conference / Seminar, value: CONFERENCE }
+                  - { label: Khutbah, value: SERMON }
+                  - { label: Interview / TV, value: INTERVIEW }
+                  - { label: Other, value: OTHER }
+              - { label: Date, name: publishedAt, widget: string, pattern: ['^\d{4}-\d{2}(-\d{2})?$', "Use YYYY-MM-DD, or YYYY-MM if you only know the month"], hint: "YYYY-MM-DD, e.g. 2026-10-15" }
+              - { label: Views (optional), name: views, widget: string, required: false, hint: "e.g. 2.9K" }
+              - { label: Thumbnail (optional), name: thumbnailUrl, widget: image, required: false, hint: "Leave empty to use YouTube's own thumbnail" }
+
+      - name: gallery
+        label: Gallery Albums
+        file: content/gallery.json
+        fields:
+          - label: Albums
+            name: items
+            widget: list
+            collapsed: true
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Album title, name: title, widget: string }
+              - *slug
+              - { label: Date, name: date, widget: string, pattern: ['^\d{4}-\d{2}(-\d{2})?$', "Use YYYY-MM-DD, or YYYY-MM if you only know the month"], hint: "YYYY-MM-DD, e.g. 2026-10-15", required: false }
+              - { label: Location, name: location, widget: string, required: false }
+              - { label: Description, name: description, widget: text, required: false }
+              - { label: Cover image (optional), name: coverImageUrl, widget: image, required: false, hint: "Leave empty to use the first photo" }
+              - label: Photos
+                name: images
+                widget: list
+                collapsed: true
+                summary: "{{fields.caption}}"
+                fields:
+                  - { label: Photo, name: url, widget: image }
+                  - { label: Alt text, name: altText, widget: string, required: false, hint: "Short description for screen readers" }
+                  - { label: Caption, name: caption, widget: string, required: false }
+
+      - name: news
+        label: News & Announcements
+        file: content/news.json
+        fields:
+          - label: Posts
+            name: items
+            widget: list
+            collapsed: true
+            summary: "{{fields.publishedAt}} — {{fields.title}}"
+            fields:
+              - { label: Title, name: title, widget: string }
+              - *slug
+              - { label: Date, name: publishedAt, widget: string, pattern: ['^\d{4}-\d{2}(-\d{2})?$', "Use YYYY-MM-DD, or YYYY-MM if you only know the month"], hint: "YYYY-MM-DD, e.g. 2026-10-15" }
+              - { label: Cover image, name: coverImageUrl, widget: image, required: false }
+              - { label: Summary, name: summary, widget: text, required: false }
+              - { label: Content, name: content, widget: text, hint: "Leave a blank line between paragraphs. Links are clickable." }
+
+      - name: publications
+        label: Research & Books
+        file: content/publications.json
+        fields:
+          - label: Publications
+            name: items
+            widget: list
+            collapsed: true
+            summary: "{{fields.title}}"
+            hint: Drag to reorder — the first books appear on the home page.
+            fields:
+              - { label: Title, name: title, widget: string }
+              - *slug
+              - label: Type
+                name: type
+                widget: select
+                default: BOOK
+                options:
+                  - { label: Book, value: BOOK }
+                  - { label: Research paper, value: RESEARCH_PAPER }
+                  - { label: Article, value: ARTICLE }
+              - { label: Cover, name: coverImageUrl, widget: image }
+              - { label: Summary, name: summary, widget: text, required: false }
+              - { label: PDF / Read link (optional), name: fileUrl, widget: string, required: false }
+
+      - name: people
+        label: Leadership & Advisors
+        file: content/people.json
+        fields:
+          - label: People
+            name: items
+            widget: list
+            summary: "{{fields.name}}"
+            hint: Order below 10 shows under Leadership; 10 and above under Advisory Board.
+            fields:
+              - { label: Name, name: name, widget: string }
+              - *slug
+              - { label: Display order, name: order, widget: number, value_type: int, default: 1 }
+              - { label: Designation, name: designation, widget: string }
+              - { label: Photo, name: photoUrl, widget: image, required: false }
+              - { label: Biography, name: bio, widget: text, required: false, hint: "Leave a blank line between paragraphs." }
+
+      - name: settings
+        label: About & Contact
+        file: content/settings.json
+        fields:
+          - { label: About text, name: aboutContent, widget: text, hint: "Shown on the About page. Leave a blank line between paragraphs." }
+          - { label: Phone / WhatsApp, name: contactPhone, widget: string }
+          - { label: Email, name: contactEmail, widget: string }
+          - { label: Address, name: address, widget: string }
+          - label: Social links
+            name: socialLinks
+            widget: list
+            summary: "{{fields.label}}"
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: URL, name: url, widget: string }
+          - { label: SEO title (optional), name: seoTitle, widget: string, required: false }
+          - { label: SEO description (optional), name: seoDescription, widget: text, required: false }
