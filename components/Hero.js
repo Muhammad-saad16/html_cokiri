@@ -18,9 +18,8 @@ export default function Hero({ imageUrl, schedule = [], ticker = [] }) {
   return (
     <section className="relative isolate overflow-hidden bg-black">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={imageUrl} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover opacity-45" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black via-black/85 to-black/30" />
-      <div className="kufic absolute inset-0 -z-10 opacity-60" />
+      <img src={imageUrl} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/90 via-black/60 to-black/20" />
 
       <div className="mx-auto grid max-w-7xl gap-12 px-4 pt-16 pb-20 sm:px-6 lg:min-h-[calc(100vh-9.25rem)] lg:grid-cols-[1.25fr_0.75fr] lg:items-center lg:px-8 lg:py-24">
         <div>

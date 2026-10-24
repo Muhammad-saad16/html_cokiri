@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight, Library } from "lucide-react";
 import { getList, getSettings } from "@/lib/cms";
 import { EventCard, NewsCard, GalleryCard } from "@/components/Cards";
@@ -47,7 +48,23 @@ export default async function HomePage() {
 
   return (
     <div>
-      <Hero imageUrl="/images/library.jpg" schedule={schedule} ticker={ticker} />
+      <Hero imageUrl="/images/hero-library.jpeg" schedule={schedule} ticker={ticker} />
+
+      {/* Welcome poster */}
+      <section className="bg-coal-2 py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <Reveal className="border-2 border-gold p-1.5 shadow-[12px_12px_0_0_var(--color-gold)]">
+            <Image
+              src="/images/welcome-poster.png"
+              alt="Welcome to City of Knowledge – Islamic Research Institute: mission statement and moments from our programs"
+              width={1556}
+              height={1011}
+              sizes="(min-width: 1152px) 1152px, 100vw"
+              className="h-auto w-full"
+            />
+          </Reveal>
+        </div>
+      </section>
 
       {/* 01 — Introduction */}
       <section className="py-20 sm:py-28">
