@@ -50,22 +50,6 @@ export default async function HomePage() {
     <div>
       <Hero imageUrl="/images/hero-library.jpeg" schedule={schedule} ticker={ticker} />
 
-      {/* Welcome poster */}
-      <section className="bg-coal-2 py-16 sm:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="border-2 border-gold p-1.5 shadow-[12px_12px_0_0_var(--color-gold)]">
-            <Image
-              src="/images/welcome-poster.png"
-              alt="Welcome to City of Knowledge – Islamic Research Institute: mission statement and moments from our programs"
-              width={1556}
-              height={1011}
-              sizes="(min-width: 1152px) 1152px, 100vw"
-              className="h-auto w-full"
-            />
-          </Reveal>
-        </div>
-      </section>
-
       {/* 01 — Introduction */}
       <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -94,13 +78,15 @@ export default async function HomePage() {
                 ))}
               </Reveal>
             </div>
-            <Reveal delay={0.1} className="relative min-h-[28rem]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/building-front.jpg" alt="City of Knowledge building" className="absolute inset-0 h-full w-full object-cover" />
-              <div className="absolute -bottom-5 -left-5 bg-gold px-5 py-4 text-black shadow-xl">
-                <p className="font-display text-3xl font-extrabold">CoK</p>
-                <p className="label text-black/70">A project of ITQAN Foundation</p>
-              </div>
+            <Reveal delay={0.1} className="self-center border-2 border-gold p-1.5 shadow-[10px_10px_0_0_var(--color-gold)]">
+              <Image
+                src="/images/welcome-poster.png"
+                alt="Welcome to City of Knowledge – Islamic Research Institute: mission statement and moments from our programs"
+                width={1556}
+                height={1011}
+                sizes="(min-width: 1024px) 45vw, 100vw"
+                className="h-auto w-full"
+              />
             </Reveal>
           </div>
         </div>

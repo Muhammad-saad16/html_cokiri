@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
-import { ArrowRight, MapPin } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const rise = (delay = 0) => ({
   initial: { opacity: 0, y: 30 },
@@ -21,8 +21,8 @@ export default function Hero({ imageUrl, schedule = [], ticker = [] }) {
       <img src={imageUrl} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/90 via-black/60 to-black/20" />
 
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 pt-16 pb-20 sm:px-6 lg:min-h-[calc(100vh-9.25rem)] lg:grid-cols-[1.25fr_0.75fr] lg:items-center lg:px-8 lg:py-24">
-        <div>
+      <div className="mx-auto grid max-w-7xl gap-12 px-4 pt-16 pb-20 sm:px-6 lg:min-h-[calc(100vh-17rem)] lg:items-center lg:px-8 lg:py-24">
+        <div className="max-w-3xl">
           <motion.h1 {...rise(0)} className="font-display text-[3.4rem] leading-[0.92] font-extrabold tracking-tight text-white sm:text-7xl lg:text-[6.5rem]">
             City of
             <br />
@@ -44,34 +44,32 @@ export default function Hero({ imageUrl, schedule = [], ticker = [] }) {
             </Link>
           </motion.div>
         </div>
+      </div>
 
-        {schedule.length > 0 && (
-          <motion.aside {...rise(0.5)} className="border border-line bg-coal-3 shadow-[12px_12px_0_0_var(--color-gold)]">
-            <div className="flex items-center justify-between border-b border-line px-6 py-4">
-              <p className="label text-gold">This week at CoK</p>
-              <span className="h-2 w-2 animate-pulse rounded-full bg-gold" aria-hidden />
-            </div>
-            <ul>
+      {schedule.length > 0 && (
+        <motion.div {...rise(0.5)} className="border-t border-line bg-black/70 backdrop-blur-sm">
+          <div className="mx-auto grid max-w-7xl lg:grid-cols-[11rem_1fr] lg:px-8">
+            <p className="label flex items-center gap-2 px-4 py-4 text-gold sm:px-6 lg:px-0">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-gold" aria-hidden /> This week at CoK
+            </p>
+            <ul className="grid divide-y divide-line sm:grid-cols-3 sm:divide-x sm:divide-y-0">
               {schedule.map((s) => (
-                <li key={s.href} className="border-b border-line last:border-0">
-                  <Link href={s.href} className="group grid grid-cols-[4.5rem_1fr] items-center gap-4 px-6 py-4 transition hover:bg-coal-2">
-                    <span className="bg-gold py-2 text-center font-display text-sm leading-tight font-bold text-black uppercase">
+                <li key={s.href}>
+                  <Link href={s.href} className="group flex items-center gap-4 px-4 py-4 transition hover:bg-white/5 sm:px-6">
+                    <span className="w-14 shrink-0 bg-gold py-1.5 text-center font-display text-xs leading-tight font-bold text-black uppercase">
                       {s.day}
                     </span>
-                    <span>
-                      <span className="block font-display text-lg leading-tight font-bold text-ivory group-hover:text-gold">{s.title}</span>
-                      <span className="mt-0.5 block text-xs text-muted">{s.time}</span>
+                    <span className="min-w-0">
+                      <span className="block truncate font-display text-base leading-tight font-bold text-ivory group-hover:text-gold">{s.title}</span>
+                      <span className="mt-0.5 block truncate text-xs text-muted">{s.time}</span>
                     </span>
                   </Link>
                 </li>
               ))}
             </ul>
-            <p className="flex items-center gap-2 bg-coal-2 px-6 py-3 text-xs text-muted">
-              <MapPin size={13} className="text-gold" /> B-105, 13-D/1, Gulshan-e-Iqbal, Karachi
-            </p>
-          </motion.aside>
-        )}
-      </div>
+          </div>
+        </motion.div>
+      )}
 
       {ticker.length > 0 && (
         <div className="overflow-hidden bg-gold py-3 text-black">
