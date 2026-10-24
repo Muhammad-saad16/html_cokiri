@@ -115,7 +115,7 @@ export function GalleryCard({ album, large = false }) {
   return (
     <Link href={`/gallery/${album.slug}`} className="group relative block h-full min-h-72 overflow-hidden bg-black">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={album.coverImageUrl} alt={album.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-80 transition duration-700 group-hover:scale-105 group-hover:opacity-100" />
+      <img src={album.coverImageUrl} alt={album.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover object-[50%_22%] opacity-80 transition duration-700 group-hover:scale-105 group-hover:opacity-100" />
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 p-6">
         <span className="label inline-flex items-center gap-1.5 bg-gold px-2 py-1 text-black">
