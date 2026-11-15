@@ -23,7 +23,8 @@ export default async function AboutPage() {
   const [people, settings] = await Promise.all([getList("people"), getSettings()]);
   const paragraphs = (settings?.aboutContent || "").split("\n\n").filter(Boolean);
   const leaders = people.filter((p) => p.order < 10);
-  const advisors = people.filter((p) => p.order >= 10);
+  const faculty = people.filter((p) => p.order >= 10 && p.order < 100);
+  const advisors = people.filter((p) => p.order >= 100);
 
   return (
     <div>
@@ -86,10 +87,25 @@ export default async function AboutPage() {
         </section>
       )}
 
+      {faculty.length > 0 && (
+        <section id="faculty" className="scroll-mt-20 bg-coal py-20">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <SectionTitle index="04" kicker="Teaching" title="Faculty." />
+            <StaggerGroup className="mt-12 grid gap-6 sm:grid-cols-3">
+              {faculty.map((p) => (
+                <StaggerItem key={p.id}>
+                  <PersonCard person={p} />
+                </StaggerItem>
+              ))}
+            </StaggerGroup>
+          </div>
+        </section>
+      )}
+
       {advisors.length > 0 && (
         <section className="bg-coal py-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <SectionTitle index="04" kicker="Counsel" title="Advisory Board." />
+            <SectionTitle index="05" kicker="Counsel" title="Advisory Board." />
             <StaggerGroup className="mt-12 grid gap-6 sm:grid-cols-3">
               {advisors.map((p) => (
                 <StaggerItem key={p.id}>
@@ -104,7 +120,7 @@ export default async function AboutPage() {
       <section id="facilities" className="bg-coal scroll-mt-20 py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionTitle
-            index="05"
+            index="06"
             kicker="Our facilities"
             title="A rich environment conducive to deep learning."
             intro="Located in a serene and respectable neighbourhood, CoK offers an environment that reflects dignity, respect and academic excellence — well-furnished, spacious, fully air-conditioned classrooms with modern ed-tech tools."

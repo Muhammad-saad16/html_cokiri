@@ -32,8 +32,7 @@ export default function Hero({ imageUrl, schedule = [], ticker = [] }) {
             <span className="hidden h-px w-10 bg-gold sm:block" /> Islamic Research Institute · Karachi
           </motion.p>
           <motion.p {...rise(0.3)} className="mt-6 max-w-xl text-lg leading-relaxed text-white/75">
-            A hub for encyclopaedic knowledge and multidisciplinary research — imparting Knowledge and Tarbiyyah to men, women
-            and children, under the supervision of <span className="font-semibold text-white">Dr. Umair Mahmood Siddiqui</span>.
+            Courses, weekly Dars-e-Quran, Jumu&apos;ah Khutbah and research — knowledge and Tarbiyyah for men, women and children, taught by our faculty in Gulshan-e-Iqbal, Karachi.
           </motion.p>
           <motion.div {...rise(0.4)} className="mt-9 flex flex-wrap gap-3">
             <Link href="/programs" className="btn-red group">

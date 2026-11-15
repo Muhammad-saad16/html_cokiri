@@ -158,14 +158,14 @@ collections:
               - { label: PDF / Read link (optional), name: fileUrl, widget: string, required: false }
 
       - name: people
-        label: Leadership & Advisors
+        label: Faculty, Leadership & Advisors
         file: content/people.json
         fields:
           - label: People
             name: items
             widget: list
             summary: "{{fields.name}}"
-            hint: Order below 10 shows under Leadership; 10 and above under Advisory Board.
+            hint: Display order decides the group - below 10 Leadership, 10 to 99 Faculty (teachers), 100 and above Advisory Board.
             fields:
               - { label: Name, name: name, widget: string }
               - *slug

@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, Library } from "lucide-react";
 import { getList, getSettings } from "@/lib/cms";
-import { EventCard, NewsCard, GalleryCard } from "@/components/Cards";
+import { EventCard, NewsCard, GalleryCard, PersonCard } from "@/components/Cards";
 import Reveal from "@/components/motion/Reveal";
 import { StaggerGroup, StaggerItem } from "@/components/motion/Stagger";
 import Counter from "@/components/motion/Counter";
@@ -10,8 +10,7 @@ import Hero from "@/components/Hero";
 import FourPillars from "@/components/FourPillars";
 import Timetable from "@/components/Timetable";
 import MediaFeature from "@/components/MediaFeature";
-import BookShelf from "@/components/BookShelf";
-import { SectionTitle, Honorific } from "@/components/Ornaments";
+import { SectionTitle } from "@/components/Ornaments";
 
 const FACILITIES = [
   ["/images/library.jpg", "The Library", "Tafsir, Hadith, Sirah, Shariah, philosophy and travelogues."],
@@ -21,17 +20,15 @@ const FACILITIES = [
 ];
 
 export default async function HomePage() {
-  const [events, videos, publications, people, programs, news, albums] = await Promise.all([
+  const [events, videos, people, programs, news, albums] = await Promise.all([
     getList("events", { limit: 3 }),
     getList("videos"),
-    getList("publications"),
     getList("people"),
     getList("programs"),
     getList("news", { limit: 4 }),
     getList("gallery-albums"),
     getSettings(),
   ]);
-  const leader = people.find((p) => p.order < 10);
 
   const schedule = programs.map((p) => ({ href: `/programs/${p.slug}`, day: p.day, title: p.title.split(" — ")[0], time: p.time }));
   const ticker = [
@@ -41,7 +38,7 @@ export default async function HomePage() {
   const stats = [
     { value: programs.length, label: "Weekly programs" },
     { value: videos.length, label: "Lectures online" },
-    { value: publications.length, label: "Books published" },
+    { value: videos.filter((v) => v.category === "DARS_E_QURAN").length, label: "Dars-e-Quran sessions" },
     { value: albums.reduce((n, a) => n + (a.images?.length || 0), 0), label: "Photos archived" },
   ];
   const [leadNews, ...moreNews] = news;
@@ -120,33 +117,24 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* 05 — Leadership */}
-      {leader && (
-        <section className="overflow-hidden">
-          <div className="mx-auto grid max-w-7xl lg:grid-cols-2">
-            <Reveal className="relative min-h-[26rem] bg-coal-2">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={leader.photoUrl} alt={leader.name} className="absolute inset-0 h-full w-full object-cover object-top" />
-              <span className="label absolute top-6 left-6 bg-gold px-3 py-1.5 text-black">{leader.designation}</span>
-            </Reveal>
-            <div className="px-4 py-16 sm:px-10 lg:px-14 lg:py-24">
-              <SectionTitle index="05" kicker="Under the supervision of" title={leader.name} />
-              <Reveal delay={0.1} className="mt-6 space-y-4 leading-relaxed text-ivory/80">
-                {leader.bio?.split("\n\n").map((para, i) => (
-                  <p key={i}>
-                    <Honorific text={para} />
-                  </p>
-                ))}
-              </Reveal>
-              <Reveal delay={0.15} className="mt-8 flex flex-wrap gap-3">
-                <Link href="/about#leadership" className="btn-ink">
-                  Read more <ArrowUpRight size={16} />
-                </Link>
-                <a href="https://drumairsiddiqui.com" target="_blank" rel="noopener noreferrer" className="btn-line">
-                  drumairsiddiqui.com
-                </a>
-              </Reveal>
-            </div>
+      {/* 05 — Faculty */}
+      {people.length > 0 && (
+        <section className="bg-coal-2 py-20 sm:py-28">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <SectionTitle
+              index="05"
+              kicker="Faculty & leadership"
+              title="Scholars who lead our circles."
+              intro="The teachers and guides behind our courses, Dars and Jumu'ah Khutbah."
+              action={{ href: "/about#leadership", label: "Meet the faculty" }}
+            />
+            <StaggerGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {people.map((p) => (
+                <StaggerItem key={p.id} className="h-full">
+                  <PersonCard person={p} />
+                </StaggerItem>
+              ))}
+            </StaggerGroup>
           </div>
         </section>
       )}
@@ -197,26 +185,11 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 08 — Books */}
-      {publications.length > 0 && (
-        <section className="bg-coal-2 py-20 sm:py-28">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <SectionTitle
-              index="08"
-              kicker="Research & publications"
-              title="Books by Dr. Umair Mahmood Siddiqui."
-              action={{ href: "/research", label: `All ${publications.length} books` }}
-            />
-            <BookShelf books={publications} />
-          </div>
-        </section>
-      )}
-
-      {/* 09 — Gallery */}
+      {/* 08 — Gallery */}
       {albums.length > 0 && (
         <section className="py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <SectionTitle index="09" kicker="Gallery" title="Moments from the institute." action={{ href: "/gallery", label: "Open gallery" }} />
+            <SectionTitle index="08" kicker="Gallery" title="Moments from the institute." action={{ href: "/gallery", label: "Open gallery" }} />
             <StaggerGroup className="mt-12 grid gap-4 md:h-[32rem] md:grid-cols-[1.6fr_1fr]">
               {albums.slice(0, 2).map((a, i) => (
                 <StaggerItem key={a.id} className="h-full">
@@ -228,11 +201,11 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* 10 — News */}
+      {/* 09 — News */}
       {leadNews && (
         <section className="border-t border-line py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <SectionTitle index="10" kicker="Announcements" title="News & updates." action={{ href: "/news", label: "All news" }} />
+            <SectionTitle index="09" kicker="Announcements" title="News & updates." action={{ href: "/news", label: "All news" }} />
             <div className="mt-12 grid gap-10 lg:grid-cols-[1.2fr_1fr]">
               <Reveal>
                 <NewsCard post={leadNews} featured />

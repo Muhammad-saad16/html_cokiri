@@ -13,7 +13,7 @@ export default async function ResearchPage() {
       <PageHeader
         arabic="مُؤَلَّفَات"
         title="Research & Publications"
-        intro="Books by Dr. Umair Mahmood Siddiqui on theology, comparative religion, Islamic jurisprudence and history."
+        intro="Publications from our Honorary Chairman on theology, comparative religion, Islamic jurisprudence and history."
       />
       <section className="bg-coal py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

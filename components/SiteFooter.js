@@ -46,7 +46,7 @@ export default async function SiteFooter() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo.png" alt="City of Knowledge Islamic Research Institute" className="h-20 w-auto" />
           <p className="mt-5 max-w-xs leading-relaxed">
-            A project of ITQAN Educational &amp; Research Foundation, under the supervision of{" "}
+            A project of ITQAN Educational &amp; Research Foundation, chaired by{" "}
             <a href="https://drumairsiddiqui.com" className="font-semibold text-white underline decoration-gold underline-offset-4 hover:text-gold">
               Dr. Umair Mahmood Siddiqui
             </a>

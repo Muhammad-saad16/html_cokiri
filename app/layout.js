@@ -15,7 +15,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://cokiri.net";
 
 const DEFAULT_TITLE = "City of Knowledge";
 const DEFAULT_DESCRIPTION =
-  "City of Knowledge Islamic Research Institute, Karachi — weekly Dars-e-Quran, programs, research and publications under the supervision of Dr. Umair Mahmood Siddiqui.";
+  "City of Knowledge Islamic Research Institute, Karachi — courses, weekly Dars-e-Quran, Jumu'ah Khutbah, faculty and research.";
 
 export async function generateMetadata() {
   const settings = await getSettings();

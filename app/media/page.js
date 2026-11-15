@@ -28,7 +28,7 @@ export default async function MediaPage({ searchParams }) {
       <PageHeader
         arabic="مُحَاضَرَات"
         title="Media"
-        intro="Lectures, Dars-e-Shama'il, Dars-e-Quran, Q&A sessions and panel discussions by Dr. Umair Mahmood Siddiqui."
+        intro="Dars-e-Quran, Dars-e-Shama'il, lectures, Q&A sessions and panel discussions from City of Knowledge."
       />
       <section className="bg-coal py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
