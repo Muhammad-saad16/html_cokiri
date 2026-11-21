@@ -172,6 +172,7 @@ collections:
               - { label: Display order, name: order, widget: number, value_type: int, default: 1 }
               - { label: Designation, name: designation, widget: string }
               - { label: Photo, name: photoUrl, widget: image, required: false }
+              - { label: Extra photos (shown in rotation), name: photoUrls, widget: list, required: false, field: { label: Photo, name: photo, widget: image } }
               - { label: Biography, name: bio, widget: text, required: false, hint: "Leave a blank line between paragraphs." }
 
       - name: settings

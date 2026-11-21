@@ -14,7 +14,7 @@ export default async function ProgramsPage() {
       <PageHeader
         arabic="حَلْقَاتُ العِلْم"
         title="Academic Activities"
-        intro="Weekly Dars-e-Quran, the Friday Dars and Khutbah, the Dars-e-Shama'il series and more — open to men, women and families."
+        intro="Weekly Dars-e-Quran, the Dars-e-Shama'il series and more — open to men, women and families."
       />
       <section className="bg-coal py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

@@ -1,3 +1,4 @@
+import RotatingPhoto from "@/components/RotatingPhoto";
 import { getList, getSettings } from "@/lib/cms";
 import { PersonCard } from "@/components/Cards";
 import Reveal from "@/components/motion/Reveal";
@@ -65,9 +66,8 @@ export default async function AboutPage() {
             {leaders.map((p, i) => (
               <div key={p.id} className={`grid items-center gap-12 ${i % 2 ? "md:grid-cols-[1fr_20rem]" : "md:grid-cols-[20rem_1fr]"}`}>
                 <Reveal className={`relative mx-auto w-full max-w-xs ${i % 2 ? "md:order-2" : ""}`}>
-                                    <div className="relative aspect-[4/5] overflow-hidden shadow-[12px_12px_0_0_var(--color-gold)]">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={p.photoUrl} alt={p.name} className="h-full w-full object-cover object-top" />
+                  <div className="relative aspect-[4/5] overflow-hidden shadow-[12px_12px_0_0_var(--color-gold)]">
+                    <RotatingPhoto photos={p.photoUrls?.length ? p.photoUrls : [p.photoUrl]} alt={p.name} />
                   </div>
                 </Reveal>
                 <Reveal delay={0.1}>

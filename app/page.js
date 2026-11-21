@@ -125,7 +125,7 @@ export default async function HomePage() {
               index="05"
               kicker="Faculty & leadership"
               title="Scholars who lead our circles."
-              intro="The teachers and guides behind our courses, Dars and Jumu'ah Khutbah."
+              intro="The teachers and guides behind our courses and Dars."
               action={{ href: "/about#leadership", label: "Meet the faculty" }}
             />
             <StaggerGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

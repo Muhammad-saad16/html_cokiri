@@ -84,7 +84,7 @@ export default function SiteNav() {
             className="kufic fixed inset-0 z-[60] flex flex-col bg-black p-6 lg:hidden"
           >
             <div className="flex items-center justify-between">
-              <span className="font-arabic text-3xl text-gold" lang="ar">مدينة العلم</span>
+              <span className="font-arabic text-3xl leading-relaxed text-gold" lang="ar">مدينة العلم</span>
               <button onClick={() => setOpen(false)} className="p-2 text-white" aria-label="Close menu">
                 <X size={30} />
               </button>

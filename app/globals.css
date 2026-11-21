@@ -14,7 +14,7 @@
 
   --font-display: var(--font-outfit), var(--font-kufi), system-ui, sans-serif;
   --font-sans: var(--font-manrope), var(--font-kufi), system-ui, sans-serif;
-  --font-arabic: var(--font-kufi), sans-serif;
+  --font-arabic: var(--font-amiri), serif;
   --font-honorific: var(--font-amiri), serif;
 
   --animate-ticker: ticker 40s linear infinite;
